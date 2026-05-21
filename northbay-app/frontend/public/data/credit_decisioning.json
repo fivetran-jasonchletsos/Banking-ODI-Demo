@@ -1,0 +1,39 @@
+{
+  "as_of": "2026-05-20",
+  "product": "Northbay Reserve Visa (mass affluent card)",
+  "ytd": {
+    "applications": 1842000,
+    "auto_decisioned_pct": 84.2,
+    "manual_review_pct": 11.6,
+    "withdrawn_pct": 4.2,
+    "approval_rate_pct": 38.4,
+    "median_decision_seconds": 12.4
+  },
+  "funnel": [
+    { "stage": "Applications received",       "count": 1842000 },
+    { "stage": "Bureau pull + KYC pass",       "count": 1748000 },
+    { "stage": "Model scored",                 "count": 1748000 },
+    { "stage": "Auto-decisioned (approve)",    "count":  704000 },
+    { "stage": "Auto-decisioned (decline)",    "count":  768000 },
+    { "stage": "Manual review",                "count":  213000 },
+    { "stage": "Final approval",               "count":  709000 }
+  ],
+  "champion_vs_challenger": {
+    "champion":   { "model": "NB-Card v6.4", "auc": 0.821, "ks": 41.8, "approval_pct": 38.4, "bad_rate_pct": 2.84 },
+    "challenger": { "model": "NB-Card v7.0-gbm", "auc": 0.846, "ks": 45.2, "approval_pct": 41.8, "bad_rate_pct": 2.41 },
+    "delta_approval_pp": 3.4,
+    "delta_bad_rate_bps": -43,
+    "annualized_revenue_lift_m": 84.2,
+    "expected_credit_loss_delta_m": -12.4
+  },
+  "fairness_metrics": {
+    "definition": "Adverse impact ratio (AIR) — minority approval rate divided by reference approval rate. 0.80 is the regulatory four-fifths threshold.",
+    "groups": [
+      { "group": "Black / African American", "air": 0.86, "approval_pct": 33.0, "reference_pct": 38.4, "status": "above_threshold" },
+      { "group": "Hispanic / Latino",         "air": 0.91, "approval_pct": 34.9, "reference_pct": 38.4, "status": "above_threshold" },
+      { "group": "Asian",                     "air": 1.04, "approval_pct": 39.9, "reference_pct": 38.4, "status": "above_threshold" },
+      { "group": "Female",                    "air": 0.97, "approval_pct": 37.3, "reference_pct": 38.4, "status": "above_threshold" },
+      { "group": "Age 62+",                   "air": 0.84, "approval_pct": 32.3, "reference_pct": 38.4, "status": "above_threshold" }
+    ]
+  }
+}

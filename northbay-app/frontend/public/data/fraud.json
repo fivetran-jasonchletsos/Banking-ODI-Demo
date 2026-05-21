@@ -1,0 +1,33 @@
+{
+  "as_of": "2026-05-20",
+  "ytd": {
+    "cases_total": 184320,
+    "dollars_attempted_m": 412.8,
+    "dollars_blocked_m": 384.1,
+    "block_rate_pct": 93.05,
+    "false_positive_rate_pct": 4.18,
+    "median_decision_ms": 142
+  },
+  "by_channel": [
+    { "channel": "Card-not-present (CNP)", "cases": 78420, "blocked_m": 184.2, "fp_pct": 5.12, "trend": "rising" },
+    { "channel": "Debit card present",     "cases": 41280, "blocked_m":  68.4, "fp_pct": 3.84, "trend": "flat" },
+    { "channel": "ACH",                    "cases": 18420, "blocked_m":  42.1, "fp_pct": 2.91, "trend": "rising" },
+    { "channel": "Wire",                   "cases":  3210, "blocked_m":  61.8, "fp_pct": 1.42, "trend": "flat" },
+    { "channel": "Zelle / P2P",            "cases": 28140, "blocked_m":  18.2, "fp_pct": 6.84, "trend": "rising" },
+    { "channel": "Account takeover (ATO)", "cases": 14850, "blocked_m":   9.4, "fp_pct": 8.21, "trend": "rising" }
+  ],
+  "top_rings": [
+    { "ring_id": "RING-TX-CNP-471", "type": "CNP merchant cluster", "geo": "DFW, Houston, Austin", "edges": 218, "$_blocked_m": 4.84, "first_seen": "2026-04-22" },
+    { "ring_id": "RING-NE-ATO-118", "type": "Account takeover (credential stuffing)", "geo": "Boston, NYC", "edges": 142, "$_blocked_m": 2.91, "first_seen": "2026-05-02" },
+    { "ring_id": "RING-FL-CK-318",  "type": "Check kiting + remote deposit", "geo": "Miami, Tampa", "edges":  84, "$_blocked_m": 2.18, "first_seen": "2026-04-14" },
+    { "ring_id": "RING-CA-P2P-228", "type": "Zelle impersonation (bank-impersonator)", "geo": "LA, SF, San Diego", "edges": 312, "$_blocked_m": 1.62, "first_seen": "2026-05-08" },
+    { "ring_id": "RING-OH-ACH-091", "type": "ACH origination fraud", "geo": "Cleveland, Columbus", "edges":  64, "$_blocked_m": 1.31, "first_seen": "2026-03-28" }
+  ],
+  "active_queue": [
+    { "case_id": "FR-2026-0518-44218", "channel": "CNP",  "score": 0.94, "amount_usd":  4280, "merchant": "TICKET RESELL #IL", "customer_tier": "Mass affluent", "agent_recommendation": "Block + step-up auth" },
+    { "case_id": "FR-2026-0518-44219", "channel": "Wire", "score": 0.91, "amount_usd": 184000, "merchant": "Outbound wire — new beneficiary", "customer_tier": "Affluent", "agent_recommendation": "Hold + dual-control review" },
+    { "case_id": "FR-2026-0518-44220", "channel": "Zelle","score": 0.88, "amount_usd":   850, "merchant": "Zelle — new payee, urgency text", "customer_tier": "Mass market", "agent_recommendation": "Insert friction + scam warning" },
+    { "case_id": "FR-2026-0518-44221", "channel": "ACH",  "score": 0.86, "amount_usd": 12400, "merchant": "ACH debit — payroll services LLC", "customer_tier": "Small business", "agent_recommendation": "Verify with originator" },
+    { "case_id": "FR-2026-0518-44222", "channel": "ATO",  "score": 0.83, "amount_usd":     0, "merchant": "Profile change + new device", "customer_tier": "Mass affluent", "agent_recommendation": "Freeze + outbound call" }
+  ]
+}

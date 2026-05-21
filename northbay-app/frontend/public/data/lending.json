@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-05-20",
+  "loans_b_total": 438.0,
+  "by_category": [
+    { "category": "Residential mortgages",        "balance_b": 168.2, "share_pct": 38.4, "yield_pct": 5.62, "ncl_bps":   8 },
+    { "category": "Home equity (HELOC)",          "balance_b":  24.6, "share_pct":  5.6, "yield_pct": 7.81, "ncl_bps":  18 },
+    { "category": "Auto loans",                   "balance_b":  41.2, "share_pct":  9.4, "yield_pct": 7.34, "ncl_bps":  72 },
+    { "category": "Credit cards",                 "balance_b":  38.7, "share_pct":  8.8, "yield_pct": 18.42, "ncl_bps": 318 },
+    { "category": "Small business",               "balance_b":  31.4, "share_pct":  7.2, "yield_pct": 8.05, "ncl_bps":  94 },
+    { "category": "Commercial real estate",       "balance_b":  68.1, "share_pct": 15.5, "yield_pct": 6.84, "ncl_bps":  41 },
+    { "category": "Commercial and industrial",    "balance_b":  58.4, "share_pct": 13.3, "yield_pct": 7.12, "ncl_bps":  22 },
+    { "category": "Other consumer",               "balance_b":   7.4, "share_pct":  1.8, "yield_pct": 9.84, "ncl_bps": 142 }
+  ],
+  "credit_quality": [
+    { "bucket": "Current",         "share_pct": 96.84, "balance_b": 424.16 },
+    { "bucket": "30-59 days DPD",  "share_pct":  1.42, "balance_b":   6.22 },
+    { "bucket": "60-89 days DPD",  "share_pct":  0.61, "balance_b":   2.67 },
+    { "bucket": "90+ days DPD",    "share_pct":  1.13, "balance_b":   4.95 }
+  ],
+  "nco_trend": [
+    { "quarter": "2024Q2", "nco_bps": 28 },
+    { "quarter": "2024Q3", "nco_bps": 31 },
+    { "quarter": "2024Q4", "nco_bps": 34 },
+    { "quarter": "2025Q1", "nco_bps": 36 },
+    { "quarter": "2025Q2", "nco_bps": 35 },
+    { "quarter": "2025Q3", "nco_bps": 33 },
+    { "quarter": "2025Q4", "nco_bps": 35 },
+    { "quarter": "2026Q1", "nco_bps": 38 }
+  ],
+  "provision_for_credit_losses": [
+    { "quarter": "2024Q2", "provision_m": 412 },
+    { "quarter": "2024Q3", "provision_m": 438 },
+    { "quarter": "2024Q4", "provision_m": 461 },
+    { "quarter": "2025Q1", "provision_m": 484 },
+    { "quarter": "2025Q2", "provision_m": 472 },
+    { "quarter": "2025Q3", "provision_m": 458 },
+    { "quarter": "2025Q4", "provision_m": 491 },
+    { "quarter": "2026Q1", "provision_m": 524 }
+  ],
+  "watchlist": [
+    { "segment": "Office CRE — gateway markets", "exposure_b": 8.4, "watch_pct": 14.2, "headline": "Office vacancy in SF and NYC sustains; refinance risk in 2026 maturity wall." },
+    { "segment": "Subprime auto vintage 2023",   "exposure_b": 2.1, "watch_pct":  9.8, "headline": "Delinquency curve running 60 bps above expected." },
+    { "segment": "Card revolvers — younger millennials", "exposure_b": 6.4, "watch_pct": 6.1, "headline": "Utilization above 70% trending up; payment shock if rates pivot down slowly." }
+  ]
+}

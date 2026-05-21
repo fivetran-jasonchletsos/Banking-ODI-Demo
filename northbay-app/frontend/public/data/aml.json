@@ -1,0 +1,49 @@
+{
+  "as_of": "2026-05-20",
+  "queue": {
+    "open_alerts": 4280,
+    "median_age_days": 11,
+    "sla_days": 6,
+    "investigators": 142,
+    "alerts_per_investigator": 30.1
+  },
+  "ytd": {
+    "alerts_generated": 28420,
+    "alerts_escalated": 1842,
+    "sars_filed": 412,
+    "sar_acceptance_pct": 96.8,
+    "ctrs_filed": 88420
+  },
+  "typologies": [
+    { "typology": "Structuring (sub-$10k cash)",     "alerts": 6820, "sars": 142, "share_pct": 24.0 },
+    { "typology": "Layered transfers (P2P + wire)",  "alerts": 5210, "sars":  98, "share_pct": 18.3 },
+    { "typology": "High-risk geography (OFAC adjacency)", "alerts": 4140, "sars": 68, "share_pct": 14.6 },
+    { "typology": "Funnel accounts",                 "alerts": 3680, "sars":  54, "share_pct": 12.9 },
+    { "typology": "Trade-based money laundering",    "alerts": 2140, "sars":  38, "share_pct":  7.5 }
+  ],
+  "model_perf": {
+    "champion": { "model": "ATM-Champion v3.2", "precision_pct": 6.8, "recall_pct": 84.2, "alerts_per_day": 920 },
+    "challenger": { "model": "ATM-Challenger v4.0 (graph)", "precision_pct": 14.2, "recall_pct": 89.1, "alerts_per_day": 410 }
+  },
+  "investigator_productivity": [
+    { "team": "Retail",        "headcount": 64, "closed_per_week": 188, "median_close_days":  9 },
+    { "team": "Wealth",        "headcount": 18, "closed_per_week":  44, "median_close_days": 14 },
+    { "team": "Commercial",    "headcount": 32, "closed_per_week":  74, "median_close_days": 16 },
+    { "team": "Correspondent", "headcount": 12, "closed_per_week":  18, "median_close_days": 21 },
+    { "team": "Wire ops",      "headcount": 16, "closed_per_week":  62, "median_close_days":  4 }
+  ],
+  "monthly_sar_filings": [
+    { "month": "2025-06", "sars": 32 },
+    { "month": "2025-07", "sars": 38 },
+    { "month": "2025-08", "sars": 41 },
+    { "month": "2025-09", "sars": 36 },
+    { "month": "2025-10", "sars": 44 },
+    { "month": "2025-11", "sars": 48 },
+    { "month": "2025-12", "sars": 51 },
+    { "month": "2026-01", "sars": 46 },
+    { "month": "2026-02", "sars": 52 },
+    { "month": "2026-03", "sars": 58 },
+    { "month": "2026-04", "sars": 61 },
+    { "month": "2026-05", "sars": 49 }
+  ]
+}

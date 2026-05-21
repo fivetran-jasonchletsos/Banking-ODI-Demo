@@ -1,0 +1,33 @@
+{
+  "as_of": "2026-05-20",
+  "kpis": {
+    "relationships": 28412,
+    "credit_exposure_b": 126.5,
+    "deposit_balances_b": 184.2,
+    "treasury_revenue_m_annualized": 1842.6,
+    "revenue_per_relationship_k": 412.4,
+    "treasury_penetration_pct": 64.2
+  },
+  "top_relationships": [
+    { "rank":  1, "name": "Sterling Logistics Group",      "industry": "Transportation",        "credit_exposure_m": 482.4, "deposit_balance_m": 318.2, "treasury_products": 9, "revenue_m": 12.4 },
+    { "rank":  2, "name": "Atlas Manufacturing Holdings",  "industry": "Industrials",           "credit_exposure_m": 418.6, "deposit_balance_m": 281.4, "treasury_products": 8, "revenue_m": 10.8 },
+    { "rank":  3, "name": "Beacon Real Estate Partners",   "industry": "CRE — Multifamily",     "credit_exposure_m": 394.2, "deposit_balance_m":  88.4, "treasury_products": 5, "revenue_m":  9.2 },
+    { "rank":  4, "name": "Vanguard Healthcare Systems",   "industry": "Healthcare",            "credit_exposure_m": 368.4, "deposit_balance_m": 412.6, "treasury_products": 9, "revenue_m":  9.0 },
+    { "rank":  5, "name": "Highline Energy Services",      "industry": "Energy",                "credit_exposure_m": 342.1, "deposit_balance_m": 168.4, "treasury_products": 7, "revenue_m":  8.4 },
+    { "rank":  6, "name": "Cardinal Foods Distribution",   "industry": "Food and beverage",     "credit_exposure_m": 318.4, "deposit_balance_m": 142.8, "treasury_products": 6, "revenue_m":  7.6 },
+    { "rank":  7, "name": "Pinnacle Aerospace",            "industry": "Aerospace and defense", "credit_exposure_m": 294.2, "deposit_balance_m": 224.1, "treasury_products": 8, "revenue_m":  7.4 },
+    { "rank":  8, "name": "Cascade Technology Group",      "industry": "Technology",            "credit_exposure_m": 282.8, "deposit_balance_m": 318.4, "treasury_products": 9, "revenue_m":  7.1 },
+    { "rank":  9, "name": "Hudson Pharmaceuticals",        "industry": "Pharmaceuticals",       "credit_exposure_m": 268.4, "deposit_balance_m": 184.6, "treasury_products": 7, "revenue_m":  6.8 },
+    { "rank": 10, "name": "Granite Construction Partners", "industry": "Construction",          "credit_exposure_m": 254.8, "deposit_balance_m": 102.4, "treasury_products": 6, "revenue_m":  6.4 },
+    { "rank": 11, "name": "Cedar Hospitality Group",       "industry": "Hospitality",           "credit_exposure_m": 241.2, "deposit_balance_m":  72.8, "treasury_products": 5, "revenue_m":  5.9 },
+    { "rank": 12, "name": "Lakeshore Insurance Holdings",  "industry": "Insurance",             "credit_exposure_m": 234.6, "deposit_balance_m": 412.1, "treasury_products": 8, "revenue_m":  5.7 },
+    { "rank": 13, "name": "Northstar Retail Brands",       "industry": "Retail",                "credit_exposure_m": 218.4, "deposit_balance_m":  84.2, "treasury_products": 6, "revenue_m":  5.4 },
+    { "rank": 14, "name": "Meridian Chemical Solutions",   "industry": "Chemicals",             "credit_exposure_m": 208.2, "deposit_balance_m": 142.4, "treasury_products": 7, "revenue_m":  5.2 },
+    { "rank": 15, "name": "Ironbridge Mining Resources",   "industry": "Metals and mining",     "credit_exposure_m": 198.4, "deposit_balance_m":  68.4, "treasury_products": 4, "revenue_m":  4.8 },
+    { "rank": 16, "name": "Summit Education Services",     "industry": "Education",             "credit_exposure_m": 188.4, "deposit_balance_m": 218.4, "treasury_products": 7, "revenue_m":  4.6 },
+    { "rank": 17, "name": "Coastal Media Network",         "industry": "Media",                 "credit_exposure_m": 178.6, "deposit_balance_m":  94.2, "treasury_products": 5, "revenue_m":  4.4 },
+    { "rank": 18, "name": "Brightway Utilities Holding",   "industry": "Utilities",             "credit_exposure_m": 168.4, "deposit_balance_m": 184.6, "treasury_products": 6, "revenue_m":  4.2 },
+    { "rank": 19, "name": "Maritime Shipping Lines",       "industry": "Maritime",              "credit_exposure_m": 162.8, "deposit_balance_m":  82.4, "treasury_products": 6, "revenue_m":  4.0 },
+    { "rank": 20, "name": "Foundry Apparel Group",         "industry": "Apparel",               "credit_exposure_m": 154.2, "deposit_balance_m":  68.2, "treasury_products": 5, "revenue_m":  3.8 }
+  ]
+}

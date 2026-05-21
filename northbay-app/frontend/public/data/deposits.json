@@ -1,0 +1,70 @@
+{
+  "as_of": "2026-05-20",
+  "by_product": [
+    { "product": "Demand deposit (DDA)", "balance_b": 188.2, "accounts_m": 11.4, "avg_rate_pct": 0.04, "share_pct": 36.1 },
+    { "product": "Savings",              "balance_b": 142.6, "accounts_m":  7.9, "avg_rate_pct": 0.85, "share_pct": 27.4 },
+    { "product": "Money market (MMA)",   "balance_b":  98.4, "accounts_m":  3.2, "avg_rate_pct": 3.10, "share_pct": 18.9 },
+    { "product": "Certificates of deposit", "balance_b": 91.8, "accounts_m": 1.6, "avg_rate_pct": 4.55, "share_pct": 17.6 }
+  ],
+  "tier_mix": [
+    { "tier": "Mass market (<$25k)",       "share_pct": 28.4, "avg_balance_usd":   8420 },
+    { "tier": "Mass affluent ($25k-$250k)", "share_pct": 41.2, "avg_balance_usd":  74300 },
+    { "tier": "Affluent ($250k-$1M)",       "share_pct": 19.6, "avg_balance_usd": 482100 },
+    { "tier": "High net worth (>$1M)",      "share_pct": 10.8, "avg_balance_usd": 2840000 }
+  ],
+  "top_growth_markets": [
+    { "msa": "Tampa-St. Petersburg, FL",   "net_new_b": 1.84, "yoy_pct":  9.4 },
+    { "msa": "Charlotte, NC",               "net_new_b": 1.62, "yoy_pct":  8.1 },
+    { "msa": "Raleigh-Durham, NC",          "net_new_b": 1.41, "yoy_pct":  7.8 },
+    { "msa": "Nashville, TN",               "net_new_b": 1.28, "yoy_pct":  7.2 },
+    { "msa": "Austin, TX",                  "net_new_b": 1.19, "yoy_pct":  6.9 },
+    { "msa": "Jacksonville, FL",            "net_new_b": 1.08, "yoy_pct":  6.4 },
+    { "msa": "Phoenix, AZ",                 "net_new_b": 0.94, "yoy_pct":  5.8 },
+    { "msa": "Atlanta, GA",                 "net_new_b": 0.87, "yoy_pct":  5.4 },
+    { "msa": "Boston, MA",                  "net_new_b": 0.72, "yoy_pct":  4.6 },
+    { "msa": "Columbus, OH",                "net_new_b": 0.69, "yoy_pct":  4.3 },
+    { "msa": "Dallas-Fort Worth, TX",       "net_new_b": 0.58, "yoy_pct":  3.8 },
+    { "msa": "Indianapolis, IN",            "net_new_b": 0.54, "yoy_pct":  3.5 },
+    { "msa": "Pittsburgh, PA",              "net_new_b": 0.49, "yoy_pct":  3.2 },
+    { "msa": "Richmond, VA",                "net_new_b": 0.46, "yoy_pct":  3.1 },
+    { "msa": "Cincinnati, OH",              "net_new_b": 0.42, "yoy_pct":  2.8 },
+    { "msa": "Hartford, CT",                "net_new_b": 0.38, "yoy_pct":  2.5 },
+    { "msa": "Albany, NY",                  "net_new_b": 0.34, "yoy_pct":  2.3 },
+    { "msa": "Providence, RI",              "net_new_b": 0.31, "yoy_pct":  2.1 },
+    { "msa": "Memphis, TN",                 "net_new_b": 0.28, "yoy_pct":  1.9 },
+    { "msa": "Buffalo, NY",                 "net_new_b": 0.26, "yoy_pct":  1.7 }
+  ],
+  "deposit_beta": {
+    "definition": "Cumulative deposit cost change divided by cumulative Fed funds change over the tightening cycle (Mar 2022 onward).",
+    "current_pct": 42.1,
+    "peer_median_pct": 48.3,
+    "by_tier_pct": [
+      { "tier": "DDA",     "beta_pct": 8.1 },
+      { "tier": "Savings", "beta_pct": 31.4 },
+      { "tier": "MMA",     "beta_pct": 64.8 },
+      { "tier": "CDs",     "beta_pct": 92.3 }
+    ],
+    "sensitivity_table": [
+      { "scenario": "-50 bps", "annual_nii_delta_m":  184 },
+      { "scenario": "-25 bps", "annual_nii_delta_m":   92 },
+      { "scenario": "flat",    "annual_nii_delta_m":    0 },
+      { "scenario": "+25 bps", "annual_nii_delta_m":  -88 },
+      { "scenario": "+50 bps", "annual_nii_delta_m": -174 },
+      { "scenario": "+100 bps","annual_nii_delta_m": -341 }
+    ]
+  },
+  "monthly_balance_b": [
+    { "month": "2025-06", "balance": 530.4 },
+    { "month": "2025-07", "balance": 528.7 },
+    { "month": "2025-08", "balance": 527.1 },
+    { "month": "2025-09", "balance": 525.4 },
+    { "month": "2025-10", "balance": 524.2 },
+    { "month": "2025-11", "balance": 523.8 },
+    { "month": "2025-12", "balance": 526.1 },
+    { "month": "2026-01", "balance": 525.4 },
+    { "month": "2026-02", "balance": 524.0 },
+    { "month": "2026-03", "balance": 522.6 },
+    { "month": "2026-04", "balance": 521.8 },
+    { "month": "2026-05", "balance": 521.0 }
+  ]
+}

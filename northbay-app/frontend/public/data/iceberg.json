@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-05-20",
+  "catalog": "AWS Glue (Iceberg REST)",
+  "bucket": "northbay-odi-lake",
+  "destination": "Snowflake + Iceberg (open table)",
+  "lineage": [
+    { "tag": "01", "label": "Sources", "desc": "FIS Horizon core, Salesforce FSC, nCino, Plaid, AML monitoring vendor, Visa/Mastercard, OFAC/FinCEN, branch teller logs.", "accent": "bronze" },
+    { "tag": "02", "label": "Ingest",  "desc": "Fivetran lands every source into Iceberg bronze tables on S3 — eight connectors, one open table format.", "accent": "bronze" },
+    { "tag": "03", "label": "Conform", "desc": "dbt silver builds the conformed banking dimension layer: customer_360, account_360, party_relationship, transaction_unified.", "accent": "silver" },
+    { "tag": "04", "label": "Gold",    "desc": "Marts: fct_fraud_signal, fct_aml_alert_score, fct_credit_decision, fct_deposit_beta, fct_commercial_relationship_revenue.", "accent": "gold" },
+    { "tag": "05", "label": "Reason",  "desc": "Snowflake + Trino + Athena + Cortex agents read the same gold parquet through the Glue catalog. One source, many engines.", "accent": "gold" }
+  ],
+  "tables": [
+    { "table": "bronze.fis_horizon_account_balance_daily", "rows": 142800000, "size_gb":  84.2, "format": "Iceberg v2" },
+    { "table": "bronze.fis_horizon_transaction_posted",    "rows": 4218000000, "size_gb": 612.4, "format": "Iceberg v2" },
+    { "table": "bronze.sfdc_account",                       "rows":   8420000, "size_gb":   3.1, "format": "Iceberg v2" },
+    { "table": "bronze.ncino_loan_application",            "rows":   1240000, "size_gb":   1.8, "format": "Iceberg v2" },
+    { "table": "bronze.plaid_account_balance",              "rows":  64200000, "size_gb":  18.4, "format": "Iceberg v2" },
+    { "table": "bronze.aml_alert_event",                    "rows":  28420000, "size_gb":  12.1, "format": "Iceberg v2" },
+    { "table": "bronze.visa_merchant_decline_feed",         "rows":  84200000, "size_gb":  24.6, "format": "Iceberg v2" },
+    { "table": "bronze.ofac_sanction_list",                 "rows":     84200, "size_gb":   0.1, "format": "Iceberg v2" },
+    { "table": "silver.customer_360",                       "rows":  14200000, "size_gb":  18.4, "format": "Iceberg v2" },
+    { "table": "silver.transaction_unified",                "rows": 4218000000, "size_gb": 412.6, "format": "Iceberg v2" },
+    { "table": "gold.fct_fraud_signal",                     "rows":  84200000, "size_gb":  41.2, "format": "Iceberg v2" },
+    { "table": "gold.fct_aml_alert_score",                  "rows":   8420000, "size_gb":   8.4, "format": "Iceberg v2" },
+    { "table": "gold.fct_credit_decision",                  "rows":   1842000, "size_gb":   2.4, "format": "Iceberg v2" },
+    { "table": "gold.fct_deposit_beta",                     "rows":    142000, "size_gb":   0.2, "format": "Iceberg v2" },
+    { "table": "gold.fct_commercial_relationship_revenue",  "rows":     28412, "size_gb":   0.1, "format": "Iceberg v2" }
+  ]
+}

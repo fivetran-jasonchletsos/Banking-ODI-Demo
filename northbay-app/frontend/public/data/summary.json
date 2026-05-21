@@ -1,0 +1,68 @@
+{
+  "as_of": "2026-05-20",
+  "bank": {
+    "name": "Northbay Financial",
+    "ticker": "NBFC",
+    "assets_usd": 680000000000,
+    "deposits_usd": 521000000000,
+    "loans_usd": 438000000000,
+    "branches": 2103,
+    "states": 31,
+    "retail_customers": 14200000,
+    "commercial_relationships": 28400,
+    "employees": 64800
+  },
+  "kpis": {
+    "roa_pct": 1.04,
+    "roe_pct": 11.8,
+    "efficiency_ratio_pct": 58.2,
+    "nim_pct": 2.74,
+    "deposit_beta_cycle_pct": 42.1,
+    "cet1_ratio_pct": 11.6,
+    "lcr_pct": 124.0,
+    "nps": 41,
+    "active_digital_users_pct": 78.4,
+    "ncl_ratio_pct": 0.38
+  },
+  "deltas_yoy": {
+    "deposits_usd_pct": -1.8,
+    "loans_usd_pct": 3.2,
+    "nim_pct_bps": -18,
+    "efficiency_ratio_pct_bps": 110,
+    "nps": 2
+  },
+  "top_cdo_issues": [
+    {
+      "id": "TX-CNP-SPIKE",
+      "headline": "Card-not-present fraud spike in TX metros",
+      "detail": "Dallas, Houston, Austin combined CNP losses up 47% week-over-week. Model challenger flags new merchant cluster.",
+      "owner": "Fraud Strategy",
+      "severity": "high",
+      "$_at_risk_m": 18.4
+    },
+    {
+      "id": "HY-DEPOSIT-OUTFLOW",
+      "headline": "Deposit outflow to high-yield competitors",
+      "detail": "Net $2.3B left for online-only competitors paying >4.75% APY in the last 30 days. Concentration in HENRY (high-earner, not-rich-yet) segment.",
+      "owner": "Deposit Pricing",
+      "severity": "elevated",
+      "$_at_risk_m": 2300.0
+    },
+    {
+      "id": "AML-QUEUE-BACKLOG",
+      "headline": "AML investigator queue backlog",
+      "detail": "Open alerts up 19% MoM; median age 11 days versus 6-day SLA. Mostly false positives from a new rule deployed 02-12.",
+      "owner": "BSA / AML",
+      "severity": "elevated",
+      "$_at_risk_m": 0.0
+    }
+  ],
+  "regions": [
+    { "region": "Northeast",    "branches": 612, "deposits_b": 168.4, "loans_b": 142.1, "nps": 44 },
+    { "region": "Mid-Atlantic", "branches": 388, "deposits_b": 104.2, "loans_b":  88.6, "nps": 42 },
+    { "region": "Southeast",    "branches": 421, "deposits_b":  96.7, "loans_b":  82.4, "nps": 39 },
+    { "region": "Midwest",      "branches": 295, "deposits_b":  68.1, "loans_b":  57.8, "nps": 43 },
+    { "region": "Southwest",    "branches": 218, "deposits_b":  48.2, "loans_b":  41.3, "nps": 36 },
+    { "region": "West",         "branches": 169, "deposits_b":  35.4, "loans_b":  25.8, "nps": 40 }
+  ]
+}
