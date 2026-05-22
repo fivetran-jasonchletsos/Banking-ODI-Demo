@@ -27,9 +27,9 @@ export default function AboutPage() {
 
       <header className="mb-8">
         <div className="eyebrow mb-1">ODI Reference Architecture, Banking</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">About Northbay Financial</h1>
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">About Pediment Bank</h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          Northbay Financial is a fictional top-15 US bank with $680B in assets, 14.2M retail customers,
+          Pediment Bank is a fictional top-15 US bank with $680B in assets, 14.2M retail customers,
           28K commercial relationships, and 2,103 branches across 31 states. The demo shows what happens
           when seven banking systems land in one Iceberg lake and dbt builds a single gold layer that
           the fraud team, the AML team, the deposit-pricing desk, and the commercial relationship
@@ -38,8 +38,8 @@ export default function AboutPage() {
       </header>
 
       <section className="mt-10">
-        <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">What this demo shows</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">What this demo shows</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 stagger-children">
           {PILLARS.map((p) => (
             <div key={p.title} className="research-card p-5">
               <div className="layer-chip gold inline-flex mb-3">{p.tag}</div>
@@ -51,7 +51,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Tech stack</h2>
+        <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Tech stack</h2>
         <div className="research-card p-5">
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
             {STACK.map((s) => (
@@ -68,7 +68,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Data sources</h2>
+        <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Data sources</h2>
         <div className="space-y-3">
           {DATA_SOURCES.map((s) => (
             <article key={s.title} className="research-card p-5">
@@ -91,7 +91,7 @@ export default function AboutPage() {
         <div className="eyebrow mb-2" style={{ color: 'var(--caution)' }}>Disclaimer</div>
         <p className="text-[var(--ink-muted)] leading-relaxed">
           <strong className="text-[var(--ink-strong)]">All data shown is synthetic.</strong>{' '}
-          Northbay Financial is a fictional bank built to illustrate ODI architecture for banking and
+          Pediment Bank is a fictional bank built to illustrate ODI architecture for banking and
           capital markets. Vendor names referenced in the source list are either real public products
           used generically or invented for the demo. No portion of this site is a recommendation,
           forecast, or risk disclosure.
@@ -120,13 +120,13 @@ const PILLARS = [
 ];
 
 const STACK = [
-  { layer: 'Ingest',     name: 'Fivetran',                    note: '750+ pre-built connectors; eight active for Northbay: FIS Horizon, Salesforce FSC, nCino, Plaid, AML vendor, Visa/Mastercard, OFAC/FinCEN, branch teller logs.' },
-  { layer: 'Storage',    name: 'Amazon S3',                   note: 'northbay-odi-lake bucket holds bronze, silver, gold, marts prefixes. Customer-owned and customer-controlled.' },
+  { layer: 'Ingest',     name: 'Fivetran',                    note: '750+ pre-built connectors; eight active for this demo: FIS Horizon, Salesforce FSC, nCino, Plaid, AML vendor, Visa/Mastercard, OFAC/FinCEN, branch teller logs.' },
+  { layer: 'Storage',    name: 'Amazon S3',                   note: 'A single bank-owned lake bucket holds bronze, silver, gold, marts prefixes. Customer-owned and customer-controlled.' },
   { layer: 'Format',     name: 'Apache Iceberg v2',           note: 'Parquet files, ZSTD-compressed, partitioned by transaction date. Schema evolution is vendor-neutral.' },
-  { layer: 'Catalog',    name: 'AWS Glue Data Catalog',       note: 'Iceberg REST API. Table-level access control mapped to Northbay\'s LDAP groups.' },
+  { layer: 'Catalog',    name: 'AWS Glue Data Catalog',       note: 'Iceberg REST API. Table-level access control mapped to the bank\'s LDAP groups.' },
   { layer: 'Transform',  name: 'dbt',                         note: '168 models across bronze, silver, gold, marts. 532 tests on every run.' },
   { layer: 'Warehouse',  name: 'Snowflake (external tables)', note: 'Credit-risk, treasury, and finance teams query the gold layer via Snowflake. No data copy.' },
-  { layer: 'Agents',     name: 'Snowflake Cortex agents',     note: 'Fraud and AML agents read gold.fct_fraud_signal and gold.fct_aml_alert_score directly. No warehouse round-trip.' },
+  { layer: 'Agents',     name: 'Snowflake Cortex agents',     note: 'Fraud and AML agents read the corresponding gold marts directly. No warehouse round-trip.' },
   { layer: 'Frontend',   name: 'React 19, Vite, Tailwind v4', note: 'Static SPA on GitHub Pages, reads pre-computed JSON snapshots of the gold layer.' },
 ];
 
@@ -153,7 +153,7 @@ const DATA_SOURCES = [
   },
   {
     title: 'AML monitoring vendor',
-    description: 'The transaction-monitoring system that runs typology rules over the unified transaction layer. Northbay reads its alerts and case management state back into the lake.',
+    description: 'The transaction-monitoring system that runs typology rules over the unified transaction layer. The bank reads its alerts and case management state back into the lake.',
     provides: 'Alert event, case, disposition, SAR draft, typology score.',
   },
   {
@@ -163,7 +163,7 @@ const DATA_SOURCES = [
   },
   {
     title: 'OFAC + FinCEN watchlists',
-    description: 'Sanctions and law-enforcement watchlists. Northbay matches every wire and ACH against the current lists at transaction time and at end-of-day batch.',
+    description: 'Sanctions and law-enforcement watchlists. The bank matches every wire and ACH against the current lists at transaction time and at end-of-day batch.',
     provides: 'SDN list, SSI list, 314(a) request, geographic targeting order.',
   },
   {

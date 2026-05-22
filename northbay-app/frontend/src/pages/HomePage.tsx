@@ -27,19 +27,18 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="bg-[var(--navy-deep)] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.06] pointer-events-none" aria-hidden style={{
-          backgroundImage: 'repeating-linear-gradient(135deg, transparent 0 28px, rgba(212,175,55,0.5) 28px 29px)',
-        }} />
+        <div className="absolute inset-0 pointer-events-none hero-grid-bg" aria-hidden />
+        <div className="absolute inset-0 pointer-events-none hero-glow" aria-hidden />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             <div className="lg:col-span-7">
-              <div className="eyebrow-light mb-4">Northbay Financial, Open Data Infrastructure</div>
-              <h1 className="font-serif text-4xl sm:text-6xl font-semibold text-white leading-[0.98] tracking-tight">
+              <div className="eyebrow-light mb-4">Pediment Bank, Open Data Infrastructure</div>
+              <h1 className="font-serif text-[2.6rem] sm:text-[3.75rem] md:text-[4.5rem] font-semibold text-white leading-[0.95] tracking-tight">
                 One bank.<br />
                 <span className="text-[var(--gold-bright)]">Seven systems.</span><br />
                 One lake.
               </h1>
-              <p className="mt-6 text-base sm:text-lg text-white/75 max-w-2xl leading-relaxed">
+              <p className="mt-6 text-[1.1rem] sm:text-[1.2rem] text-white/75 max-w-2xl leading-[1.68]">
                 A top-15 US bank rebuilt on open data. Core banking, CRM, loan origination, fraud, AML,
                 and card-network feeds all land in customer-owned Iceberg tables. Snowflake, Trino, and
                 Cortex agents share the same gold layer, governed by dbt and Fivetran.
@@ -90,7 +89,7 @@ export default function HomePage() {
 
       {/* CDO desk, top issues */}
       <section className="mx-auto max-w-7xl px-4 pt-12 pb-2 sm:px-6 lg:px-8">
-        <div className="mb-5 flex items-end justify-between border-b border-[var(--hairline)] pb-3">
+        <div className="mb-5 flex items-end justify-between border-b-2 border-[var(--gold-dim)] pb-3">
           <div>
             <div className="eyebrow mb-1">On the CDO's desk this morning</div>
             <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[var(--ink-strong)] tracking-tight">
@@ -101,7 +100,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 stagger-children">
           {(data?.top_cdo_issues ?? []).map((issue) => (
             <div key={issue.id} className="research-card p-5 hover:border-[var(--gold)] transition-colors">
               <div className="flex items-start justify-between gap-2 mb-2">
@@ -123,14 +122,14 @@ export default function HomePage() {
 
       {/* Regional table */}
       <section className="mx-auto max-w-7xl px-4 pt-12 pb-2 sm:px-6 lg:px-8">
-        <div className="mb-4 flex items-end justify-between border-b border-[var(--hairline)] pb-3">
+        <div className="mb-4 flex items-end justify-between border-b-2 border-[var(--gold-dim)] pb-3">
           <div>
             <div className="eyebrow mb-1">Regional Performance</div>
             <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[var(--ink-strong)] tracking-tight">
               Six regions, one gold table
             </h2>
           </div>
-          <span className="layer-chip gold">gold.fct_region_performance</span>
+          <span className="layer-chip gold">Gold layer mart</span>
         </div>
         <div className="research-card overflow-hidden">
           <table className="data-table">
@@ -167,7 +166,7 @@ export default function HomePage() {
               The numbers the CRO watches before coffee
             </h2>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 stagger-children">
             <KpiTile label="CET1 ratio" value={data ? fmtPct(data.kpis.cet1_ratio_pct) : '—'} sub="Regulatory min 7.0%" />
             <KpiTile label="LCR" value={data ? fmtPct(data.kpis.lcr_pct, 0) : '—'} sub="Regulatory min 100%" />
             <KpiTile label="Net interest margin" value={data ? fmtPct(data.kpis.nim_pct) : '—'} sub={data ? `YoY ${data.deltas_yoy.nim_pct_bps} bps` : ''} tone={data && data.deltas_yoy.nim_pct_bps < 0 ? 'bear' : 'neutral'} />
@@ -199,16 +198,16 @@ function Stat({ label, value, hint, delta }: { label: string; value: string; hin
   const deltaColor = delta == null ? 'var(--ink-soft)' : delta >= 0 ? 'var(--bull)' : 'var(--bear)';
   return (
     <div className="px-5 py-4">
-      <div className="text-[10.5px] font-semibold text-[var(--ink-soft)] uppercase tracking-[0.08em]">{label}</div>
+      <div className="text-[9.5px] font-mono font-semibold text-[var(--ink-soft)] uppercase tracking-[0.12em]">{label}</div>
       <div className="mt-1 flex items-baseline gap-2">
-        <div className="font-serif text-2xl font-semibold text-[var(--ink-strong)] leading-none tabular">{value}</div>
+        <div className="font-serif text-2xl font-semibold text-[var(--ink-strong)] leading-none tabular kpi-num">{value}</div>
         {delta != null && (
-          <span className="text-[11px] font-semibold tabular" style={{ color: deltaColor }}>
+          <span className="text-[10px] font-mono font-semibold tabular" style={{ color: deltaColor }}>
             {delta >= 0 ? '+' : ''}{delta.toFixed(1)}%
           </span>
         )}
       </div>
-      <div className="mt-1 text-[11px] text-[var(--ink-soft)]">{hint}</div>
+      <div className="mt-1 text-[10px] font-mono text-[var(--ink-soft)]">{hint}</div>
     </div>
   );
 }
@@ -221,9 +220,9 @@ function KpiTile({ label, value, sub, tone }: { label: string; value: string; su
     'var(--ink-strong)';
   return (
     <div className="research-card px-5 py-4">
-      <div className="text-[10.5px] font-semibold text-[var(--ink-soft)] uppercase tracking-[0.08em]">{label}</div>
-      <div className="mt-1 font-serif text-3xl font-semibold leading-none tabular" style={{ color }}>{value}</div>
-      {sub && <div className="mt-1.5 text-[11px] text-[var(--ink-soft)]">{sub}</div>}
+      <div className="eyebrow mb-1">{label}</div>
+      <div className="mt-1 font-serif text-3xl font-semibold leading-none tabular kpi-num" style={{ color }}>{value}</div>
+      {sub && <div className="mt-1.5 text-[11px] text-[var(--ink-soft)] font-mono">{sub}</div>}
     </div>
   );
 }

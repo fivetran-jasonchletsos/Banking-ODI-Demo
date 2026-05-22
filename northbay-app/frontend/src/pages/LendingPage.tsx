@@ -17,18 +17,18 @@ export default function LendingPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Lending portfolio, credit risk view</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           {data ? fmtCurrencyB(data.loans_b_total, 0) : '—'} in loans, eight categories, one truth
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The credit-risk team queries <span className="layer-chip gold ml-1">gold.fct_loan_portfolio</span>{' '}
+          The credit-risk team queries the unified loan-portfolio gold mart
           for every regulatory cut: CECL, stress test, capital planning, allowance reconciliation. The
           watchlist below is computed daily from the unified loan ledger.
         </p>
       </header>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Loans by category</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Loans by category</h2>
         <div className="research-card overflow-x-auto">
           <table className="data-table">
             <thead>
@@ -59,7 +59,7 @@ export default function LendingPage() {
 
       <section className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Credit quality buckets</h2>
+          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Credit quality buckets</h2>
           <div className="research-card overflow-hidden">
             <table className="data-table">
               <thead>
@@ -84,7 +84,7 @@ export default function LendingPage() {
           </div>
         </div>
         <div>
-          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Provision for credit losses</h2>
+          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Provision for credit losses</h2>
           <div className="research-card overflow-hidden">
             <table className="data-table">
               <thead>
@@ -112,7 +112,7 @@ export default function LendingPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Watchlist</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Watchlist</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {(data?.watchlist ?? []).map((w) => (
             <div key={w.segment} className="research-card p-5" style={{ borderColor: 'var(--caution)' }}>

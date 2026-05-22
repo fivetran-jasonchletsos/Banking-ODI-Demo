@@ -24,19 +24,19 @@ export default function ArchitecturePage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Open Data Infrastructure, Banking Reference</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           Eight sources. One Iceberg lake. Snowflake + Cortex on top.
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          Northbay's architecture is deliberately flat. Fivetran lands every system into Apache Iceberg
+          The bank's architecture is deliberately flat. Fivetran lands every system into Apache Iceberg
           tables on S3. dbt builds bronze, silver, gold, and marts in place. Snowflake reads the gold
           tables as external tables; the Cortex fraud and AML agents read the same parquet files.
         </p>
       </header>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Sources, ingested by Fivetran</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Sources, ingested by Fivetran</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 stagger-children">
           {SOURCES.map((s) => (
             <div key={s.name} className="research-card p-4">
               <div className="layer-chip bronze inline-flex mb-2">{s.tag}</div>
@@ -48,8 +48,8 @@ export default function ArchitecturePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Lineage</h2>
-        <ol className="grid grid-cols-1 md:grid-cols-5 gap-3">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Lineage</h2>
+        <ol className="grid grid-cols-1 md:grid-cols-5 gap-3 stagger-children">
           {(data?.lineage ?? []).map((s) => (
             <li key={s.tag} className="research-card p-4 hover:border-[var(--gold)] transition-colors">
               <div className="text-[10px] font-mono font-bold text-[var(--gold-dim)] tracking-wider">{s.tag}</div>
@@ -62,7 +62,7 @@ export default function ArchitecturePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
           Iceberg tables, current
         </h2>
         <div className="research-card overflow-x-auto">
@@ -94,7 +94,7 @@ export default function ArchitecturePage() {
           <div className="eyebrow mb-2">Catalog</div>
           <h3 className="font-serif text-lg font-semibold text-[var(--ink-strong)]">{data?.catalog ?? 'AWS Glue Data Catalog'}</h3>
           <p className="mt-2 text-sm text-[var(--ink-muted)] leading-relaxed">
-            Iceberg REST API. Table-level access control mapped to Northbay's LDAP. Every read is logged
+            Iceberg REST API. Table-level access control mapped to the bank's LDAP. Every read is logged
             for examiner audit.
           </p>
         </div>

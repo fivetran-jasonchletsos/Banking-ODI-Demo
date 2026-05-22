@@ -1,172 +1,267 @@
 @import "tailwindcss";
 
 /*
- * Northbay Financial — trustworthy retail-and-commercial bank design system.
- * Deep navy primary, dignified gold accent, ivory paper, vermillion for risk.
- * Source Serif headers, Inter body, JetBrains Mono for numerics.
+ * Pediment Bank — financial research paper aesthetic.
+ * Deep navy primary, burnished gold accent, ivory vellum, vermillion for risk.
+ * Source Serif 4 display + Crimson Pro body + JetBrains Mono numerics.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+/* ── Design tokens ─────────────────────────────────────── */
 :root {
-  --paper:         #fafaf5;
-  --paper-deep:    #f1efe4;
+  --paper:         #faf9f4;
+  --paper-deep:    #f0ede0;
   --card:          #ffffff;
-  --navy-deep:     #0c2a4a;
-  --navy:          #14365e;
-  --navy-soft:     #1f4d7a;
+  --navy-deep:     #0b2744;
+  --navy:          #12345a;
+  --navy-soft:     #1c4872;
 
-  --hairline:      #d8d3c2;
-  --hairline-soft: #ebe7d8;
+  --hairline:      #d6d0be;
+  --hairline-soft: #e8e3d4;
 
-  --ink-strong:    #0a1424;
-  --ink:           #1f2937;
-  --ink-muted:     #4b5563;
-  --ink-soft:      #6b7280;
+  --ink-strong:    #090f1e;
+  --ink:           #1c2535;
+  --ink-muted:     #48546a;
+  --ink-soft:      #68788e;
 
-  /* Northbay gold */
-  --gold:          #d4af37;
-  --gold-bright:   #e6c558;
-  --gold-dim:      #8a7126;
-  --gold-bg:       #faf3d6;
+  /* Burnished gold — slightly deeper, more print-authentic */
+  --gold:          #c9a227;
+  --gold-bright:   #e0bc4e;
+  --gold-dim:      #7d6519;
+  --gold-bg:       #faf2ce;
 
-  /* Risk vermillion */
-  --alert:         #d63031;
+  /* Risk signals */
+  --alert:         #c62828;
   --alert-bg:      #fef0f0;
 
-  --bull:          #15803d;
-  --bull-bg:       #f0fdf4;
-  --bear:          #b91c1c;
+  --bull:          #145e36;
+  --bull-bg:       #edfbf3;
+  --bear:          #a61616;
   --bear-bg:       #fef2f2;
-  --caution:       #b45309;
+  --caution:       #a04808;
   --caution-bg:    #fffbeb;
 
-  --bronze:        #b45309;
-  --bronze-bg:     #fff7ed;
-  --silver:        #6b7280;
-  --silver-bg:     #f8fafc;
-  --gold-layer:    #b8954a;
-  --gold-layer-bg: #faf3d6;
+  --bronze:        #a04808;
+  --bronze-bg:     #fff6ed;
+  --silver:        #5e6e84;
+  --silver-bg:     #f5f7fa;
+  --gold-layer:    #a6832e;
+  --gold-layer-bg: #faf2ce;
+
+  /* Grain texture — fine noise overlay for paper feel */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
 @theme {
-  --color-navy-50:  #eef2f8;
-  --color-navy-100: #d6dfee;
-  --color-navy-200: #adbedb;
-  --color-navy-300: #7d97c0;
-  --color-navy-400: #4c6da2;
-  --color-navy-500: #2d4f86;
-  --color-navy-600: #1f4d7a;
-  --color-navy-700: #14365e;
-  --color-navy-800: #0c2a4a;
-  --color-navy-900: #061a30;
+  --color-navy-50:  #ecf1f8;
+  --color-navy-100: #d3dded;
+  --color-navy-200: #a8bbd8;
+  --color-navy-300: #7494be;
+  --color-navy-400: #3f6799;
+  --color-navy-500: #284f84;
+  --color-navy-600: #1c4872;
+  --color-navy-700: #12345a;
+  --color-navy-800: #0b2744;
+  --color-navy-900: #051830;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Crimson Pro", "Georgia", serif;
   --font-serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* ── Base ──────────────────────────────────────────────── */
 html, body {
   background-color: var(--paper);
   color: var(--ink);
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-feature-settings: "cv11", "ss01", "ss03";
+  /* Crimson Pro as the body workhorse — editorial serif, pairs with Source Serif 4 headers */
+  font-family: "Crimson Pro", Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-feature-settings: "kern", "liga", "calt";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, .font-serif {
+/* Paper grain overlay on the root */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--grain);
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+
+h1, h2, h3, h4, .font-serif {
   font-family: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.014em;
 }
 h1 { color: var(--ink-strong); }
 
+/* Body paragraphs get generous line-height for the editorial feel */
+p { line-height: 1.72; }
+
+/* ── Institutional accent rail (top of page) ───────────── */
 .institutional-rail {
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold-dim) 0%, var(--gold-bright) 50%, var(--gold-dim) 100%);
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--navy-deep) 0%,
+    var(--gold-dim) 20%,
+    var(--gold-bright) 50%,
+    var(--gold-dim) 80%,
+    var(--navy-deep) 100%
+  );
 }
 
+/* ── Page-load animation ───────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-page {
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Stagger children — use on direct parent with .stagger-children */
+.stagger-children > *:nth-child(1)  { animation: fadeUp 0.5s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.stagger-children > *:nth-child(2)  { animation: fadeUp 0.5s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.stagger-children > *:nth-child(3)  { animation: fadeUp 0.5s 0.19s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.stagger-children > *:nth-child(4)  { animation: fadeUp 0.5s 0.26s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.stagger-children > *:nth-child(5)  { animation: fadeUp 0.5s 0.33s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.stagger-children > *:nth-child(n+6) { animation: fadeUp 0.5s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ── Status pills ──────────────────────────────────────── */
 .status-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
   padding: 0.125rem 0.625rem;
   border-radius: 9999px;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
+  font-family: "JetBrains Mono", monospace;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   border: 1px solid transparent;
-  font-family: "Inter", sans-serif;
 }
 .status-pill::before {
   content: "";
   display: inline-block;
-  width: 0.4rem;
-  height: 0.4rem;
+  width: 0.35rem;
+  height: 0.35rem;
   border-radius: 9999px;
   background: currentColor;
 }
-.status-pill.bull    { background: var(--bull-bg);    color: var(--bull);    border-color: #bbf7d0; }
+.status-pill.bull    { background: var(--bull-bg);    color: var(--bull);    border-color: #a7f3ce; }
 .status-pill.bear    { background: var(--bear-bg);    color: var(--bear);    border-color: #fecaca; }
 .status-pill.caution { background: var(--caution-bg); color: var(--caution); border-color: #fde68a; }
 .status-pill.neutral { background: var(--paper-deep); color: var(--ink-muted); border-color: var(--hairline); }
-.status-pill.gold    { background: var(--gold-bg);    color: var(--gold-dim); border-color: #ebd9a3; }
-.status-pill.alert   { background: var(--alert-bg);   color: var(--alert);   border-color: #fecaca; }
+.status-pill.gold    { background: var(--gold-bg);    color: var(--gold-dim); border-color: #e8d498; }
+.status-pill.alert   { background: var(--alert-bg);   color: var(--alert);   border-color: #fca5a5; }
 
+/* ── Layer chips ───────────────────────────────────────── */
 .layer-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  padding: 0.1875rem 0.625rem;
-  border-radius: 0.25rem;
-  font-size: 0.625rem;
+  padding: 0.175rem 0.6rem;
+  border-radius: 0.2rem;
+  font-size: 0.58rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   font-family: "JetBrains Mono", monospace;
 }
-.layer-chip.bronze { background: var(--bronze-bg); color: var(--bronze); border: 1px solid #fed7aa; }
-.layer-chip.silver { background: var(--silver-bg); color: var(--silver); border: 1px solid #e2e8f0; }
-.layer-chip.gold   { background: var(--gold-layer-bg); color: var(--gold-layer); border: 1px solid #ebd9a3; }
+.layer-chip.bronze { background: var(--bronze-bg); color: var(--bronze); border: 1px solid #fdc09a; }
+.layer-chip.silver { background: var(--silver-bg); color: var(--silver); border: 1px solid #dde2ea; }
+.layer-chip.gold   { background: var(--gold-layer-bg); color: var(--gold-layer); border: 1px solid #e5ca8a; }
 
+/* ── Research cards ────────────────────────────────────── */
 .research-card {
   background: var(--card);
   border: 1px solid var(--hairline);
-  border-radius: 0.375rem;
-  box-shadow: 0 1px 2px rgba(12, 42, 74, 0.05);
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px rgba(11, 39, 68, 0.06), 0 1px 1px rgba(11, 39, 68, 0.04);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  position: relative;
 }
 
+/* Left-accent bar on card hover — Bloomberg terminal affordance */
+.research-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 2px;
+  background: var(--gold);
+  border-radius: 0 1px 1px 0;
+  opacity: 0;
+  transition: opacity 0.18s ease, top 0.18s ease, bottom 0.18s ease;
+}
+.research-card:hover {
+  border-color: var(--gold-dim);
+  box-shadow: 0 4px 12px rgba(11, 39, 68, 0.10), 0 1px 3px rgba(11, 39, 68, 0.06);
+  transform: translateY(-1px);
+}
+.research-card:hover::before {
+  opacity: 1;
+  top: 8%;
+  bottom: 8%;
+}
+
+/* ── Eyebrow labels ────────────────────────────────────── */
 .eyebrow {
-  font-size: 0.6875rem;
+  font-size: 0.62rem;
   font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
   color: var(--gold-dim);
 }
 .eyebrow-light {
-  font-size: 0.6875rem;
+  font-size: 0.62rem;
   font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
   color: var(--gold-bright);
 }
 
+/* ── Section dividers — refined gold rule ──────────────── */
+.section-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--hairline) 40%);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Tabular / ticker ──────────────────────────────────── */
 .tabular { font-variant-numeric: tabular-nums; }
 
 .ticker {
   font-family: "JetBrains Mono", monospace;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.02em;
 }
 
+/* ── Data tables ───────────────────────────────────────── */
 .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .data-table th {
   text-align: left;
-  font-size: 0.625rem;
+  font-size: 0.58rem;
   font-weight: 800;
+  font-family: "JetBrains Mono", monospace;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.13em;
   color: var(--ink-soft);
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--hairline);
@@ -175,19 +270,77 @@ h1 { color: var(--ink-strong); }
 .data-table td {
   padding: 0.625rem 0.75rem;
   border-bottom: 1px solid var(--hairline-soft);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
+  font-family: "Crimson Pro", Georgia, serif;
   color: var(--ink);
 }
+.data-table tbody tr {
+  transition: background 0.12s ease;
+}
 .data-table tbody tr:hover { background: var(--paper-deep); }
-.data-table .num { text-align: right; font-family: "JetBrains Mono", monospace; font-weight: 500; }
+.data-table .num {
+  text-align: right;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 7px; height: 7px; }
 ::-webkit-scrollbar-track { background: var(--paper-deep); }
-::-webkit-scrollbar-thumb { background: #cbc5b3; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #a39c89; }
+::-webkit-scrollbar-thumb { background: #c4bda8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #9e9581; }
 
+/* ── Focus ring ────────────────────────────────────────── */
 *:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
   border-radius: 3px;
+}
+
+/* ── Hero section enhancements ─────────────────────────── */
+.hero-grid-bg {
+  background-image:
+    /* Fine crosshatch grid */
+    linear-gradient(rgba(212, 178, 50, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 178, 50, 0.07) 1px, transparent 1px),
+    /* Diagonal overlay */
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 40px,
+      rgba(212, 178, 50, 0.025) 40px 41px
+    );
+  background-size: 48px 48px, 48px 48px, auto;
+}
+
+/* Gold radial glow — bottom right of hero */
+.hero-glow {
+  background: radial-gradient(
+    ellipse 55% 65% at 88% 90%,
+    rgba(201, 162, 39, 0.12) 0%,
+    transparent 70%
+  );
+}
+
+/* ── Section intro animate ─────────────────────────────── */
+.page-enter {
+  animation: fadeUp 0.5s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.page-enter-late {
+  animation: fadeUp 0.5s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Bar chart micro-component ─────────────────────────── */
+.bar-fill {
+  transition: width 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── KPI tile number — scale on mount ──────────────────── */
+@keyframes numReveal {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.kpi-num {
+  animation: numReveal 0.45s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+  display: inline-block;
 }

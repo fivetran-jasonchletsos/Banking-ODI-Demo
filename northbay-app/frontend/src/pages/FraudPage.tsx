@@ -15,17 +15,17 @@ export default function FraudPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Real-time fraud, agent-assisted decisioning</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           The fraud desk, reading one gold table
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The Cortex fraud agent reads <span className="layer-chip gold ml-1">gold.fct_fraud_signal</span>{' '}
+          The Cortex fraud agent reads a single fraud-signal gold mart
           and joins it with customer history, merchant risk, and graph-derived ring membership in a single
-          query. Block-or-allow is a sub-200ms decision against the Iceberg layer; no warehouse round-trip.
+          query. Block-or-allow is a sub-200ms decision against the open lake; no warehouse round-trip.
         </p>
       </header>
 
-      <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3 stagger-children">
         <Kpi label="YTD attempted" value={data ? fmtCurrencyM(data.ytd.dollars_attempted_m, 1) : '—'} />
         <Kpi label="YTD blocked" value={data ? fmtCurrencyM(data.ytd.dollars_blocked_m, 1) : '—'} tone="bull" />
         <Kpi label="Block rate" value={data ? fmtPct(data.ytd.block_rate_pct, 2) : '—'} />
@@ -33,7 +33,7 @@ export default function FraudPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">By channel</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">By channel</h2>
         <div className="research-card overflow-x-auto">
           <table className="data-table">
             <thead>
@@ -63,7 +63,7 @@ export default function FraudPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
           Top fraud rings, graph model
         </h2>
         <p className="text-sm text-[var(--ink-muted)] mb-4 max-w-3xl">
@@ -71,7 +71,7 @@ export default function FraudPage() {
           and merchants moving in coordinated ways. Each row below is a distinct ring with at least
           $1M in attempted fraud blocked.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 stagger-children">
           {(data?.top_rings ?? []).map((r) => (
             <div key={r.ring_id} className="research-card p-4">
               <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ export default function FraudPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
           Active queue, agent recommendations
         </h2>
         <p className="text-sm text-[var(--ink-muted)] mb-4 max-w-3xl">
@@ -135,8 +135,8 @@ function Kpi({ label, value, tone }: { label: string; value: string; tone?: 'bul
   const color = tone === 'bull' ? 'var(--bull)' : tone === 'bear' ? 'var(--bear)' : tone === 'caution' ? 'var(--caution)' : 'var(--ink-strong)';
   return (
     <div className="research-card px-5 py-4">
-      <div className="text-[10.5px] font-semibold text-[var(--ink-soft)] uppercase tracking-[0.08em]">{label}</div>
-      <div className="mt-1 font-serif text-2xl font-semibold leading-none tabular" style={{ color }}>{value}</div>
+      <div className="eyebrow mb-1">{label}</div>
+      <div className="mt-1 font-serif text-2xl font-semibold leading-none tabular kpi-num" style={{ color }}>{value}</div>
     </div>
   );
 }

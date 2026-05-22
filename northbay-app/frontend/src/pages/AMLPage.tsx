@@ -16,18 +16,18 @@ export default function AMLPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">BSA / AML investigations</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           One queue, five typologies, agent triage
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The AML investigator queue is backed by <span className="layer-chip gold ml-1">gold.fct_aml_alert_score</span>{' '}
-          — a single dbt mart that joins vendor-generated alerts with the unified transaction history,
+          The AML investigator queue is backed by a single gold mart
+          that joins vendor-generated alerts with the unified transaction history,
           customer KYC, and OFAC matches. The challenger graph model is shipping 2x the precision of the
           incumbent rules engine.
         </p>
       </header>
 
-      <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3 stagger-children">
         <Kpi label="Open alerts" value={data ? fmtInt(data.queue.open_alerts) : '—'} sub={data ? `Median age ${data.queue.median_age_days}d, SLA ${data.queue.sla_days}d` : ''} tone={data && data.queue.median_age_days > data.queue.sla_days ? 'caution' : 'neutral'} />
         <Kpi label="SARs filed YTD" value={data ? fmtInt(data.ytd.sars_filed) : '—'} sub={data ? `${fmtPct(data.ytd.sar_acceptance_pct, 1)} accepted by FinCEN` : ''} />
         <Kpi label="CTRs filed YTD" value={data ? fmtInt(data.ytd.ctrs_filed) : '—'} sub="Currency Transaction Reports" />
@@ -35,7 +35,7 @@ export default function AMLPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Top typologies</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Top typologies</h2>
         <div className="research-card overflow-x-auto">
           <table className="data-table">
             <thead>
@@ -61,7 +61,7 @@ export default function AMLPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Champion vs Challenger</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Champion vs Challenger</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ModelCard label="Champion" model={data?.model_perf.champion} />
           <ModelCard label="Challenger" model={data?.model_perf.challenger} highlight />
@@ -69,7 +69,7 @@ export default function AMLPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Investigator productivity</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Investigator productivity</h2>
         <div className="research-card overflow-hidden">
           <table className="data-table">
             <thead>
@@ -101,9 +101,9 @@ function Kpi({ label, value, sub, tone }: { label: string; value: string; sub?: 
   const color = tone === 'bull' ? 'var(--bull)' : tone === 'bear' ? 'var(--bear)' : tone === 'caution' ? 'var(--caution)' : 'var(--ink-strong)';
   return (
     <div className="research-card px-5 py-4">
-      <div className="text-[10.5px] font-semibold text-[var(--ink-soft)] uppercase tracking-[0.08em]">{label}</div>
-      <div className="mt-1 font-serif text-2xl font-semibold leading-none tabular" style={{ color }}>{value}</div>
-      {sub && <div className="mt-1.5 text-[11px] text-[var(--ink-soft)]">{sub}</div>}
+      <div className="eyebrow mb-1">{label}</div>
+      <div className="mt-1 font-serif text-2xl font-semibold leading-none tabular kpi-num" style={{ color }}>{value}</div>
+      {sub && <div className="mt-1.5 text-[10px] font-mono text-[var(--ink-soft)]">{sub}</div>}
     </div>
   );
 }

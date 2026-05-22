@@ -18,7 +18,7 @@ const DEMOS = [
   { key: 'tax-assessment',  name: 'Allegheny County Tax', industry: 'Public sector, property assessment', url: 'https://fivetran-jasonchletsos.github.io/tax-assessment-databricks-demo/', accent: '#dc2626' },
   { key: 'healthcare',      name: 'Epic Clarity',         industry: 'Healthcare, clinical analytics',     url: 'https://fivetran-jasonchletsos.github.io/Healthcare-EPIC-Snowflake-Demo/', accent: '#0d9488' },
   { key: 'finserv',         name: 'Meridian Capital',     industry: 'Buy-side research desk',             url: 'https://fivetran-jasonchletsos.github.io/FinServ-ODI-Demo/', accent: '#1d4ed8' },
-  { key: 'banking',         name: 'Northbay Financial',   industry: 'Banking and capital markets',        url: 'https://fivetran-jasonchletsos.github.io/Banking-ODI-Demo/', accent: '#0c2a4a' },
+  { key: 'banking',         name: 'Pediment Bank',        industry: 'Banking and capital markets',        url: 'https://fivetran-jasonchletsos.github.io/Banking-ODI-Demo/', accent: '#0c2a4a' },
   { key: 'insurance',       name: 'Atlas Risk',           industry: 'Insurance, policies and claims',     url: 'https://fivetran-jasonchletsos.github.io/Insurance-ODI-Demo/', accent: '#0369a1' },
   { key: 'media',           name: 'Lighthouse Media',     industry: 'Media, audience intelligence',       url: 'https://fivetran-jasonchletsos.github.io/Media-ODI-Demo/', accent: '#7c3aed' },
   { key: 'retail',          name: 'Storefront Analytics', industry: 'Retail and e-commerce',              url: 'https://fivetran-jasonchletsos.github.io/RetailEcom-ODI-Demo/', accent: '#ea580c' },
@@ -39,16 +39,16 @@ export default function Layout() {
     <div className="min-h-full flex flex-col bg-[var(--paper)]">
       <div className="institutional-rail" />
 
-      <header className="bg-[var(--navy-deep)] text-white sticky top-0 z-30">
+      <header className="bg-[var(--navy-deep)]/95 backdrop-blur-sm text-white sticky top-0 z-30 border-b border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between gap-2 sm:gap-6">
             <Link to="/" className="flex items-center gap-3 shrink-0 min-w-0 group">
               <div className="h-10 w-10 rounded-sm flex items-center justify-center" style={{ background: 'var(--gold)' }}>
-                <NorthbayMark className="h-6 w-6 text-[var(--navy-deep)]" />
+                <PedimentMark className="h-6 w-6 text-[var(--navy-deep)]" />
               </div>
               <div className="leading-tight min-w-0">
-                <div className="font-serif font-semibold text-lg sm:text-xl tracking-tight truncate">Northbay Financial</div>
-                <div className="mt-0.5 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--gold-bright)]">
+                <div className="font-serif font-semibold text-lg sm:text-xl tracking-tight truncate">Pediment Bank</div>
+                <div className="mt-0.5 text-[9.5px] sm:text-[10.5px] font-mono font-medium uppercase tracking-[0.22em] text-[var(--gold-bright)]/80">
                   Retail, Commercial and Wealth
                 </div>
               </div>
@@ -61,8 +61,8 @@ export default function Layout() {
                   to={to}
                   end={to === '/'}
                   className={({ isActive }) =>
-                    `relative px-2.5 py-2 font-medium tracking-tight transition-colors text-[13px] ${
-                      isActive ? 'text-[var(--gold-bright)]' : 'text-white/80 hover:text-white'
+                    `relative px-2.5 py-2 font-semibold tracking-wide transition-colors text-[11.5px] uppercase font-mono ${
+                      isActive ? 'text-[var(--gold-bright)]' : 'text-white/70 hover:text-white'
                     }`
                   }
                 >
@@ -119,7 +119,7 @@ export default function Layout() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1 page-enter">
         <Outlet />
       </main>
 
@@ -128,9 +128,9 @@ export default function Layout() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="h-7 w-7 rounded-sm flex items-center justify-center" style={{ background: 'var(--gold)' }}>
-                <NorthbayMark className="h-4 w-4 text-[var(--navy-deep)]" />
+                <PedimentMark className="h-4 w-4 text-[var(--navy-deep)]" />
               </div>
-              <div className="font-serif font-semibold text-white">Northbay Financial</div>
+              <div className="font-serif font-semibold text-white">Pediment Bank</div>
             </div>
             <p className="leading-relaxed text-white/60">
               A fictional top-15 US bank: deposits, lending, cards, fraud, AML, and commercial relationships
@@ -155,7 +155,7 @@ export default function Layout() {
         </div>
         <div className="border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-[11px] text-white/50 flex flex-col sm:flex-row gap-1 sm:items-center sm:justify-between">
-            <div>© 2026 Northbay Financial ODI Demo, built on Fivetran Open Data Infrastructure.</div>
+            <div>© 2026 Pediment Bank ODI Demo, built on Fivetran Open Data Infrastructure.</div>
             <div>Synthetic data only. Not a real bank.</div>
           </div>
         </div>
@@ -231,8 +231,8 @@ function DemoSwitcher() {
   );
 }
 
-// Northbay mark — stylized bank pediment with two columns and a horizon line.
-function NorthbayMark({ className = '' }: { className?: string }) {
+// Pediment mark — stylized bank pediment with two columns and a horizon line.
+function PedimentMark({ className = '' }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
       <path d="M3 9 L12 4 L21 9" />

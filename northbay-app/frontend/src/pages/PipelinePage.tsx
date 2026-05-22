@@ -3,10 +3,13 @@ import { useJson } from '../components/data';
 
 type Pipeline = {
   as_of: string;
-  connectors: { id: string; name: string; type: string; status: string; rows_today: number; last_sync: string; lag_seconds: number; freshness: string; issue?: string }[];
+  fivetran_dashboard_url?: string;
+  connectors: { id: string; fivetran_id?: string; name: string; type: string; status: string; rows_today: number; last_sync: string; lag_seconds: number; freshness: string; issue?: string }[];
   dbt_layers: { layer: string; models: number; tests: number; last_run: string; status: string }[];
   failure_simulator: { id: string; label: string; impact: string }[];
 };
+
+const FIVETRAN_BASE = 'https://fivetran.com/dashboard/connectors';
 
 export default function PipelinePage() {
   const { data } = useJson<Pipeline>('pipeline');
@@ -18,7 +21,7 @@ export default function PipelinePage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Fivetran lineage and freshness</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           Eight connectors, four dbt layers, one gold view
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
@@ -26,10 +29,27 @@ export default function PipelinePage() {
           from silver. Silver is rebuilt from bronze every two minutes. Bronze is landed by Fivetran as
           rows arrive at the source.
         </p>
+        <div className="mt-5">
+          <a
+            href={data?.fivetran_dashboard_url || FIVETRAN_BASE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm text-[var(--navy-deep)] px-4 py-2.5 hover:opacity-95 transition-opacity"
+            style={{ background: 'var(--gold)' }}
+          >
+            Open in Fivetran
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
+          </a>
+          <span className="ml-3 text-[11px] text-[var(--ink-soft)]">
+            Each connector below deep-links to its job in the Fivetran dashboard.
+          </span>
+        </div>
       </header>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Connectors, Fivetran-managed</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Connectors, Fivetran-managed</h2>
         <div className="research-card overflow-x-auto">
           <table className="data-table">
             <thead>
@@ -46,7 +66,21 @@ export default function PipelinePage() {
               {(data?.connectors ?? []).map((c) => (
                 <tr key={c.id}>
                   <td>
-                    <div className="font-semibold text-[var(--ink-strong)]">{c.name}</div>
+                    {c.fivetran_id ? (
+                      <a
+                        href={`${FIVETRAN_BASE}/${c.fivetran_id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[var(--ink-strong)] hover:text-[var(--navy-deep)] hover:underline decoration-[var(--gold)] decoration-2 underline-offset-2 inline-flex items-center gap-1.5"
+                      >
+                        {c.name}
+                        <svg viewBox="0 0 24 24" className="h-3 w-3 text-[var(--ink-soft)]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M7 17 17 7M9 7h8v8" />
+                        </svg>
+                      </a>
+                    ) : (
+                      <div className="font-semibold text-[var(--ink-strong)]">{c.name}</div>
+                    )}
                     {c.issue && <div className="text-[11px] text-[var(--alert)] mt-0.5">{c.issue}</div>}
                   </td>
                   <td className="text-[var(--ink-muted)] text-[12px]">{c.type}</td>
@@ -66,8 +100,8 @@ export default function PipelinePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">dbt layers</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">dbt layers</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 stagger-children">
           {(data?.dbt_layers ?? []).map((l) => (
             <div key={l.layer} className="research-card p-4">
               <span className={`layer-chip ${l.layer === 'bronze' ? 'bronze' : l.layer === 'silver' ? 'silver' : 'gold'}`}>{l.layer}</span>
@@ -80,7 +114,7 @@ export default function PipelinePage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Failure simulator</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Failure simulator</h2>
         <p className="text-sm text-[var(--ink-muted)] mb-4 max-w-3xl">
           Click a scenario to preview what breaks downstream. The agents and dashboards only ever read
           gold, so a Fivetran failure manifests as stale or skipped scoring rather than a hard error.

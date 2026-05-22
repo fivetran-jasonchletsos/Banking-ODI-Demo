@@ -3,14 +3,14 @@ export default function PolicyPage() {
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8">
         <div className="eyebrow mb-1">Policy brief</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           Why bank data is fragmented, and what ODI does about it
         </h1>
       </header>
 
       <section className="space-y-6 text-[var(--ink)] leading-relaxed">
         <p>
-          A US bank of Northbay's size runs at least seven distinct systems of record. Core banking holds
+          A US bank of this size runs at least seven distinct systems of record. Core banking holds
           accounts and balances. CRM holds relationships. The loan-origination system holds underwriting.
           The fraud platform holds card decisioning. The AML monitoring vendor holds typology alerts. The
           card networks ship merchant authorization files. The general ledger holds the books. Each
@@ -23,7 +23,7 @@ export default function PolicyPage() {
           time the deposit-pricing desk is running an ALM scenario. Two systems, two copies, two stale
           truths.
         </p>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mt-8">The ODI position</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mt-8 border-b-2 border-[var(--gold-dim)]">The ODI position</h2>
         <p>
           Open Data Infrastructure inverts the warehouse model. Storage is owned by the bank, in S3, in
           Apache Iceberg format. Fivetran lands every source there as bronze tables. dbt builds the gold
@@ -37,11 +37,11 @@ export default function PolicyPage() {
           Fivetran sync. When a connector breaks, the consequence is visible: the gold table shows the
           last-sync timestamp and the agents read the staleness signal before they decide.
         </p>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mt-8">Concretely, at Northbay</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mt-8 border-b-2 border-[var(--gold-dim)]">Concretely, in this demo</h2>
         <ul className="space-y-2 list-disc pl-6">
           <li>
-            Fivetran lands eight sources into the <code className="ticker text-[12px]">northbay-odi-lake</code>{' '}
-            S3 bucket. Three are CDC streams from databases; five are API or file feeds.
+            Fivetran lands eight sources into the bank's customer-owned S3 bucket. Three are CDC streams
+            from databases; five are API or file feeds.
           </li>
           <li>
             dbt builds 168 models across bronze, silver, gold, and marts. 532 tests run on every build.
@@ -55,7 +55,7 @@ export default function PolicyPage() {
             see the same row at the same instant.
           </li>
         </ul>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mt-8">What the CRO gets</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mt-8 border-b-2 border-[var(--gold-dim)]">What the CRO gets</h2>
         <p>
           Regulatory exams ask the bank to demonstrate lineage. Fivetran is the named ingestion mechanism
           for every source on every gold table on every page of this site. dbt tests are the documented

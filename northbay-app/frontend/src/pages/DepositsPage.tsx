@@ -19,18 +19,18 @@ export default function DepositsPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Deposit franchise</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           Four products, four tiers, one deposit-beta model
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The treasury team queries <span className="layer-chip gold ml-1">gold.fct_deposit_beta</span>{' '}
+          The treasury team queries the deposit-beta gold mart
           to size sensitivity to Fed funds. Per-tier beta drives the next-best-rate offer to retail
           customers and the funding-curve assumption for the ALM committee.
         </p>
       </header>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">By product</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">By product</h2>
         <div className="research-card overflow-x-auto">
           <table className="data-table">
             <thead>
@@ -59,7 +59,7 @@ export default function DepositsPage() {
 
       <section className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Tier mix</h2>
+          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Tier mix</h2>
           <div className="research-card overflow-hidden">
             <table className="data-table">
               <thead>
@@ -82,12 +82,12 @@ export default function DepositsPage() {
           </div>
         </div>
         <div>
-          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Deposit beta by product</h2>
+          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Deposit beta by product</h2>
           <div className="research-card p-5">
             <div className="text-[12px] text-[var(--ink-muted)] mb-4 leading-relaxed">{data?.deposit_beta.definition}</div>
             <div className="flex items-baseline gap-3 mb-4">
               <div className="font-serif text-3xl font-semibold tabular text-[var(--ink-strong)]">{data ? fmtPct(data.deposit_beta.current_pct, 1) : '—'}</div>
-              <div className="text-[12px] text-[var(--ink-soft)]">Northbay cycle beta</div>
+              <div className="text-[12px] text-[var(--ink-soft)]">Bank cycle beta</div>
               <div className="text-[12px] text-[var(--ink-muted)] ml-auto">Peer median: {data ? fmtPct(data.deposit_beta.peer_median_pct, 1) : '—'}</div>
             </div>
             <div className="space-y-2">
@@ -108,7 +108,7 @@ export default function DepositsPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
           NII sensitivity to Fed rate moves
         </h2>
         <div className="research-card overflow-x-auto">
@@ -134,7 +134,7 @@ export default function DepositsPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">Top 20 deposit-growth markets</h2>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Top 20 deposit-growth markets</h2>
         <div className="research-card overflow-x-auto">
           <table className="data-table">
             <thead>

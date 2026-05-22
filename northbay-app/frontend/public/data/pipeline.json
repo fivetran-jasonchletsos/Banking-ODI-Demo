@@ -1,14 +1,15 @@
 {
   "as_of": "2026-05-20T08:14:22Z",
+  "fivetran_dashboard_url": "https://fivetran.com/dashboard/connectors",
   "connectors": [
-    { "id": "fis-horizon",         "name": "FIS Horizon (core banking)",      "type": "Database (Oracle CDC)", "status": "healthy",   "rows_today": 18420318, "last_sync": "2026-05-20T08:12:14Z", "lag_seconds":  142, "freshness": "near real-time" },
-    { "id": "sfdc-fsc",            "name": "Salesforce Financial Services Cloud", "type": "API",            "status": "healthy",   "rows_today":   84218, "last_sync": "2026-05-20T08:10:02Z", "lag_seconds":  308, "freshness": "5 min" },
-    { "id": "ncino",               "name": "nCino — Commercial loan origination", "type": "API",            "status": "healthy",   "rows_today":   12814, "last_sync": "2026-05-20T08:09:48Z", "lag_seconds":  340, "freshness": "5 min" },
-    { "id": "plaid",               "name": "Plaid — Aggregated balances",      "type": "API",                "status": "healthy",   "rows_today":  642184, "last_sync": "2026-05-20T08:13:08Z", "lag_seconds":   88, "freshness": "real-time" },
-    { "id": "aml-vendor",          "name": "AML Monitoring Vendor",            "type": "Database (SQL Server CDC)", "status": "degraded", "rows_today":  218400, "last_sync": "2026-05-20T07:42:18Z", "lag_seconds": 1928, "freshness": "32 min", "issue": "Vendor source query latency above 90s; throughput at 41% of normal." },
-    { "id": "visa-mc-merchant",    "name": "Visa / Mastercard merchant feeds", "type": "SFTP",               "status": "healthy",   "rows_today":  1842318, "last_sync": "2026-05-20T06:00:11Z", "lag_seconds":  600, "freshness": "hourly" },
-    { "id": "ofac-fincen",         "name": "OFAC + FinCEN watchlists",         "type": "HTTP feed",          "status": "healthy",   "rows_today":     4218, "last_sync": "2026-05-20T08:00:00Z", "lag_seconds":  840, "freshness": "hourly" },
-    { "id": "branch-tellerlog",    "name": "Branch teller logs",               "type": "Files (S3)",         "status": "healthy",   "rows_today":  184218, "last_sync": "2026-05-20T07:55:32Z", "lag_seconds": 1130, "freshness": "15 min" }
+    { "id": "fis-horizon",         "fivetran_id": "fis_horizon",         "name": "FIS Horizon (core banking)",      "type": "Database (Oracle CDC)", "status": "healthy",   "rows_today": 18420318, "last_sync": "2026-05-20T08:12:14Z", "lag_seconds":  142, "freshness": "near real-time" },
+    { "id": "sfdc-fsc",            "fivetran_id": "salesforce_fsc",      "name": "Salesforce Financial Services Cloud", "type": "API",            "status": "healthy",   "rows_today":   84218, "last_sync": "2026-05-20T08:10:02Z", "lag_seconds":  308, "freshness": "5 min" },
+    { "id": "ncino",               "fivetran_id": "ncino",               "name": "nCino — Commercial loan origination", "type": "API",            "status": "healthy",   "rows_today":   12814, "last_sync": "2026-05-20T08:09:48Z", "lag_seconds":  340, "freshness": "5 min" },
+    { "id": "plaid",               "fivetran_id": "plaid",               "name": "Plaid — Aggregated balances",      "type": "API",                "status": "healthy",   "rows_today":  642184, "last_sync": "2026-05-20T08:13:08Z", "lag_seconds":   88, "freshness": "real-time" },
+    { "id": "aml-vendor",          "fivetran_id": "aml_vendor",          "name": "AML Monitoring Vendor",            "type": "Database (SQL Server CDC)", "status": "degraded", "rows_today":  218400, "last_sync": "2026-05-20T07:42:18Z", "lag_seconds": 1928, "freshness": "32 min", "issue": "Vendor source query latency above 90s; throughput at 41% of normal." },
+    { "id": "visa-mc-merchant",    "fivetran_id": "visa_mc_merchant",    "name": "Visa / Mastercard merchant feeds", "type": "SFTP",               "status": "healthy",   "rows_today":  1842318, "last_sync": "2026-05-20T06:00:11Z", "lag_seconds":  600, "freshness": "hourly" },
+    { "id": "ofac-fincen",         "fivetran_id": "ofac_fincen",         "name": "OFAC + FinCEN watchlists",         "type": "HTTP feed",          "status": "healthy",   "rows_today":     4218, "last_sync": "2026-05-20T08:00:00Z", "lag_seconds":  840, "freshness": "hourly" },
+    { "id": "branch-tellerlog",    "fivetran_id": "branch_teller_log",   "name": "Branch teller logs",               "type": "Files (S3)",         "status": "healthy",   "rows_today":  184218, "last_sync": "2026-05-20T07:55:32Z", "lag_seconds": 1130, "freshness": "15 min" }
   ],
   "dbt_layers": [
     { "layer": "bronze", "models": 84,  "tests": 142, "last_run": "2026-05-20T08:00:00Z", "status": "passing" },

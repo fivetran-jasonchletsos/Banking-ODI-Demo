@@ -12,17 +12,17 @@ export default function CommercialPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Commercial bank, relationship view</div>
-        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[var(--ink-strong)]">
+        <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
           {data ? fmtInt(data.kpis.relationships) : '—'} commercial relationships, ranked by revenue
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          Relationship managers query <span className="layer-chip gold ml-1">gold.fct_commercial_relationship_revenue</span>{' '}
+          Relationship managers query the commercial-relationship-revenue gold mart
           for next-best-action prompts. Treasury services penetration is the leading indicator of
           relationship stickiness and three-year customer lifetime value.
         </p>
       </header>
 
-      <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3 stagger-children">
         <Kpi label="Credit exposure" value={data ? fmtCurrencyB(data.kpis.credit_exposure_b, 1) : '—'} />
         <Kpi label="Deposit balances" value={data ? fmtCurrencyB(data.kpis.deposit_balances_b, 1) : '—'} />
         <Kpi label="Treasury revenue, annualized" value={data ? fmtCurrencyM(data.kpis.treasury_revenue_m_annualized, 0) : '—'} />
@@ -30,7 +30,7 @@ export default function CommercialPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] border-b border-[var(--hairline)] pb-2 mb-4">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
           Top 20 commercial relationships
         </h2>
         <div className="research-card overflow-x-auto">
@@ -69,8 +69,8 @@ export default function CommercialPage() {
 function Kpi({ label, value }: { label: string; value: string }) {
   return (
     <div className="research-card px-5 py-4">
-      <div className="text-[10.5px] font-semibold text-[var(--ink-soft)] uppercase tracking-[0.08em]">{label}</div>
-      <div className="mt-1 font-serif text-2xl font-semibold leading-none tabular text-[var(--ink-strong)]">{value}</div>
+      <div className="eyebrow mb-1">{label}</div>
+      <div className="mt-1 font-serif text-2xl font-semibold leading-none tabular kpi-num text-[var(--ink-strong)]">{value}</div>
     </div>
   );
 }
