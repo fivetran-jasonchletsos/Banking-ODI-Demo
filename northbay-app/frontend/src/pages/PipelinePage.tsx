@@ -9,7 +9,11 @@ type Pipeline = {
   failure_simulator: { id: string; label: string; impact: string }[];
 };
 
-const FIVETRAN_BASE = 'https://fivetran.com/dashboard/connectors';
+// Fivetran dashboard URL format: /dashboard/connections/{schema_name}/settings
+// The {schema_name} is the connector's "Schema" identifier shown in the connector
+// settings page (e.g. weather_compromise, salesforce_sandbox).
+const FIVETRAN_BASE = 'https://fivetran.com/dashboard/connections';
+const FIVETRAN_TAIL = '/status';
 
 export default function PipelinePage() {
   const { data } = useJson<Pipeline>('pipeline');
@@ -68,7 +72,7 @@ export default function PipelinePage() {
                   <td>
                     {c.fivetran_id ? (
                       <a
-                        href={`${FIVETRAN_BASE}/${c.fivetran_id}`}
+                        href={`${FIVETRAN_BASE}/${c.fivetran_id}${FIVETRAN_TAIL}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-semibold text-[var(--ink-strong)] hover:text-[var(--navy-deep)] hover:underline decoration-[var(--gold)] decoration-2 underline-offset-2 inline-flex items-center gap-1.5"

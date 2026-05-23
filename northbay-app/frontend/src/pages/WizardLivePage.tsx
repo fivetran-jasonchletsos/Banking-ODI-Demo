@@ -352,7 +352,7 @@ export default function WizardLivePage() {
         {/* ── LEFT: Sub-agent narration ── */}
         <section
           className="research-card flex flex-col"
-          style={{ height: 'calc(100dvh - 380px)', minHeight: 340 }}
+          style={{ height: 'calc(100dvh - 440px)', minHeight: 300 }}
         >
           <header
             className="px-5 py-3 border-b flex items-center justify-between"
@@ -433,7 +433,7 @@ export default function WizardLivePage() {
         </section>
 
         {/* ── RIGHT: Live code panels ── */}
-        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 380px)', minHeight: 340 }}>
+        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 440px)', minHeight: 300 }}>
 
           {/* SQL panel */}
           <div className="research-card flex flex-col" style={{ flex: '1.7 1 0' }}>

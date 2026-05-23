@@ -1,6 +1,6 @@
 {
   "as_of": "2026-05-20T08:14:22Z",
-  "fivetran_dashboard_url": "https://fivetran.com/dashboard/connectors",
+  "fivetran_dashboard_url": "https://fivetran.com/dashboard/connections",
   "connectors": [
     { "id": "fis-horizon",         "fivetran_id": "fis_horizon",         "name": "FIS Horizon (core banking)",      "type": "Database (Oracle CDC)", "status": "healthy",   "rows_today": 18420318, "last_sync": "2026-05-20T08:12:14Z", "lag_seconds":  142, "freshness": "near real-time" },
     { "id": "sfdc-fsc",            "fivetran_id": "salesforce_fsc",      "name": "Salesforce Financial Services Cloud", "type": "API",            "status": "healthy",   "rows_today":   84218, "last_sync": "2026-05-20T08:10:02Z", "lag_seconds":  308, "freshness": "5 min" },
