@@ -1,0 +1,35 @@
+{
+  "company": "Pediment Bank",
+  "request_id": "BLD-2026-05-22-0003",
+  "requested_by": "Dana Reyes, Head of Fraud Analytics",
+  "requested_at": "2026-05-22T08:41:00-05:00",
+  "timezone_label": "Friday 08:41 CST",
+  "question": "Why did CNP fraud spike for tier-2 merchants in Texas last Tuesday?",
+  "metric_label": "CNP fraud by merchant tier and region, daily",
+  "metric_code": "gold.fct_cnp_fraud_by_merchant_tier_region_daily",
+  "target_schema": "gold",
+  "target_model": "fct_cnp_fraud_by_merchant_tier_region_daily",
+  "target_grain": "one row per (merchant_tier, region, transaction_date)",
+  "upstream_models": [
+    {
+      "model": "stg_card_transactions",
+      "layer": "staging",
+      "grain": "transaction_id",
+      "description": "Card transactions landed by Fivetran from Visa and Mastercard feeds. Includes channel (CNP/CP), amount, merchant_id, and fraud signals."
+    },
+    {
+      "model": "stg_fraud_signals",
+      "layer": "staging",
+      "grain": "transaction_id",
+      "description": "Fraud disposition from the AML monitoring vendor. Includes fraud_type, confirmed_fraud flag, and dispute_status."
+    },
+    {
+      "model": "dim_merchant",
+      "layer": "marts/dim",
+      "grain": "merchant_id",
+      "description": "Merchant master with tier classification (tier-1, tier-2, tier-3), MCC code, and billing_state from Visa/Mastercard reference data."
+    }
+  ],
+  "manual_time_days": "3 to 5 days",
+  "build_room_seconds": 91
+}

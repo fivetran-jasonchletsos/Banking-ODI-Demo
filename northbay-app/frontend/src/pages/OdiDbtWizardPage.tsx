@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Pillar {
   layer: string;
@@ -73,7 +74,16 @@ const PROPERTIES: Property[] = [
   },
 ];
 
+const CANNED_QUESTIONS = [
+  'Why did CNP fraud spike for tier-2 merchants in Texas last Tuesday?',
+  'Which counterparty clusters drove the most AML alerts in Q1, and how did amounts trend week-over-week?',
+  'Show loan delinquency early-warning signals by region and vintage for the last three origination cohorts.',
+];
+
 export default function OdiDbtWizardPage() {
+  const navigate = useNavigate();
+  const [question, setQuestion] = useState(CANNED_QUESTIONS[0]);
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-10 max-w-3xl">
@@ -170,6 +180,67 @@ export default function OdiDbtWizardPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ── Try the live build ── */}
+      <section className="mb-12 research-card p-6 border-l-4" style={{ borderLeftColor: 'var(--gold)' }}>
+        <div className="eyebrow mb-2">Try the live build</div>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-3">
+          Watch dbt-wizard author the model in real time
+        </h2>
+        <p className="text-sm text-[var(--ink-muted)] mb-5 max-w-2xl leading-relaxed">
+          Select a question below or write your own, then submit to watch Explorer, Summary,
+          Worker, and Verification play out — narration, SQL, YAML, and all tool calls — live.
+        </p>
+
+        <div className="flex flex-col gap-2 mb-4">
+          {CANNED_QUESTIONS.map((q) => (
+            <button
+              key={q}
+              type="button"
+              onClick={() => setQuestion(q)}
+              className="text-left rounded-sm px-4 py-3 text-sm border transition-colors"
+              style={{
+                background: question === q ? 'var(--gold-bg)' : 'var(--paper-deep)',
+                borderColor: question === q ? 'var(--gold)' : 'var(--hairline)',
+                color: question === q ? 'var(--gold-dim)' : 'var(--ink-muted)',
+                fontFamily: '"Crimson Pro", Georgia, serif',
+              }}
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+
+        <div className="mb-4">
+          <label className="eyebrow block mb-1.5">Or write your own question</label>
+          <textarea
+            rows={3}
+            value={question}
+            onChange={e => setQuestion(e.target.value)}
+            className="w-full rounded-sm px-3 py-2 text-sm border resize-none"
+            style={{
+              background: 'var(--card)',
+              borderColor: 'var(--hairline)',
+              color: 'var(--ink)',
+              fontFamily: '"Crimson Pro", Georgia, serif',
+              outline: 'none',
+            }}
+          />
+        </div>
+
+        <button
+          type="button"
+          disabled={!question.trim()}
+          onClick={() => navigate('/wizard-live', { state: { question } })}
+          className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm px-5 py-2.5 transition-opacity disabled:opacity-40"
+          style={{ background: 'var(--gold)', color: 'var(--navy-deep)' }}
+        >
+          Watch live build
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </button>
       </section>
 
       <section className="bg-[var(--navy-deep)] text-white rounded-sm p-8">

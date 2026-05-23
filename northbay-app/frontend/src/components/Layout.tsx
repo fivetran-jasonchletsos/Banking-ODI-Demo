@@ -9,6 +9,7 @@ const NAV_ITEMS: [string, string][] = [
   ['/aml', 'AML'],
   ['/commercial', 'Commercial'],
   ['/dbt-wizard', 'dbt-wizard'],
+  ['/wizard-live', 'Live build'],
   ['/architecture', 'Architecture'],
   ['/pipeline', 'Pipeline'],
   ['/policy', 'Policy'],
