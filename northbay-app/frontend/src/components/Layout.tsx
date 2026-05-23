@@ -8,8 +8,8 @@ const NAV_ITEMS: [string, string][] = [
   ['/fraud', 'Fraud'],
   ['/aml', 'AML'],
   ['/commercial', 'Commercial'],
-  ['/dbt-wizard', 'dbt-wizard'],
-  ['/wizard-live', 'Live build'],
+  ['/dbt-wizard', 'Wizard'],
+  ['/wizard-live', 'Live'],
   ['/architecture', 'Architecture'],
   ['/pipeline', 'Pipeline'],
   ['/policy', 'Policy'],
@@ -63,8 +63,8 @@ export default function Layout() {
                   to={to}
                   end={to === '/'}
                   className={({ isActive }) =>
-                    `relative px-2.5 py-2 font-semibold tracking-wide transition-colors text-[11.5px] uppercase font-mono ${
-                      isActive ? 'text-[var(--gold-bright)]' : 'text-white/70 hover:text-white'
+                    `relative px-2 py-2 font-semibold tracking-wide transition-colors text-[12px] uppercase font-mono whitespace-nowrap ${
+                      isActive ? 'text-[var(--gold-bright)]' : 'text-white/75 hover:text-white'
                     }`
                   }
                 >

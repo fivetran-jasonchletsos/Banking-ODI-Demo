@@ -190,7 +190,7 @@ export default function WizardLivePage() {
 
       {/* ── Control bar ── */}
       <div
-        className="mb-4 p-3 flex flex-wrap items-center justify-between gap-3 sticky top-20 z-20"
+        className="mb-3 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 sticky top-20 z-20"
         style={{
           background: 'var(--card)',
           border: '1px solid var(--hairline)',
@@ -202,13 +202,13 @@ export default function WizardLivePage() {
         <div className="flex items-center gap-3 flex-wrap">
           <span
             className="status-pill gold"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: 12, padding: '4px 10px', fontWeight: 700 }}
           >
             <span
               style={{
                 display: 'inline-block',
-                width: 7,
-                height: 7,
+                width: 8,
+                height: 8,
                 borderRadius: 999,
                 background: 'var(--gold)',
                 animation: complete ? 'none' : 'signal-pulse 1.8s ease-in-out infinite',
@@ -216,7 +216,7 @@ export default function WizardLivePage() {
             />
             {complete ? 'Build Complete' : 'Build Active'}
           </span>
-          <span className="eyebrow">{scenario.request_id}</span>
+          <span className="eyebrow" style={{ fontSize: 12 }}>{scenario.request_id}</span>
           <span className="font-mono" style={{ color: 'var(--ink-muted)', fontSize: 13 }}>
             Step{' '}
             <span style={{ color: 'var(--gold-dim)', fontWeight: 700 }}>{currentStep}/{totalSteps}</span>
@@ -640,8 +640,8 @@ export default function WizardLivePage() {
         }
         .wizard-chat-bubble {
           font-family: "JetBrains Mono", monospace;
-          font-size: 12.5px;
-          line-height: 1.65;
+          font-size: 14px;
+          line-height: 1.6;
           white-space: pre-wrap;
           word-break: break-word;
           color: var(--ink);
