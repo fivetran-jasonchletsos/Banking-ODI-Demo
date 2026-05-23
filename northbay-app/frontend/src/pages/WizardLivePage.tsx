@@ -277,67 +277,71 @@ export default function WizardLivePage() {
         </div>
       </div>
 
-      {/* ── Question banner ── */}
+      {/* ── Question + step rail (combined row) ── */}
       <div
-        className="mb-3 px-5 py-3.5 research-card border-l-4"
+        className="mb-3 px-4 py-2.5 research-card border-l-4 flex items-center gap-5 flex-wrap"
         style={{ borderLeftColor: 'var(--gold)' }}
       >
-        <div className="eyebrow mb-1" style={{ fontSize: 11 }}>Fraud desk question · {scenario.timezone_label}</div>
-        <p className="font-serif font-medium text-[var(--ink-strong)] leading-snug" style={{ fontSize: 20 }}>
-          "{displayQuestion}"
-        </p>
-        <div className="mt-1.5 font-mono text-[var(--ink-muted)]" style={{ fontSize: 12 }}>
-          Requested by {scenario.requested_by}
-          <span className="mx-2 text-[var(--ink-soft)]">·</span>
-          Target model: <span className="text-[var(--gold-dim)]">{scenario.metric_code}</span>
+        <div className="min-w-0 flex-shrink" style={{ flex: '1 1 460px' }}>
+          <div className="eyebrow" style={{ fontSize: 10, marginBottom: 2 }}>
+            Fraud desk · {scenario.timezone_label} · {scenario.requested_by}
+          </div>
+          <p
+            className="font-serif font-medium text-[var(--ink-strong)] leading-snug truncate"
+            style={{ fontSize: 16 }}
+            title={displayQuestion}
+          >
+            "{displayQuestion}"
+          </p>
+        </div>
+        <div className="font-mono text-[var(--ink-muted)] shrink-0" style={{ fontSize: 11 }}>
+          Target: <span className="text-[var(--gold-dim)]">{scenario.metric_code}</span>
         </div>
       </div>
 
-      {/* ── Step rail ── */}
-      <div className="mb-3 research-card p-2.5">
-        <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }}>
-          {STEP_DEFS.map((s, idx) => {
-            const num   = idx + 1;
-            const done  = currentStep > num || (currentStep === num && complete);
-            const active = currentStep === num && !complete;
-            const accentColor = active
-              ? 'var(--gold)'
-              : done
-              ? 'var(--bull)'
-              : 'var(--hairline)';
-            return (
+      {/* ── Step rail (compact single-line) ── */}
+      <div className="mb-3 grid gap-1.5" style={{ gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }}>
+        {STEP_DEFS.map((s, idx) => {
+          const num   = idx + 1;
+          const done  = currentStep > num || (currentStep === num && complete);
+          const active = currentStep === num && !complete;
+          const accentColor = active
+            ? 'var(--gold)'
+            : done
+            ? 'var(--bull)'
+            : 'var(--hairline)';
+          return (
+            <div
+              key={s.label}
+              className="research-card px-2.5 py-2 flex flex-col gap-0.5"
+              style={{
+                borderLeft: `4px solid ${accentColor}`,
+                background: active
+                  ? 'var(--gold-bg)'
+                  : done
+                  ? 'var(--bull-bg)'
+                  : 'var(--paper-deep)',
+              }}
+              title={`${s.who} · ${s.tools}`}
+            >
               <div
-                key={s.label}
-                className="research-card px-3 py-2"
+                className="font-mono font-bold flex items-center gap-1.5"
                 style={{
-                  borderLeft: `4px solid ${accentColor}`,
-                  background: active
-                    ? 'var(--gold-bg)'
-                    : done
-                    ? 'var(--bull-bg)'
-                    : 'var(--paper-deep)',
+                  fontSize: 10,
+                  letterSpacing: '0.04em',
+                  color: active ? 'var(--gold-dim)' : done ? 'var(--bull)' : 'var(--ink-soft)',
                 }}
               >
-                <div
-                  className="font-mono font-bold"
-                  style={{
-                    fontSize: 11,
-                    letterSpacing: '0.04em',
-                    color: active ? 'var(--gold-dim)' : done ? 'var(--bull)' : 'var(--ink-soft)',
-                  }}
-                >
-                  STEP {String(num).padStart(2, '0')} · {done ? 'DONE' : active ? 'NOW' : 'WAITING'}
-                </div>
-                <div className="font-semibold mt-0.5 text-[var(--ink-strong)]" style={{ fontSize: 14, lineHeight: 1.25 }}>
-                  {s.label}
-                </div>
-                <div className="font-mono text-[var(--ink-soft)] mt-0.5" style={{ fontSize: 11 }}>
-                  {s.who} · {s.tools}
-                </div>
+                <span>STEP {String(num).padStart(2, '0')}</span>
+                <span style={{ opacity: 0.6 }}>·</span>
+                <span>{done ? 'DONE' : active ? 'NOW' : 'WAIT'}</span>
               </div>
-            );
-          })}
-        </div>
+              <div className="font-semibold text-[var(--ink-strong)] truncate" style={{ fontSize: 13, lineHeight: 1.15 }}>
+                {s.label}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <div
@@ -348,7 +352,7 @@ export default function WizardLivePage() {
         {/* ── LEFT: Sub-agent narration ── */}
         <section
           className="research-card flex flex-col"
-          style={{ height: 'calc(100dvh - 360px)', minHeight: 520 }}
+          style={{ height: 'calc(100dvh - 330px)', minHeight: 380 }}
         >
           <header
             className="px-5 py-3 border-b flex items-center justify-between"
@@ -429,7 +433,7 @@ export default function WizardLivePage() {
         </section>
 
         {/* ── RIGHT: Live code panels ── */}
-        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 360px)', minHeight: 520 }}>
+        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 330px)', minHeight: 380 }}>
 
           {/* SQL panel */}
           <div className="research-card flex flex-col" style={{ flex: '1.7 1 0' }}>
@@ -566,37 +570,32 @@ export default function WizardLivePage() {
         </section>
       </div>
 
-      {/* ── Full-width tool side effects ticker ── */}
-      <div className="research-card mt-3 px-4 py-3">
-        <div className="flex items-baseline justify-between mb-2">
-          <div className="eyebrow" style={{ fontSize: 11 }}>dbt-wizard tool calls · live</div>
-          <div className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 11 }}>
-            {state.sideEffects.length} of last 8
-          </div>
-        </div>
+      {/* ── Full-width tool side effects ticker (compact) ── */}
+      <div className="research-card mt-2 px-3 py-2 flex items-center gap-3">
+        <div className="eyebrow shrink-0" style={{ fontSize: 10 }}>tool calls</div>
         {state.sideEffects.length === 0 ? (
-          <div className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 12 }}>Awaiting first tool call...</div>
+          <div className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 11.5 }}>Awaiting first tool call...</div>
         ) : (
-          <ul className="grid gap-x-6 gap-y-1.5" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
-            {state.sideEffects.map((s, i) => (
+          <ul className="flex items-center gap-x-4 gap-y-1 flex-wrap min-w-0">
+            {state.sideEffects.slice(0, 4).map((s, i) => (
               <li
                 key={`${s}-${i}`}
-                className="flex items-start gap-2 font-mono text-[var(--ink)]"
-                style={{ fontSize: 12.5, lineHeight: 1.45 }}
+                className="flex items-center gap-1.5 font-mono text-[var(--ink)] truncate"
+                style={{ fontSize: 11.5, maxWidth: '32ch' }}
+                title={s}
               >
                 <span
                   style={{
                     display: 'inline-block',
-                    width: 8,
-                    height: 8,
+                    width: 7,
+                    height: 7,
                     borderRadius: 999,
-                    marginTop: 5,
                     flexShrink: 0,
                     background: i === 0 ? 'var(--gold)' : 'var(--ink-soft)',
                     animation: i === 0 ? 'signal-pulse 1.8s ease-in-out infinite' : 'none',
                   }}
                 />
-                <span>{s}</span>
+                <span className="truncate">{s}</span>
               </li>
             ))}
           </ul>
