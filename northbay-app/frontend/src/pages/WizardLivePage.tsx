@@ -352,7 +352,7 @@ export default function WizardLivePage() {
         {/* ── LEFT: Sub-agent narration ── */}
         <section
           className="research-card flex flex-col"
-          style={{ height: 'calc(100dvh - 330px)', minHeight: 380 }}
+          style={{ height: 'calc(100dvh - 380px)', minHeight: 340 }}
         >
           <header
             className="px-5 py-3 border-b flex items-center justify-between"
@@ -383,10 +383,10 @@ export default function WizardLivePage() {
               return (
                 <div
                   key={idx}
+                  data-wizard-card="narr"
                   style={{
                     borderLeft: `3px solid ${color}`,
                     paddingLeft: 12,
-                    background: 'var(--card)',
                     borderTopRightRadius: 4,
                     borderBottomRightRadius: 4,
                     marginBottom: 10,
@@ -433,7 +433,7 @@ export default function WizardLivePage() {
         </section>
 
         {/* ── RIGHT: Live code panels ── */}
-        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 330px)', minHeight: 380 }}>
+        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 380px)', minHeight: 340 }}>
 
           {/* SQL panel */}
           <div className="research-card flex flex-col" style={{ flex: '1.7 1 0' }}>
@@ -668,8 +668,8 @@ export default function WizardLivePage() {
           --t-line:     #1f3559;
           --t-line-soft:#15294a;
           --t-text:     #e6edf8;
-          --t-text-dim: #94a8c4;
-          --t-text-soft:#5a7099;
+          --t-text-dim: #b6c6dd;
+          --t-text-soft:#7a90b3;
           --t-accent:   #f5b942;
           --t-accent-2: #79b8ff;
           --t-ok:       #4ade80;
@@ -677,50 +677,44 @@ export default function WizardLivePage() {
           background: var(--t-bg);
           color: var(--t-text);
           font-family: "JetBrains Mono", ui-monospace, monospace;
-          border-radius: 12px;
+          border-radius: 10px;
           border: 1px solid var(--t-line);
-          padding-top: 36px;
+          padding-top: 28px;
           position: relative;
-          margin-top: 8px;
-          margin-bottom: 24px;
-          box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.55);
+          margin-top: 4px;
+          margin-bottom: 12px;
+          box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.55);
         }
         /* Window chrome — traffic lights + filename */
         .wizard-terminal::before {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0;
-          height: 36px;
+          height: 28px;
           background: linear-gradient(180deg, #0d1c33, #0a1424);
           border-bottom: 1px solid var(--t-line);
-          border-top-left-radius: 11px;
-          border-top-right-radius: 11px;
+          border-top-left-radius: 9px;
+          border-top-right-radius: 9px;
         }
         .wizard-terminal::after {
-          content: '● ● ●  pediment-bank/wizard-live · dbt-wizard';
+          content: 'pediment-bank/wizard-live · dbt-wizard';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          height: 36px;
-          padding: 0 16px;
+          height: 28px;
           display: flex;
           align-items: center;
-          color: #ff5f57;
-          letter-spacing: 4px;
-          font-size: 13px;
+          font-size: 11.5px;
           font-family: "JetBrains Mono", monospace;
-          pointer-events: none;
-        }
-        /* The traffic-light dots use a flat-color text shadow trick: */
-        .wizard-terminal::after {
           background:
-            radial-gradient(circle at 16px 18px, #ff5f57 5.5px, transparent 6.5px),
-            radial-gradient(circle at 36px 18px, #febc2e 5.5px, transparent 6.5px),
-            radial-gradient(circle at 56px 18px, #28c940 5.5px, transparent 6.5px);
+            radial-gradient(circle at 14px 14px, #ff5f57 5px, transparent 5.5px),
+            radial-gradient(circle at 30px 14px, #febc2e 5px, transparent 5.5px),
+            radial-gradient(circle at 46px 14px, #28c940 5px, transparent 5.5px);
           color: var(--t-text-dim);
-          text-indent: 80px;
-          letter-spacing: 0;
+          text-indent: 64px;
+          letter-spacing: 0.02em;
+          pointer-events: none;
         }
         .wizard-terminal > * { position: relative; z-index: 1; }
 
@@ -741,9 +735,16 @@ export default function WizardLivePage() {
           background: var(--t-bg) !important;
         }
         /* Narration chat cards */
-        .wizard-terminal .research-card div[style*="border: 1px solid var(--hairline-soft)"] {
+        .wizard-terminal [data-wizard-card="narr"] {
           background: var(--t-elev) !important;
           border-color: var(--t-line-soft) !important;
+          color: var(--t-text) !important;
+        }
+        .wizard-terminal [data-wizard-card="narr"] .wizard-chat-bubble {
+          color: var(--t-text) !important;
+        }
+        .wizard-terminal [data-wizard-card="narr"] .font-mono {
+          color: var(--t-text-dim) !important;
         }
         /* Generic text recolor */
         .wizard-terminal h1,
