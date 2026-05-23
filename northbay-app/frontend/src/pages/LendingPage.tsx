@@ -1,3 +1,14 @@
+import {
+  Bar,
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  Line,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { useJson, fmtCurrencyB, fmtPct } from '../components/data';
 
 type Lending = {
@@ -84,29 +95,24 @@ export default function LendingPage() {
           </div>
         </div>
         <div>
-          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Provision for credit losses</h2>
-          <div className="research-card overflow-hidden">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Quarter</th>
-                  <th className="num">Provision</th>
-                  <th className="num">NCO (bps)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(data?.provision_for_credit_losses ?? []).map((p, i) => {
-                  const nco = data?.nco_trend[i];
-                  return (
-                    <tr key={p.quarter}>
-                      <td className="font-semibold text-[var(--ink-strong)]">{p.quarter}</td>
-                      <td className="num">${p.provision_m}M</td>
-                      <td className="num">{nco?.nco_bps ?? '—'}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className="flex items-baseline justify-between pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
+            <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)]">Provision for credit losses</h2>
+            <span className="ticker text-[10px] text-[var(--ink-soft)] uppercase tracking-wider">
+              NCO bps · Provision $M
+            </span>
+          </div>
+          <div className="research-card p-4">
+            <NcoProvisionChart
+              data={(data?.provision_for_credit_losses ?? []).map((p, i) => ({
+                quarter: p.quarter,
+                provision_m: p.provision_m,
+                nco_bps: data?.nco_trend[i]?.nco_bps ?? 0,
+              }))}
+            />
+            <p className="mt-3 text-[11px] text-[var(--ink-muted)] leading-relaxed">
+              Provisions track net charge-offs with a single-quarter lead. CECL bumps when
+              NCOs accelerate; the chart shows whether the reserve build is keeping pace.
+            </p>
           </div>
         </div>
       </section>
@@ -126,6 +132,83 @@ export default function LendingPage() {
           ))}
         </div>
       </section>
+    </div>
+  );
+}
+
+type NcoProvisionRow = { quarter: string; provision_m: number; nco_bps: number };
+
+function NcoProvisionChart({ data }: { data: NcoProvisionRow[] }) {
+  if (data.length === 0) {
+    return <div className="h-[260px] flex items-center justify-center text-[var(--ink-soft)] text-sm">Loading...</div>;
+  }
+  return (
+    <div style={{ width: '100%', height: 260 }}>
+      <ResponsiveContainer>
+        <ComposedChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
+          <CartesianGrid stroke="var(--hairline-soft)" vertical={false} />
+          <XAxis
+            dataKey="quarter"
+            tick={{ fill: 'var(--ink-soft)', fontSize: 11, fontFamily: 'inherit' }}
+            tickLine={false}
+            axisLine={{ stroke: 'var(--hairline)' }}
+          />
+          <YAxis
+            yAxisId="left"
+            tick={{ fill: 'var(--ink-soft)', fontSize: 11 }}
+            tickLine={false}
+            axisLine={{ stroke: 'var(--hairline)' }}
+            label={{ value: 'Provision ($M)', angle: -90, position: 'insideLeft', offset: 14, style: { fontSize: 10, fill: 'var(--ink-soft)', textAnchor: 'middle' } }}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            tick={{ fill: 'var(--ink-soft)', fontSize: 11 }}
+            tickLine={false}
+            axisLine={{ stroke: 'var(--hairline)' }}
+            label={{ value: 'NCO (bps)', angle: 90, position: 'insideRight', offset: 12, style: { fontSize: 10, fill: 'var(--ink-soft)', textAnchor: 'middle' } }}
+          />
+          <Tooltip
+            cursor={{ fill: 'rgba(212,175,55,0.06)' }}
+            contentStyle={{
+              background: 'var(--paper)',
+              border: '1px solid var(--hairline)',
+              borderRadius: 2,
+              fontSize: 12,
+              padding: '8px 10px',
+            }}
+            labelStyle={{ color: 'var(--ink-strong)', fontWeight: 600 }}
+            formatter={(value, name) => {
+              const v = typeof value === 'number' ? value : Number(value ?? 0);
+              const n = String(name ?? '');
+              if (n === 'Provision') return [`$${v}M`, n];
+              return [`${v} bps`, n];
+            }}
+          />
+          <Legend
+            wrapperStyle={{ fontSize: 11, paddingTop: 4 }}
+            iconType="square"
+          />
+          <Bar
+            yAxisId="left"
+            dataKey="provision_m"
+            name="Provision"
+            fill="var(--navy-deep)"
+            radius={[2, 2, 0, 0]}
+            barSize={22}
+          />
+          <Line
+            yAxisId="right"
+            type="monotone"
+            dataKey="nco_bps"
+            name="NCO (bps)"
+            stroke="var(--gold)"
+            strokeWidth={2.25}
+            dot={{ r: 3, fill: 'var(--gold)', strokeWidth: 0 }}
+            activeDot={{ r: 5 }}
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
     </div>
   );
 }
