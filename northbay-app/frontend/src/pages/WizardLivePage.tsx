@@ -186,7 +186,7 @@ export default function WizardLivePage() {
   const displayQuestion = questionFromNav ?? scenario.question;
 
   return (
-    <div className="mx-auto max-w-[1480px] px-4 py-6 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-[1640px] px-4 py-4 sm:px-6 lg:px-8">
 
       {/* ── Control bar ── */}
       <div
@@ -328,7 +328,7 @@ export default function WizardLivePage() {
         {/* ── LEFT: Sub-agent narration ── */}
         <section
           className="research-card flex flex-col"
-          style={{ height: 'calc(100dvh - 390px)', minHeight: 480 }}
+          style={{ height: 'calc(100dvh - 360px)', minHeight: 520 }}
         >
           <header
             className="px-5 py-3 border-b flex items-center justify-between"
@@ -409,7 +409,7 @@ export default function WizardLivePage() {
         </section>
 
         {/* ── RIGHT: Live code panels ── */}
-        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 390px)', minHeight: 480 }}>
+        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 360px)', minHeight: 520 }}>
 
           {/* SQL panel */}
           <div className="research-card flex flex-col" style={{ flex: '1.7 1 0' }}>
@@ -592,34 +592,36 @@ export default function WizardLivePage() {
             background: 'var(--bull-bg)',
           }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 items-center">
             <div className="lg:col-span-1">
-              <div className="status-pill bull mb-2" style={{ display: 'inline-flex' }}>
+              <div className="status-pill bull mb-2" style={{ display: 'inline-flex', fontSize: 12, padding: '4px 10px', fontWeight: 700 }}>
                 Build Complete
               </div>
-              <div className="font-serif text-3xl font-semibold text-[var(--bull)]">
+              <div className="font-serif font-semibold text-[var(--bull)]" style={{ fontSize: 44, lineHeight: 1 }}>
                 {scenario.build_room_seconds}s
               </div>
-              <div className="font-mono text-xs mt-1 text-[var(--ink-muted)]">
+              <div className="font-mono mt-1.5 text-[var(--ink-muted)]" style={{ fontSize: 12 }}>
                 question to materialized model
               </div>
             </div>
             <div className="lg:col-span-2">
-              <div className="eyebrow mb-1">New gold asset</div>
-              <div className="font-mono text-sm font-semibold text-[var(--ink-strong)]">
+              <div className="eyebrow mb-1" style={{ fontSize: 11 }}>New gold asset</div>
+              <div className="font-mono font-semibold text-[var(--ink-strong)]" style={{ fontSize: 16 }}>
                 {scenario.metric_code}
               </div>
-              <div className="font-mono text-xs mt-1 text-[var(--ink-muted)]">
+              <div className="font-mono mt-1.5 text-[var(--ink-muted)]" style={{ fontSize: 12.5, lineHeight: 1.5 }}>
                 312 rows · 7 column tests · 1 combination uniqueness test · schema contract enforced · lineage updated
               </div>
             </div>
             <div className="lg:col-span-1 flex justify-start lg:justify-end">
               <Link
                 to="/fraud"
-                className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm px-5 py-3 transition-colors"
+                className="inline-flex items-center gap-2 rounded-sm font-semibold transition-colors"
                 style={{
                   background: 'var(--bull)',
                   color: '#fff',
+                  padding: '12px 22px',
+                  fontSize: 14,
                 }}
               >
                 Back to Fraud desk

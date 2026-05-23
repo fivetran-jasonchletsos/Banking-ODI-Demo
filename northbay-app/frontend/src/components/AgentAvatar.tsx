@@ -24,7 +24,7 @@ export default function AgentAvatar({ agent, systemColor = '#0073EA', active = f
         height: size,
         width: size,
         minWidth: size,
-        fontSize: Math.max(10, size * 0.32),
+        fontSize: Math.max(11, size * 0.36),
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
