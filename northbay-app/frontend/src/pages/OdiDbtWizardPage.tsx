@@ -124,16 +124,16 @@ export default function OdiDbtWizardPage() {
           {PILLARS.map((p, i) => (
             <div key={p.vendor} className="research-card relative flex flex-col" style={{ minHeight: '420px', borderTop: `3px solid ${p.accent}` }}>
               <div className="p-5 flex-1 flex flex-col">
-                <div className="text-[10px] font-mono uppercase tracking-wider mb-2" style={{ color: 'var(--ink-soft)' }}>
+                <div className="text-[11px] font-mono uppercase tracking-wider mb-2" style={{ color: 'var(--ink-soft)' }}>
                   0{i + 1} · {p.tag}
                 </div>
                 <div className="eyebrow mb-1" style={{ color: 'var(--ink-muted)' }}>{p.layer}</div>
                 <div className="font-serif text-xl font-semibold mb-4" style={{ color: p.accent }}>{p.vendor}</div>
 
-                <div className="text-[10px] font-mono uppercase tracking-wider mb-1" style={{ color: 'var(--ink-soft)' }}>What it does</div>
+                <div className="text-[11px] font-mono uppercase tracking-wider mb-1" style={{ color: 'var(--ink-soft)' }}>What it does</div>
                 <p className="text-xs leading-relaxed mb-4" style={{ color: 'var(--ink)' }}>{p.what}</p>
 
-                <div className="text-[10px] font-mono uppercase tracking-wider mb-1" style={{ color: 'var(--ink-soft)' }}>At Pediment Bank</div>
+                <div className="text-[11px] font-mono uppercase tracking-wider mb-1" style={{ color: 'var(--ink-soft)' }}>At Pediment Bank</div>
                 <p className="text-xs leading-relaxed" style={{ color: 'var(--ink-muted)' }}>{p.inBuild}</p>
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function OdiDbtWizardPage() {
             <div key={a.num} className="research-card p-4" style={{ borderTop: '3px solid var(--gold-dim)' }}>
               <div className="font-mono text-xs text-[var(--ink-soft)] mb-1">{a.num}</div>
               <div className="font-serif text-lg font-semibold text-[var(--ink-strong)] mb-1">{a.name}</div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--gold-dim)] mb-2">{a.tools}</div>
+              <div className="text-[11px] font-mono uppercase tracking-wider text-[var(--gold-dim)] mb-2">{a.tools}</div>
               <p className="text-xs text-[var(--ink-muted)] leading-relaxed">{a.job}</p>
             </div>
           ))}
