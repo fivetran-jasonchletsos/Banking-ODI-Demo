@@ -217,7 +217,7 @@ export default function WizardLivePage() {
             {complete ? 'Build Complete' : 'Build Active'}
           </span>
           <span className="eyebrow">{scenario.request_id}</span>
-          <span className="font-mono text-xs" style={{ color: 'var(--ink-muted)' }}>
+          <span className="font-mono" style={{ color: 'var(--ink-muted)', fontSize: 13 }}>
             Step{' '}
             <span style={{ color: 'var(--gold-dim)', fontWeight: 700 }}>{currentStep}/{totalSteps}</span>
             <span className="mx-2" style={{ color: 'var(--ink-soft)' }}>·</span>
@@ -226,31 +226,31 @@ export default function WizardLivePage() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            className="inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-semibold border transition-colors"
-            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink-muted)' }}
+            className="inline-flex items-center gap-1.5 rounded-sm font-semibold border transition-colors"
+            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink)', padding: '7px 14px', fontSize: 13 }}
             onClick={() => setPlaying(p => !p)}
             disabled={complete}
           >
             {playing ? 'Pause' : 'Play'}
           </button>
           <button
-            className="inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-semibold border transition-colors"
-            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink-muted)' }}
+            className="inline-flex items-center gap-1.5 rounded-sm font-semibold border transition-colors"
+            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink)', padding: '7px 14px', fontSize: 13 }}
             onClick={cycleSpeed}
           >
             {speed}x
           </button>
           <button
-            className="inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-semibold border transition-colors"
-            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink-muted)' }}
+            className="inline-flex items-center gap-1.5 rounded-sm font-semibold border transition-colors"
+            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink)', padding: '7px 14px', fontSize: 13 }}
             onClick={reset}
           >
             Restart
           </button>
           <Link
             to="/dbt-wizard"
-            className="inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-semibold border transition-colors"
-            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink-muted)' }}
+            className="inline-flex items-center gap-1.5 rounded-sm font-semibold border transition-colors"
+            style={{ background: 'var(--paper-deep)', borderColor: 'var(--hairline)', color: 'var(--ink)', padding: '7px 14px', fontSize: 13 }}
           >
             Back
           </Link>
@@ -259,14 +259,14 @@ export default function WizardLivePage() {
 
       {/* ── Question banner ── */}
       <div
-        className="mb-4 p-4 research-card border-l-4"
+        className="mb-3 px-5 py-3.5 research-card border-l-4"
         style={{ borderLeftColor: 'var(--gold)' }}
       >
-        <div className="eyebrow mb-1">Fraud desk question · {scenario.timezone_label}</div>
-        <p className="font-serif text-lg font-medium text-[var(--ink-strong)] leading-snug">
+        <div className="eyebrow mb-1" style={{ fontSize: 11 }}>Fraud desk question · {scenario.timezone_label}</div>
+        <p className="font-serif font-medium text-[var(--ink-strong)] leading-snug" style={{ fontSize: 20 }}>
           "{displayQuestion}"
         </p>
-        <div className="mt-1 font-mono text-xs text-[var(--ink-muted)]">
+        <div className="mt-1.5 font-mono text-[var(--ink-muted)]" style={{ fontSize: 12 }}>
           Requested by {scenario.requested_by}
           <span className="mx-2 text-[var(--ink-soft)]">·</span>
           Target model: <span className="text-[var(--gold-dim)]">{scenario.metric_code}</span>
@@ -274,8 +274,8 @@ export default function WizardLivePage() {
       </div>
 
       {/* ── Step rail ── */}
-      <div className="mb-4 research-card p-3">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+      <div className="mb-3 research-card p-2.5">
+        <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }}>
           {STEP_DEFS.map((s, idx) => {
             const num   = idx + 1;
             const done  = currentStep > num || (currentStep === num && complete);
@@ -288,9 +288,9 @@ export default function WizardLivePage() {
             return (
               <div
                 key={s.label}
-                className="research-card p-2.5"
+                className="research-card px-3 py-2"
                 style={{
-                  borderLeft: `3px solid ${accentColor}`,
+                  borderLeft: `4px solid ${accentColor}`,
                   background: active
                     ? 'var(--gold-bg)'
                     : done
@@ -299,15 +299,19 @@ export default function WizardLivePage() {
                 }}
               >
                 <div
-                  className="font-mono text-[10px]"
+                  className="font-mono font-bold"
                   style={{
+                    fontSize: 11,
+                    letterSpacing: '0.04em',
                     color: active ? 'var(--gold-dim)' : done ? 'var(--bull)' : 'var(--ink-soft)',
                   }}
                 >
                   STEP {String(num).padStart(2, '0')} · {done ? 'DONE' : active ? 'NOW' : 'WAITING'}
                 </div>
-                <div className="font-semibold text-sm mt-0.5 text-[var(--ink-strong)]">{s.label}</div>
-                <div className="font-mono text-[10px] text-[var(--ink-soft)]">
+                <div className="font-semibold mt-0.5 text-[var(--ink-strong)]" style={{ fontSize: 14, lineHeight: 1.25 }}>
+                  {s.label}
+                </div>
+                <div className="font-mono text-[var(--ink-soft)] mt-0.5" style={{ fontSize: 11 }}>
                   {s.who} · {s.tools}
                 </div>
               </div>
@@ -316,34 +320,37 @@ export default function WizardLivePage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.25fr)' }}
+      >
 
         {/* ── LEFT: Sub-agent narration ── */}
         <section
-          className="lg:col-span-5 research-card"
-          style={{ minHeight: 600 }}
+          className="research-card flex flex-col"
+          style={{ height: 'calc(100dvh - 390px)', minHeight: 480 }}
         >
           <header
             className="px-5 py-3 border-b flex items-center justify-between"
             style={{ borderColor: 'var(--hairline)' }}
           >
             <div>
-              <div className="eyebrow">Sub-agent narration</div>
-              <div className="font-mono text-xs mt-0.5 text-[var(--ink-muted)]">
+              <div className="eyebrow" style={{ fontSize: 11 }}>Sub-agent narration</div>
+              <div className="font-mono mt-0.5 text-[var(--ink-muted)]" style={{ fontSize: 12 }}>
                 {scenario.company} · dbt-wizard live build
               </div>
             </div>
             <div className="flex items-center gap-2">
               {agents.map(a => (
-                <AgentAvatar key={a.id} agent={a} active={activeAgentId === a.id} size={32} />
+                <AgentAvatar key={a.id} agent={a} active={activeAgentId === a.id} size={36} />
               ))}
             </div>
           </header>
 
           <div
             ref={narrPanelRef}
-            className="px-5 py-4 overflow-y-auto"
-            style={{ height: 'clamp(360px, 60vh, 640px)', background: 'var(--paper)', overscrollBehavior: 'contain' }}
+            className="px-5 py-4 overflow-y-auto flex-1"
+            style={{ background: 'var(--paper)', overscrollBehavior: 'contain', fontSize: 14, lineHeight: 1.55 }}
           >
             {visibleNarr.map((m, idx) => {
               const a     = agentById[m.e.from];
@@ -364,31 +371,31 @@ export default function WizardLivePage() {
                     borderLeftWidth: 3,
                   }}
                 >
-                  <div style={{ display: 'flex', gap: 10, padding: '10px 12px 10px 0' }}>
+                  <div style={{ display: 'flex', gap: 12, padding: '12px 14px 12px 0' }}>
                     <div style={{ paddingTop: 2, flexShrink: 0 }}>
-                      <AgentAvatar agent={a} active={isTyping} size={34} />
+                      <AgentAvatar agent={a} active={isTyping} size={40} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <div className="flex items-center gap-2 flex-wrap mb-1.5">
                         <span
-                          className="font-mono text-xs font-semibold"
-                          style={{ color }}
+                          className="font-mono font-semibold"
+                          style={{ color, fontSize: 13, letterSpacing: '0.02em' }}
                         >
                           {a?.name ?? m.e.from}
                         </span>
                         <span
                           className="status-pill gold"
-                          style={{ fontSize: 9, padding: '1px 5px' }}
+                          style={{ fontSize: 10, padding: '2px 7px', fontWeight: 700 }}
                         >
                           STEP {m.e.step}
                         </span>
-                        <span className="font-mono text-[10px] text-[var(--ink-soft)]">
+                        <span className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 11 }}>
                           {m.e.step_label}
                         </span>
                       </div>
                       <div
                         className={isTyping ? 'wizard-chat-bubble wizard-chat-cursor' : 'wizard-chat-bubble'}
-                        style={{ color: 'var(--ink)' }}
+                        style={{ color: 'var(--ink)', fontSize: 14.5, lineHeight: 1.55 }}
                       >
                         {m.body}
                       </div>
@@ -402,16 +409,16 @@ export default function WizardLivePage() {
         </section>
 
         {/* ── RIGHT: Live code panels ── */}
-        <section className="lg:col-span-7 space-y-4">
+        <section className="flex flex-col gap-3" style={{ height: 'calc(100dvh - 390px)', minHeight: 480 }}>
 
           {/* SQL panel */}
-          <div className="research-card">
+          <div className="research-card flex flex-col" style={{ flex: '1.7 1 0' }}>
             <header
               className="px-5 py-3 border-b flex items-center justify-between"
               style={{ borderColor: 'var(--hairline)' }}
             >
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="eyebrow">
+              <div className="flex items-center gap-3 flex-wrap min-w-0">
+                <div className="eyebrow font-mono" style={{ fontSize: 11, letterSpacing: '0.02em' }}>
                   models/gold/fct_cnp_fraud_by_merchant_tier_region_daily.sql
                 </div>
                 <span
@@ -420,22 +427,26 @@ export default function WizardLivePage() {
                     color: '#be185d',
                     background: 'rgba(190,24,93,0.07)',
                     border: '1px solid rgba(190,24,93,0.3)',
-                    fontSize: 9,
+                    fontSize: 10,
+                    padding: '3px 8px',
+                    fontWeight: 700,
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   Worker authoring
                 </span>
               </div>
-              <span className="font-mono text-[11px] text-[var(--ink-soft)]">
+              <span className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 12, whiteSpace: 'nowrap' }}>
                 {state.sqlSoFar.length.toLocaleString()} chars
               </span>
             </header>
             <pre
               ref={codePanelRef}
+              className="flex-1"
               style={{
                 fontFamily: '"JetBrains Mono", monospace',
-                fontSize: 12.5,
-                lineHeight: 1.55,
+                fontSize: 14,
+                lineHeight: 1.6,
                 background: '#0b1829',
                 color: '#e8edf8',
                 border: 'none',
@@ -443,7 +454,6 @@ export default function WizardLivePage() {
                 padding: '1.25rem',
                 overflowX: 'auto',
                 overflowY: 'auto',
-                height: 'clamp(280px, 36vh, 380px)',
                 whiteSpace: 'pre',
                 tabSize: 2,
                 overscrollBehavior: 'contain',
@@ -468,13 +478,13 @@ export default function WizardLivePage() {
           </div>
 
           {/* YAML panel */}
-          <div className="research-card">
+          <div className="research-card flex flex-col" style={{ flex: '1 1 0' }}>
             <header
               className="px-5 py-3 border-b flex items-center justify-between"
               style={{ borderColor: 'var(--hairline)' }}
             >
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="eyebrow">
+              <div className="flex items-center gap-3 flex-wrap min-w-0">
+                <div className="eyebrow font-mono" style={{ fontSize: 11, letterSpacing: '0.02em' }}>
                   models/gold/fct_cnp_fraud_by_merchant_tier_region_daily.yml
                 </div>
                 <span
@@ -483,22 +493,26 @@ export default function WizardLivePage() {
                     color: '#145e36',
                     background: 'rgba(20,94,54,0.07)',
                     border: '1px solid rgba(20,94,54,0.3)',
-                    fontSize: 9,
+                    fontSize: 10,
+                    padding: '3px 8px',
+                    fontWeight: 700,
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   Verification authoring
                 </span>
               </div>
-              <span className="font-mono text-[11px] text-[var(--ink-soft)]">
+              <span className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 12, whiteSpace: 'nowrap' }}>
                 {state.yamlSoFar.length.toLocaleString()} chars
               </span>
             </header>
             <pre
               ref={yamlPanelRef}
+              className="flex-1"
               style={{
                 fontFamily: '"JetBrains Mono", monospace',
-                fontSize: 12.5,
-                lineHeight: 1.55,
+                fontSize: 14,
+                lineHeight: 1.6,
                 background: '#0b1829',
                 color: '#e8edf8',
                 border: 'none',
@@ -506,7 +520,6 @@ export default function WizardLivePage() {
                 padding: '1.25rem',
                 overflowX: 'auto',
                 overflowY: 'auto',
-                height: 'clamp(200px, 22vh, 240px)',
                 whiteSpace: 'pre',
                 tabSize: 2,
                 overscrollBehavior: 'contain',
@@ -530,37 +543,44 @@ export default function WizardLivePage() {
             </pre>
           </div>
 
-          {/* Tool side effects ticker */}
-          <div className="research-card p-4">
-            <div className="eyebrow mb-2">dbt-wizard tool calls · live</div>
-            {state.sideEffects.length === 0 ? (
-              <div className="font-mono text-xs text-[var(--ink-soft)]">Awaiting first tool call...</div>
-            ) : (
-              <ul className="space-y-1.5">
-                {state.sideEffects.map((s, i) => (
-                  <li
-                    key={`${s}-${i}`}
-                    className="flex items-start gap-2 font-mono text-[11px] text-[var(--ink)]"
-                  >
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        width: 7,
-                        height: 7,
-                        borderRadius: 999,
-                        marginTop: 4,
-                        flexShrink: 0,
-                        background: i === 0 ? 'var(--gold)' : 'var(--ink-soft)',
-                        animation: i === 0 ? 'signal-pulse 1.8s ease-in-out infinite' : 'none',
-                      }}
-                    />
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
         </section>
+      </div>
+
+      {/* ── Full-width tool side effects ticker ── */}
+      <div className="research-card mt-3 px-4 py-3">
+        <div className="flex items-baseline justify-between mb-2">
+          <div className="eyebrow" style={{ fontSize: 11 }}>dbt-wizard tool calls · live</div>
+          <div className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 11 }}>
+            {state.sideEffects.length} of last 8
+          </div>
+        </div>
+        {state.sideEffects.length === 0 ? (
+          <div className="font-mono text-[var(--ink-soft)]" style={{ fontSize: 12 }}>Awaiting first tool call...</div>
+        ) : (
+          <ul className="grid gap-x-6 gap-y-1.5" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+            {state.sideEffects.map((s, i) => (
+              <li
+                key={`${s}-${i}`}
+                className="flex items-start gap-2 font-mono text-[var(--ink)]"
+                style={{ fontSize: 12.5, lineHeight: 1.45 }}
+              >
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 8,
+                    height: 8,
+                    borderRadius: 999,
+                    marginTop: 5,
+                    flexShrink: 0,
+                    background: i === 0 ? 'var(--gold)' : 'var(--ink-soft)',
+                    animation: i === 0 ? 'signal-pulse 1.8s ease-in-out infinite' : 'none',
+                  }}
+                />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* ── Build complete panel ── */}
