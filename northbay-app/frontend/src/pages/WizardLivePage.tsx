@@ -223,6 +223,26 @@ export default function WizardLivePage() {
             <span className="mx-2" style={{ color: 'var(--ink-soft)' }}>·</span>
             <span style={{ color: 'var(--ink)' }}>{currentStepLabel}</span>
           </span>
+          <div
+            aria-hidden
+            style={{
+              width: 160,
+              height: 6,
+              borderRadius: 999,
+              background: 'var(--paper-deep)',
+              overflow: 'hidden',
+              border: '1px solid var(--hairline)',
+            }}
+          >
+            <div
+              style={{
+                width: `${Math.min(100, Math.max(0, Math.round(((complete ? events.length : state.cursor) / Math.max(1, events.length)) * 100)))}%`,
+                height: '100%',
+                background: complete ? 'var(--bull)' : 'var(--gold)',
+                transition: 'width 220ms ease, background 200ms ease',
+              }}
+            />
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <button
