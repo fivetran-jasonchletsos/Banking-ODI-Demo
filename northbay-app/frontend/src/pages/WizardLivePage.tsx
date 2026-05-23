@@ -72,6 +72,9 @@ export default function WizardLivePage() {
   const narrBottomRef = useRef<HTMLDivElement | null>(null);
   const codeBottomRef  = useRef<HTMLDivElement | null>(null);
   const yamlBottomRef  = useRef<HTMLDivElement | null>(null);
+  const narrPanelRef = useRef<HTMLDivElement | null>(null);
+  const codePanelRef = useRef<HTMLPreElement | null>(null);
+  const yamlPanelRef = useRef<HTMLPreElement | null>(null);
 
   // Load playback data
   useEffect(() => {
@@ -142,15 +145,18 @@ export default function WizardLivePage() {
     return () => clearTimeout(id);
   }, [playing, speed, currentEvent, state.narrTyped, state.codeTyped, state.cursor, events.length, complete]);
 
-  // Autoscroll narration and code panels
+  // Autoscroll panels by setting scrollTop directly — never scroll the window.
   useEffect(() => {
-    narrBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const el = narrPanelRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [state.cursor, state.narrTyped]);
   useEffect(() => {
-    codeBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const el = codePanelRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [state.sqlSoFar]);
   useEffect(() => {
-    yamlBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const el = yamlPanelRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [state.yamlSoFar]);
 
   const reset = () => { setState(INITIAL); setComplete(false); setPlaying(true); };
@@ -335,8 +341,9 @@ export default function WizardLivePage() {
           </header>
 
           <div
+            ref={narrPanelRef}
             className="px-5 py-4 overflow-y-auto"
-            style={{ maxHeight: '68vh', background: 'var(--paper)' }}
+            style={{ height: 'clamp(360px, 60vh, 640px)', background: 'var(--paper)', overscrollBehavior: 'contain' }}
           >
             {visibleNarr.map((m, idx) => {
               const a     = agentById[m.e.from];
@@ -424,6 +431,7 @@ export default function WizardLivePage() {
               </span>
             </header>
             <pre
+              ref={codePanelRef}
               style={{
                 fontFamily: '"JetBrains Mono", monospace',
                 fontSize: 12.5,
@@ -435,10 +443,10 @@ export default function WizardLivePage() {
                 padding: '1.25rem',
                 overflowX: 'auto',
                 overflowY: 'auto',
-                minHeight: 340,
-                maxHeight: '48vh',
+                height: 'clamp(280px, 36vh, 380px)',
                 whiteSpace: 'pre',
                 tabSize: 2,
+                overscrollBehavior: 'contain',
                 borderBottomLeftRadius: '0.25rem',
                 borderBottomRightRadius: '0.25rem',
               }}
@@ -486,6 +494,7 @@ export default function WizardLivePage() {
               </span>
             </header>
             <pre
+              ref={yamlPanelRef}
               style={{
                 fontFamily: '"JetBrains Mono", monospace',
                 fontSize: 12.5,
@@ -497,10 +506,10 @@ export default function WizardLivePage() {
                 padding: '1.25rem',
                 overflowX: 'auto',
                 overflowY: 'auto',
-                minHeight: 180,
-                maxHeight: '38vh',
+                height: 'clamp(200px, 22vh, 240px)',
                 whiteSpace: 'pre',
                 tabSize: 2,
+                overscrollBehavior: 'contain',
                 borderBottomLeftRadius: '0.25rem',
                 borderBottomRightRadius: '0.25rem',
               }}
