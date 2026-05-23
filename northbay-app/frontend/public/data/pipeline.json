@@ -37,7 +37,7 @@
     },
     {
       "id": "plaid",
-      "fivetran_id": "nodules_radically",
+      "fivetran_id": "marginal_blue",
       "name": "Plaid \u2014 Aggregated balances",
       "type": "API",
       "status": "healthy",
