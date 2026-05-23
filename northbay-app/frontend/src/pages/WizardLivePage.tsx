@@ -13,6 +13,7 @@ import { Link, useLocation } from 'react-router-dom';
 import AgentAvatar from '../components/AgentAvatar';
 import { wizardDataUrl } from '../components/wizardTypes';
 import type { WizardAgent, AgentId, BuildEvent, WizardScenario } from '../components/wizardTypes';
+import { LineagePanel, BuildCompleteSummary } from '../components/WizardVisuals';
 
 // Timing constants — scale by speed control.
 const NARR_TYPE_MS = 14;
@@ -40,12 +41,12 @@ const INITIAL: RevealState = {
 };
 
 const STEP_DEFS = [
-  { label: 'Discovery',            who: 'Explorer',     tools: 'status, search' },
-  { label: 'Schema Understanding', who: 'Summary',      tools: 'describe, lineage' },
-  { label: 'Data Inspection',      who: 'Worker',       tools: 'warehouse, dbt_show' },
-  { label: 'Model Creation',       who: 'Worker',       tools: 'file edits, model gen' },
-  { label: 'Test Authoring',       who: 'Verification', tools: 'describe, dbt_show' },
-  { label: 'Materialization',      who: 'Worker + Ver', tools: 'dbt_run, lineage' },
+  { label: 'Discovery',            who: 'Explorer',     tools: 'status, search',           insight: '3 silver candidates'   },
+  { label: 'Schema Understanding', who: 'Summary',      tools: 'describe, lineage',        insight: '11 cols · 0 null keys' },
+  { label: 'Data Inspection',      who: 'Worker',       tools: 'warehouse, dbt_show',      insight: 'XS warehouse slice'   },
+  { label: 'Model Creation',       who: 'Worker',       tools: 'file edits, model gen',    insight: 'SQL authored'         },
+  { label: 'Test Authoring',       who: 'Verification', tools: 'describe, dbt_show',       insight: '7 tests + uniqueness' },
+  { label: 'Materialization',      who: 'Worker + Ver', tools: 'dbt_run, lineage',         insight: '312 rows · iceberg'   },
 ];
 
 // Agent accent colors aligned with Pediment Bank palette
@@ -339,6 +340,18 @@ export default function WizardLivePage() {
               <div className="font-semibold text-[var(--ink-strong)] truncate" style={{ fontSize: 13, lineHeight: 1.15 }}>
                 {s.label}
               </div>
+              <div
+                className="font-mono truncate"
+                style={{
+                  fontSize: 10,
+                  lineHeight: 1.25,
+                  color: active ? 'var(--gold-dim)' : done ? 'var(--bull)' : 'var(--ink-soft)',
+                  opacity: done || active ? 0.95 : 0.55,
+                }}
+                title={s.insight}
+              >
+                {s.insight}
+              </div>
             </div>
           );
         })}
@@ -570,6 +583,15 @@ export default function WizardLivePage() {
         </section>
       </div>
 
+      {/* ── Full-width lineage panel — live-evolving graph ── */}
+      <div className="mt-3">
+        <LineagePanel
+          currentStep={currentStep}
+          complete={complete}
+          scenario={scenario}
+        />
+      </div>
+
       {/* ── Full-width tool side effects ticker (compact) ── */}
       <div className="research-card mt-2 px-3 py-2 flex items-center gap-3">
         <div className="eyebrow shrink-0" style={{ fontSize: 10 }}>tool calls</div>
@@ -602,54 +624,42 @@ export default function WizardLivePage() {
         )}
       </div>
 
-      {/* ── Build complete panel ── */}
+      {/* ── Build complete: 4-pane summary ── */}
       {complete && (
         <div
-          className="mt-6 research-card p-6"
+          className="mt-6 research-card p-5"
           style={{
             borderLeft: '5px solid var(--bull)',
             background: 'var(--bull-bg)',
           }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 items-center">
-            <div className="lg:col-span-1">
-              <div className="status-pill bull mb-2" style={{ display: 'inline-flex', fontSize: 12, padding: '4px 10px', fontWeight: 700 }}>
+          <div className="flex items-baseline justify-between flex-wrap gap-3 mb-1">
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <div className="status-pill bull" style={{ display: 'inline-flex', fontSize: 12, padding: '4px 10px', fontWeight: 700 }}>
                 Build Complete
               </div>
-              <div className="font-serif font-semibold text-[var(--bull)]" style={{ fontSize: 44, lineHeight: 1 }}>
-                {scenario.build_room_seconds}s
-              </div>
-              <div className="font-mono mt-1.5 text-[var(--ink-muted)]" style={{ fontSize: 12 }}>
-                question to materialized model
-              </div>
+              <span className="eyebrow" style={{ fontSize: 11 }}>{scenario.request_id} · {scenario.company}</span>
             </div>
-            <div className="lg:col-span-2">
-              <div className="eyebrow mb-1" style={{ fontSize: 11 }}>New gold asset</div>
-              <div className="font-mono font-semibold text-[var(--ink-strong)]" style={{ fontSize: 16 }}>
-                {scenario.metric_code}
-              </div>
-              <div className="font-mono mt-1.5 text-[var(--ink-muted)]" style={{ fontSize: 12.5, lineHeight: 1.5 }}>
-                312 rows · 7 column tests · 1 combination uniqueness test · schema contract enforced · lineage updated
-              </div>
-            </div>
-            <div className="lg:col-span-1 flex justify-start lg:justify-end">
-              <Link
-                to="/fraud"
-                className="inline-flex items-center gap-2 rounded-sm font-semibold transition-colors"
-                style={{
-                  background: 'var(--bull)',
-                  color: '#fff',
-                  padding: '12px 22px',
-                  fontSize: 14,
-                }}
-              >
-                Back to Fraud desk
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
+            <Link
+              to="/fraud"
+              className="inline-flex items-center gap-2 rounded-sm font-semibold transition-colors"
+              style={{
+                background: 'var(--bull)',
+                color: '#fff',
+                padding: '10px 18px',
+                fontSize: 13,
+              }}
+            >
+              Back to Fraud desk
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
+          <BuildCompleteSummary
+            seconds={scenario.build_room_seconds}
+            modelCode={scenario.metric_code}
+          />
         </div>
       )}
 

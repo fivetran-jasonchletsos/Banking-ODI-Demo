@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  WizardPipelineFlow,
+  WizardHub,
+  ModelRegistry,
+  LiveBuildThumbnail,
+} from '../components/WizardVisuals';
 
 interface Pillar {
   layer: string;
@@ -99,6 +105,25 @@ export default function OdiDbtWizardPage() {
         </p>
       </header>
 
+      {/* ── Hero: the ODI pipeline with dbt-wizard at the center ── */}
+      <section className="mb-10">
+        <div className="research-card p-5 sm:p-6">
+          <div className="flex items-baseline justify-between flex-wrap gap-2 mb-4">
+            <div className="eyebrow">End-to-end · build to read on the same lake</div>
+            <span className="font-mono uppercase tracking-[0.18em]" style={{ fontSize: 10, color: 'var(--ink-soft)' }}>
+              hover any stage
+            </span>
+          </div>
+          <WizardPipelineFlow />
+          <div className="hairline-deep mt-6 mb-4" style={{ height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(11,39,68,0.18) 50%, transparent 100%)' }} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Stat big="168" small="dbt models · bronze → silver → gold" />
+            <Stat big="91s"  small="dbt-wizard build · question to production model" />
+            <Stat big="3–5 d" small="Manual equivalent · backlog to PR" />
+          </div>
+        </div>
+      </section>
+
       <section className="mb-12 research-card p-6 border-l-4" style={{ borderLeftColor: 'var(--gold)' }}>
         <div className="eyebrow mb-2">The scenario that motivates this page</div>
         <p className="text-[var(--ink)] leading-relaxed">
@@ -163,6 +188,16 @@ export default function OdiDbtWizardPage() {
         </div>
       </section>
 
+      {/* ── Hub-and-spoke radial: the four sub-agents around dbt-wizard ── */}
+      <section className="mb-12">
+        <WizardHub />
+      </section>
+
+      {/* ── Model registry preview: where the new model lands ── */}
+      <section className="mb-12">
+        <ModelRegistry newModelCode="gold.fct_cnp_fraud_by_merchant_tier_region_daily" />
+      </section>
+
       <section className="mb-12">
         <div className="eyebrow mb-2">Four properties</div>
         <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-6 border-b-2 border-[var(--gold-dim)]">
@@ -184,14 +219,21 @@ export default function OdiDbtWizardPage() {
 
       {/* ── Try the live build ── */}
       <section className="mb-12 research-card p-6 border-l-4" style={{ borderLeftColor: 'var(--gold)' }}>
-        <div className="eyebrow mb-2">Try the live build</div>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-3">
-          Watch dbt-wizard author the model in real time
-        </h2>
-        <p className="text-sm text-[var(--ink-muted)] mb-5 max-w-2xl leading-relaxed">
-          Select a question below or write your own, then submit to watch Explorer, Summary,
-          Worker, and Verification play out — narration, SQL, YAML, and all tool calls — live.
-        </p>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6 items-start mb-5">
+          <div>
+            <div className="eyebrow mb-2">Try the live build</div>
+            <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-3">
+              Watch dbt-wizard author the model in real time
+            </h2>
+            <p className="text-sm text-[var(--ink-muted)] max-w-2xl leading-relaxed">
+              Select a question below or write your own, then submit to watch Explorer, Summary,
+              Worker, and Verification play out — narration, SQL, YAML, lineage and all tool calls — live.
+            </p>
+          </div>
+          <div>
+            <LiveBuildThumbnail />
+          </div>
+        </div>
 
         <div className="flex flex-col gap-2 mb-4">
           {CANNED_QUESTIONS.map((q) => (
@@ -265,6 +307,19 @@ export default function OdiDbtWizardPage() {
           </Link>
         </div>
       </section>
+    </div>
+  );
+}
+
+function Stat({ big, small }: { big: string; small: string }) {
+  return (
+    <div>
+      <div className="font-serif font-semibold" style={{ fontSize: 30, color: 'var(--gold-dim)', lineHeight: 1.05, letterSpacing: '-0.01em' }}>
+        {big}
+      </div>
+      <div className="mt-1 font-mono uppercase tracking-[0.16em]" style={{ fontSize: 10.5, color: 'var(--ink-muted)', lineHeight: 1.35 }}>
+        {small}
+      </div>
     </div>
   );
 }
