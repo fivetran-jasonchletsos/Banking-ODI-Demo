@@ -186,7 +186,7 @@ export default function WizardLivePage() {
   const displayQuestion = questionFromNav ?? scenario.question;
 
   return (
-    <div className="mx-auto max-w-[1640px] px-4 py-4 sm:px-6 lg:px-8">
+    <div className="wizard-terminal mx-auto max-w-[1640px] px-4 py-4 sm:px-6 lg:px-8">
 
       {/* ── Control bar ── */}
       <div
@@ -659,6 +659,180 @@ export default function WizardLivePage() {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.28; }
         }
+
+        /* ── Terminal aesthetic: dark navy surfaces, mono everywhere, subtle CLI accents ── */
+        .wizard-terminal {
+          --t-bg:       #0a1424;
+          --t-surface:  #0f1f36;
+          --t-elev:     #142844;
+          --t-line:     #1f3559;
+          --t-line-soft:#15294a;
+          --t-text:     #e6edf8;
+          --t-text-dim: #94a8c4;
+          --t-text-soft:#5a7099;
+          --t-accent:   #f5b942;
+          --t-accent-2: #79b8ff;
+          --t-ok:       #4ade80;
+          --t-warn:     #ffb454;
+          background: var(--t-bg);
+          color: var(--t-text);
+          font-family: "JetBrains Mono", ui-monospace, monospace;
+          border-radius: 12px;
+          border: 1px solid var(--t-line);
+          padding-top: 36px;
+          position: relative;
+          margin-top: 8px;
+          margin-bottom: 24px;
+          box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.55);
+        }
+        /* Window chrome — traffic lights + filename */
+        .wizard-terminal::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 36px;
+          background: linear-gradient(180deg, #0d1c33, #0a1424);
+          border-bottom: 1px solid var(--t-line);
+          border-top-left-radius: 11px;
+          border-top-right-radius: 11px;
+        }
+        .wizard-terminal::after {
+          content: '● ● ●  pediment-bank/wizard-live · dbt-wizard';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 36px;
+          padding: 0 16px;
+          display: flex;
+          align-items: center;
+          color: #ff5f57;
+          letter-spacing: 4px;
+          font-size: 13px;
+          font-family: "JetBrains Mono", monospace;
+          pointer-events: none;
+        }
+        /* The traffic-light dots use a flat-color text shadow trick: */
+        .wizard-terminal::after {
+          background:
+            radial-gradient(circle at 16px 18px, #ff5f57 5.5px, transparent 6.5px),
+            radial-gradient(circle at 36px 18px, #febc2e 5.5px, transparent 6.5px),
+            radial-gradient(circle at 56px 18px, #28c940 5.5px, transparent 6.5px);
+          color: var(--t-text-dim);
+          text-indent: 80px;
+          letter-spacing: 0;
+        }
+        .wizard-terminal > * { position: relative; z-index: 1; }
+
+        /* Override the light "research-card" base everywhere inside the terminal */
+        .wizard-terminal .research-card {
+          background: var(--t-surface) !important;
+          border-color: var(--t-line) !important;
+          color: var(--t-text);
+          box-shadow: none;
+        }
+        .wizard-terminal .research-card header,
+        .wizard-terminal .research-card > .border-b {
+          border-color: var(--t-line) !important;
+          background: var(--t-elev);
+        }
+        /* Inner narration scroll surface */
+        .wizard-terminal .research-card > div[style*="background: var(--paper)"] {
+          background: var(--t-bg) !important;
+        }
+        /* Narration chat cards */
+        .wizard-terminal .research-card div[style*="border: 1px solid var(--hairline-soft)"] {
+          background: var(--t-elev) !important;
+          border-color: var(--t-line-soft) !important;
+        }
+        /* Generic text recolor */
+        .wizard-terminal h1,
+        .wizard-terminal h2,
+        .wizard-terminal h3,
+        .wizard-terminal p,
+        .wizard-terminal span,
+        .wizard-terminal div,
+        .wizard-terminal li {
+          color: inherit;
+        }
+        .wizard-terminal .text-\\[var\\(--ink\\)\\],
+        .wizard-terminal [style*="color: var(--ink)"] { color: var(--t-text) !important; }
+        .wizard-terminal .text-\\[var\\(--ink-strong\\)\\],
+        .wizard-terminal [style*="color: var(--ink-strong)"] { color: var(--t-text) !important; }
+        .wizard-terminal .text-\\[var\\(--ink-muted\\)\\],
+        .wizard-terminal [style*="color: var(--ink-muted)"] { color: var(--t-text-dim) !important; }
+        .wizard-terminal .text-\\[var\\(--ink-soft\\)\\],
+        .wizard-terminal [style*="color: var(--ink-soft)"] { color: var(--t-text-soft) !important; }
+        .wizard-terminal [style*="color: var(--gold-dim)"] { color: var(--t-accent) !important; }
+        .wizard-terminal [style*="color: var(--gold)"] { color: var(--t-accent) !important; }
+
+        /* Status pills: dim background on dark */
+        .wizard-terminal .status-pill,
+        .wizard-terminal .layer-chip {
+          background: rgba(245,185,66,0.12) !important;
+          border-color: rgba(245,185,66,0.35) !important;
+          color: var(--t-accent) !important;
+        }
+        .wizard-terminal .status-pill.bull,
+        .wizard-terminal .layer-chip.bull {
+          background: rgba(74,222,128,0.12) !important;
+          border-color: rgba(74,222,128,0.35) !important;
+          color: var(--t-ok) !important;
+        }
+        /* Buttons: dark-on-dark with subtle border */
+        .wizard-terminal button,
+        .wizard-terminal a[class*="rounded-sm"] {
+          background: var(--t-elev) !important;
+          color: var(--t-text) !important;
+          border-color: var(--t-line) !important;
+        }
+        .wizard-terminal button:hover,
+        .wizard-terminal a[class*="rounded-sm"]:hover {
+          background: var(--t-line) !important;
+          border-color: var(--t-accent) !important;
+        }
+        /* Eyebrow / mono kickers */
+        .wizard-terminal .eyebrow {
+          color: var(--t-accent) !important;
+          opacity: 0.85;
+        }
+        /* Step rail tiles: solid dark with colored left bar */
+        .wizard-terminal .research-card[style*="background: var(--gold-bg)"] {
+          background: rgba(245,185,66,0.10) !important;
+        }
+        .wizard-terminal .research-card[style*="background: var(--bull-bg)"] {
+          background: rgba(74,222,128,0.10) !important;
+        }
+        .wizard-terminal .research-card[style*="background: var(--paper-deep)"] {
+          background: var(--t-surface) !important;
+        }
+        /* Code panels — already dark, but unify the navy tone */
+        .wizard-terminal pre {
+          background: var(--t-bg) !important;
+          border-top: 1px solid var(--t-line);
+          color: #d6e3f6 !important;
+        }
+        /* Question banner border accent */
+        .wizard-terminal .research-card.border-l-4 {
+          border-left-color: var(--t-accent) !important;
+        }
+        /* Progress bar background */
+        .wizard-terminal div[style*="background: var(--paper-deep)"] {
+          background: var(--t-elev) !important;
+          border-color: var(--t-line) !important;
+        }
+        /* Build-complete panel */
+        .wizard-terminal .research-card[style*="background: var(--bull-bg)"][style*="borderLeft: 5px solid var(--bull)"] {
+          background: rgba(74,222,128,0.08) !important;
+        }
+        /* Avatar chip — dark on dark with accent border */
+        .wizard-terminal .wizard-agent-avatar {
+          background: rgba(10,20,36,0.6) !important;
+          border-color: rgba(120,150,200,0.35) !important;
+        }
+        .wizard-terminal .wizard-agent-avatar[data-active="true"] {
+          background: var(--t-bg) !important;
+        }
         .wizard-chat-bubble {
           font-family: "JetBrains Mono", monospace;
           font-size: 14px;
@@ -666,6 +840,9 @@ export default function WizardLivePage() {
           white-space: pre-wrap;
           word-break: break-word;
           color: var(--ink);
+        }
+        .wizard-terminal .wizard-chat-bubble {
+          color: var(--t-text) !important;
         }
         .wizard-chat-cursor::after {
           content: '▌';
