@@ -115,7 +115,7 @@ const PILLARS = [
   {
     tag: 'Pillar 3',
     title: 'Any compute engine',
-    body: 'Snowflake serves the credit-risk team. Trino serves analysts. The Cortex fraud agent reads the same parquet through Glue. One source, many readers.',
+    body: 'Snowflake serves the credit-risk team. Trino serves analysts. Any engine that speaks Iceberg reads the same parquet through Glue. One source, many readers.',
   },
 ];
 
@@ -127,7 +127,6 @@ const STACK = [
   { layer: 'Transform',  name: 'dbt',                         note: '168 models across bronze, silver, gold, marts. 532 tests on every run.' },
   { layer: 'Build AI',   name: 'dbt-wizard',                  note: 'Four sub-agents (Explorer, Summary, Worker, Verification) that author new gold models in ninety seconds. Every output is tested, lineage-tracked, and tagged ai_built.' },
   { layer: 'Warehouse',  name: 'Snowflake (external tables)', note: 'Credit-risk, treasury, and finance teams query the gold layer via Snowflake. No data copy.' },
-  { layer: 'Agents',     name: 'Snowflake Cortex agents',     note: 'Fraud and AML agents read the corresponding gold marts directly. No warehouse round-trip. Cortex reads what dbt-wizard builds.' },
   { layer: 'Frontend',   name: 'React 19, Vite, Tailwind v4', note: 'Static SPA on GitHub Pages, reads pre-computed JSON snapshots of the gold layer.' },
 ];
 

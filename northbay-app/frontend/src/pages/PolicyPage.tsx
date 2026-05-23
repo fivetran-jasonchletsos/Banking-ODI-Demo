@@ -51,8 +51,8 @@ export default function PolicyPage() {
             lag, no double-pay for storage.
           </li>
           <li>
-            The Cortex fraud and AML agents read the same parquet files. The agents and the warehouse
-            see the same row at the same instant.
+            Downstream consumers — the fraud desk, AML investigators, and the warehouse — all read the
+            same parquet files through the Glue catalog. Every reader sees the same row at the same instant.
           </li>
         </ul>
         <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mt-8 border-b-2 border-[var(--gold-dim)]">What the CRO gets</h2>

@@ -16,14 +16,14 @@ export default function FraudPage() {
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Real-time fraud, agent-assisted decisioning</div>
         <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
-          The fraud desk, powered by dbt-wizard and Cortex
+          The fraud desk, powered by dbt-wizard
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The Cortex fraud agent reads a single fraud-signal gold mart and joins it with customer history,
-          merchant risk, and graph-derived ring membership in a single query. Block-or-allow is a sub-200ms
-          decision against the open lake. But when the fraud desk asks a question the gold layer does not yet
-          answer, dbt-wizard authors the missing model — tested, materialized, tagged — before the next
-          morning briefing.
+          dbt-wizard's authored fraud-detection models join customer history, merchant risk, and
+          graph-derived ring membership in a single gold mart. Block-or-allow is a sub-200ms decision
+          against the open lake. When the fraud desk asks a question the gold layer does not yet answer,
+          dbt-wizard authors the missing model — tested, materialized, tagged — before the next morning
+          briefing.
         </p>
       </header>
 
@@ -53,9 +53,9 @@ export default function FraudPage() {
           ))}
         </div>
         <p className="mt-5 text-sm text-[var(--ink-muted)] max-w-3xl">
-          Once Verification confirms the materialization, the Cortex fraud agent reads the new gold table
-          on its next pass. Build-time AI feeds run-time AI without an integration handoff or a second copy
-          of the data.
+          Once Verification confirms the materialization, the new gold table is immediately available to
+          every downstream reader. Build-time AI produces the model; any Iceberg-compatible reader
+          consumes it without an integration handoff or a second copy of the data.
         </p>
       </section>
 
@@ -128,9 +128,9 @@ export default function FraudPage() {
           Active queue, agent recommendations
         </h2>
         <p className="text-sm text-[var(--ink-muted)] mb-4 max-w-3xl">
-          The Cortex agent reads inventory, risk rules, and customer history in one Iceberg read and
-          returns a recommendation. The investigator either accepts the recommendation or overrides;
-          the override becomes training data for the next model build.
+          dbt-wizard's gold fraud model joins inventory, risk rules, and customer history in a single
+          Iceberg read and surfaces a recommendation for each case. The investigator either accepts the
+          recommendation or overrides; the override becomes training data for the next model build.
         </p>
         <div className="research-card overflow-x-auto">
           <table className="data-table">

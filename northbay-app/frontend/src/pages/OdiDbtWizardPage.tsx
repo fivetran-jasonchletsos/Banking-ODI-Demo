@@ -24,7 +24,7 @@ const PILLARS: Pillar[] = [
     accent: '#7C3AED',
     tag: 'storage',
     what: 'Open table format. Customer-owned storage. Snapshot isolation, schema evolution, time travel, multi-engine reads. The bytes belong to the bank, not the engine.',
-    inBuild: 'When dbt-wizard\'s Worker sub-agent materializes the new gold.fct_cnp_fraud_by_merchant_tier_region_daily table, it writes Parquet files into the same S3 prefix the Cortex fraud agent already reads from. No second copy. No publish step. Cortex resolves the new asset on its next pass.',
+    inBuild: 'When dbt-wizard\'s Worker sub-agent materializes the new gold.fct_cnp_fraud_by_merchant_tier_region_daily table, it writes Parquet files into the shared gold S3 prefix. No second copy. No publish step. Any downstream consumer — Snowflake, Trino, or an unbranded agent — resolves the new asset on its next read.',
   },
   {
     layer: 'Medallion + Build-time AI',
@@ -41,14 +41,6 @@ const PILLARS: Pillar[] = [
     tag: 'engine',
     what: 'Reads Iceberg tables directly via external tables and Polaris catalog. Runs the dbt-wizard warehouse for dbt_show and the materialization step. Independently scaled micro-warehouses.',
     inBuild: 'Worker spins up an XS warehouse for the dbt_show slice, validates the proposed grain against the merchant and transaction silver tables, then materializes the new table to the gold prefix. Total compute footprint: a few seconds of XS warehouse time.',
-  },
-  {
-    layer: 'Run-time Agents',
-    vendor: 'Cortex',
-    accent: '#DB2777',
-    tag: 'reasoning',
-    what: 'Cortex Analyst translates natural language to SQL over the gold layer. Cortex Agents orchestrate tool calls and message passing. Cortex Search retrieves unstructured context.',
-    inBuild: 'The moment dbt-wizard\'s Verification sub-agent confirms the materialization, gold.fct_cnp_fraud_by_merchant_tier_region_daily is queryable by the fraud desk\'s Cortex agent. Build-time AI feeds run-time AI without an integration handoff. Cortex does not author data models — it reads them.',
   },
 ];
 
@@ -72,7 +64,7 @@ const PROPERTIES: Property[] = [
   {
     title: 'Reusability',
     claim: 'The new model is a first-class citizen for every downstream consumer.',
-    proof: 'The Cortex fraud agent picks it up on the next pass. AML analysts can join to it. BI dashboards can pin to it. Other dbt models can ref() it. Iceberg readers — Snowflake, Trino, Spark, DuckDB — can all query it. The model is not stuck inside the tool that built it.',
+    proof: 'Downstream consumers read it on their next pass. AML analysts can join to it. BI dashboards can pin to it. Other dbt models can ref() it. Iceberg readers — Snowflake, Trino, Spark, DuckDB — can all query it. The model is not stuck inside the tool that built it.',
   },
   {
     title: 'Openness',
@@ -90,10 +82,10 @@ export default function OdiDbtWizardPage() {
           dbt-wizard: the build-time layer
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The Cortex fraud agent is fast. But it can only read gold models that already exist. When the
-          fraud desk asks a question the gold layer does not yet answer, dbt-wizard's four sub-agents
-          author the missing model — tested, lineage-tracked, materialized — in ninety seconds. Cortex
-          then reads it on its next pass.
+          Any downstream consumer can only read gold models that already exist. When the fraud desk asks
+          a question the gold layer does not yet answer, dbt-wizard's four sub-agents author the missing
+          model — tested, lineage-tracked, materialized — in ninety seconds. Every downstream reader
+          picks it up on its next pass.
         </p>
       </header>
 
@@ -108,17 +100,17 @@ export default function OdiDbtWizardPage() {
       </section>
 
       <section className="mb-12">
-        <div className="eyebrow mb-2">Five layers. One loop.</div>
+        <div className="eyebrow mb-2">Four layers. One loop.</div>
         <h2 className="font-serif text-2xl font-semibold text-[var(--ink-strong)] pb-3 mb-6 border-b-2 border-[var(--gold-dim)]">
           What each layer contributes
         </h2>
         <p className="text-sm text-[var(--ink-muted)] mb-6 max-w-3xl">
           Each layer has a clear job. Pull dbt-wizard out and the fraud desk's question does not get
-          answered in time. Pull Iceberg out and dbt-wizard's output is just text. Pull Cortex out and
-          the new table never gets read. The loop only closes when all five hold.
+          answered in time. Pull Iceberg out and dbt-wizard's output is just text. Pull Snowflake out
+          and the materialization step has no warehouse. The loop only closes when all four hold.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {PILLARS.map((p, i) => (
             <div key={p.vendor} className="research-card relative flex flex-col" style={{ minHeight: '420px', borderTop: `3px solid ${p.accent}` }}>
               <div className="p-5 flex-1 flex flex-col">
@@ -187,12 +179,11 @@ export default function OdiDbtWizardPage() {
           <span style={{ color: '#FF694A' }}>dbt governs it.</span>{' '}
           <span style={{ color: '#FF694A' }}>dbt-wizard authors it.</span>{' '}
           <span style={{ color: '#7C3AED' }}>Iceberg owns it.</span>{' '}
-          <span style={{ color: '#29B5E8' }}>Snowflake reads it.</span>{' '}
-          <span style={{ color: '#DB2777' }}>Cortex acts on it.</span>
+          <span style={{ color: '#29B5E8' }}>Snowflake reads it.</span>
         </p>
         <p className="text-sm text-white/70 max-w-2xl mb-6">
-          Build-time AI and run-time AI on the same lake. dbt-wizard authors the model. Cortex reads it.
-          No integration handoff. No second copy of the data.
+          Build-time AI on the same lake as every downstream reader. dbt-wizard authors the model.
+          Any engine that speaks Iceberg reads it. No integration handoff. No second copy of the data.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link to="/fraud" className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm text-[var(--navy-deep)] px-5 py-3 shadow-lg hover:opacity-95 transition-opacity" style={{ background: 'var(--gold)' }}>

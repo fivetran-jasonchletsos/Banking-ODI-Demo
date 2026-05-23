@@ -25,14 +25,14 @@ export default function ArchitecturePage() {
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Open Data Infrastructure, Banking Reference</div>
         <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
-          Eight sources. One Iceberg lake. dbt-wizard builds it. Snowflake and Cortex read it.
+          Eight sources. One Iceberg lake. dbt-wizard builds it. Snowflake reads it.
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
           The bank's architecture is deliberately flat. Fivetran lands every system into Apache Iceberg
           tables on S3. dbt builds bronze, silver, gold, and marts in place. dbt-wizard's four sub-agents
           author new gold models in ninety seconds when the fraud or AML desk asks a question the gold
-          layer does not yet answer. Snowflake reads the gold tables as external tables; the Cortex fraud
-          and AML agents read the same parquet files.
+          layer does not yet answer. Snowflake reads the gold tables as external tables — no data copy,
+          no replication lag.
         </p>
       </header>
 
@@ -73,7 +73,7 @@ export default function ArchitecturePage() {
           desk asks a question with no existing gold model, dbt-wizard's Explorer, Summary, Worker, and
           Verification sub-agents author, test, and materialize the missing table — using the same dbt tools
           an analytics engineer uses, against the same Snowflake warehouse. The materialized table lands in
-          the gold S3 prefix tagged ai_built. Cortex reads it on its next pass.
+          the gold S3 prefix tagged ai_built. Any downstream reader picks it up on its next pass.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="research-card p-4" style={{ borderTop: '3px solid #FF694A' }}>
@@ -94,7 +94,7 @@ export default function ArchitecturePage() {
             <div className="font-serif font-semibold text-[var(--ink-strong)] mb-1">Output</div>
             <p className="text-xs text-[var(--ink-muted)] leading-relaxed">
               A production dbt model: tested, lineage-tracked, tagged ai_built, materialized as Iceberg in
-              the customer's S3 bucket. Queryable by Snowflake and Cortex immediately.
+              the customer's S3 bucket. Queryable by Snowflake and any Iceberg-compatible engine immediately.
             </p>
           </div>
         </div>
@@ -141,8 +141,8 @@ export default function ArchitecturePage() {
           <div className="eyebrow mb-2">Destination</div>
           <h3 className="font-serif text-lg font-semibold text-[var(--ink-strong)]">{data?.destination ?? 'Snowflake + Iceberg'}</h3>
           <p className="mt-2 text-sm text-[var(--ink-muted)] leading-relaxed">
-            Snowflake reads the gold tables as Iceberg external tables. No data copy. The Cortex fraud
-            agent reads the same files through the Glue catalog.
+            Snowflake reads the gold tables as Iceberg external tables. No data copy. Every engine that
+            speaks Iceberg reads the same files through the Glue catalog.
           </p>
         </div>
       </section>

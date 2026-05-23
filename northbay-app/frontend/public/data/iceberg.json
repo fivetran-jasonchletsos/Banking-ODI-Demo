@@ -8,7 +8,7 @@
     { "tag": "02", "label": "Ingest",  "desc": "Fivetran lands every source into Iceberg bronze tables on S3 — eight connectors, one open table format.", "accent": "bronze" },
     { "tag": "03", "label": "Conform", "desc": "dbt silver builds the conformed banking dimension layer: customer_360, account_360, party_relationship, transaction_unified.", "accent": "silver" },
     { "tag": "04", "label": "Gold",    "desc": "Marts: fct_fraud_signal, fct_aml_alert_score, fct_credit_decision, fct_deposit_beta, fct_commercial_relationship_revenue.", "accent": "gold" },
-    { "tag": "05", "label": "Reason",  "desc": "Snowflake + Trino + Athena + Cortex agents read the same gold parquet through the Glue catalog. One source, many engines.", "accent": "gold" }
+    { "tag": "05", "label": "Reason",  "desc": "Snowflake, Trino, and Athena read the same gold parquet through the Glue catalog. One source, many engines.", "accent": "gold" }
   ],
   "tables": [
     { "table": "bronze.fis_horizon_account_balance_daily", "rows": 142800000, "size_gb":  84.2, "format": "Iceberg v2" },

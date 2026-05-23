@@ -143,7 +143,7 @@ export default function Layout() {
             <p className="leading-relaxed text-white/70">
               FIS Horizon, Salesforce FSC, nCino, Plaid, AML vendor, Visa/Mastercard, OFAC/FinCEN
               landed by Fivetran into Apache Iceberg on S3. dbt builds bronze, silver, gold, marts.
-              Snowflake and Cortex agents read the same files.
+              Snowflake reads the same Iceberg files directly.
             </p>
           </div>
           <div>

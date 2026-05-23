@@ -40,8 +40,7 @@ export default function HomePage() {
               </h1>
               <p className="mt-6 text-[1.1rem] sm:text-[1.2rem] text-white/75 max-w-2xl leading-[1.68]">
                 Fivetran lands it. dbt governs it. dbt-wizard authors it. Iceberg owns it. Snowflake reads it.
-                Cortex acts on it. Eight banking sources. One open lake. Build-time AI and run-time AI on the
-                same governed gold layer.
+                Eight banking sources. One open lake. Build-time AI on the governed gold layer.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
@@ -187,7 +186,7 @@ export default function HomePage() {
           <p className="mt-4 text-sm text-white/70 max-w-2xl mx-auto">
             Fivetran lands every source into open Iceberg tables. dbt builds the governed gold layer.
             dbt-wizard authors new gold models in ninety seconds when the fraud desk asks a question
-            the gold layer does not yet answer. Snowflake and the Cortex fraud agent read the same files.
+            the gold layer does not yet answer. Snowflake reads the same Iceberg files directly.
           </p>
         </div>
       </section>
