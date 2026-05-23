@@ -16,14 +16,48 @@ export default function FraudPage() {
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Real-time fraud, agent-assisted decisioning</div>
         <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
-          The fraud desk, reading one gold table
+          The fraud desk, powered by dbt-wizard and Cortex
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          The Cortex fraud agent reads a single fraud-signal gold mart
-          and joins it with customer history, merchant risk, and graph-derived ring membership in a single
-          query. Block-or-allow is a sub-200ms decision against the open lake; no warehouse round-trip.
+          The Cortex fraud agent reads a single fraud-signal gold mart and joins it with customer history,
+          merchant risk, and graph-derived ring membership in a single query. Block-or-allow is a sub-200ms
+          decision against the open lake. But when the fraud desk asks a question the gold layer does not yet
+          answer, dbt-wizard authors the missing model — tested, materialized, tagged — before the next
+          morning briefing.
         </p>
       </header>
+
+      <section className="mb-10 bg-[var(--paper-deep)] border border-[var(--hairline)] rounded-sm p-6">
+        <div className="eyebrow mb-2">When the gold layer does not have the answer</div>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-3">
+          "Why did CNP fraud spike for tier-2 merchants in Texas last Tuesday?"
+        </h2>
+        <p className="text-sm text-[var(--ink-muted)] mb-5 max-w-3xl leading-relaxed">
+          No <span className="ticker text-[11px]">gold.fct_cnp_fraud_by_merchant_tier_region_daily</span> table
+          exists. Without dbt-wizard, the answer is three to five days away. With dbt-wizard's four
+          sub-agents, the answer is ninety seconds away — and the model is production-grade by the time
+          it lands.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          {[
+            { num: '01', name: 'Explorer', desc: 'Runs dbt status and dbt search. Maps the silver tables that cover CNP channel, merchant tier, and Texas geography.' },
+            { num: '02', name: 'Summary', desc: 'Runs dbt describe and dbt lineage. Documents schema, confirms grain, flags a duplicate transaction edge case before SQL is written.' },
+            { num: '03', name: 'Worker', desc: 'Writes the SQL, runs a dbt_show slice on an XS warehouse to validate the daily grain, edits the model file into the project.' },
+            { num: '04', name: 'Verification', desc: 'Writes the schema YAML, adds column-level and uniqueness tests, runs the full test suite, tags the model ai_built. Done.' },
+          ].map((a) => (
+            <div key={a.num} className="research-card p-4" style={{ borderTop: '3px solid var(--gold-dim)' }}>
+              <div className="font-mono text-[10px] text-[var(--ink-soft)] mb-1">{a.num}</div>
+              <div className="font-serif text-base font-semibold text-[var(--ink-strong)] mb-1">{a.name}</div>
+              <p className="text-xs text-[var(--ink-muted)] leading-relaxed">{a.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-5 text-sm text-[var(--ink-muted)] max-w-3xl">
+          Once Verification confirms the materialization, the Cortex fraud agent reads the new gold table
+          on its next pass. Build-time AI feeds run-time AI without an integration handoff or a second copy
+          of the data.
+        </p>
+      </section>
 
       <section className="mb-10 grid grid-cols-2 lg:grid-cols-4 gap-3 stagger-children">
         <Kpi label="YTD attempted" value={data ? fmtCurrencyM(data.ytd.dollars_attempted_m, 1) : '—'} />

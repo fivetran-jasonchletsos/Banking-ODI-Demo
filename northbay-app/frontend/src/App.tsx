@@ -10,6 +10,7 @@ import AMLPage from './pages/AMLPage';
 import PolicyPage from './pages/PolicyPage';
 import DepositsPage from './pages/DepositsPage';
 import CommercialPage from './pages/CommercialPage';
+import OdiDbtWizardPage from './pages/OdiDbtWizardPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/fraud" element={<FraudPage />} />
           <Route path="/aml" element={<AMLPage />} />
           <Route path="/commercial" element={<CommercialPage />} />
+          <Route path="/dbt-wizard" element={<OdiDbtWizardPage />} />
           <Route path="/architecture" element={<ArchitecturePage />} />
           <Route path="/pipeline" element={<PipelinePage />} />
           <Route path="/policy" element={<PolicyPage />} />

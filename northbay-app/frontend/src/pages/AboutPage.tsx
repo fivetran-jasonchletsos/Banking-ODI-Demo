@@ -125,8 +125,9 @@ const STACK = [
   { layer: 'Format',     name: 'Apache Iceberg v2',           note: 'Parquet files, ZSTD-compressed, partitioned by transaction date. Schema evolution is vendor-neutral.' },
   { layer: 'Catalog',    name: 'AWS Glue Data Catalog',       note: 'Iceberg REST API. Table-level access control mapped to the bank\'s LDAP groups.' },
   { layer: 'Transform',  name: 'dbt',                         note: '168 models across bronze, silver, gold, marts. 532 tests on every run.' },
+  { layer: 'Build AI',   name: 'dbt-wizard',                  note: 'Four sub-agents (Explorer, Summary, Worker, Verification) that author new gold models in ninety seconds. Every output is tested, lineage-tracked, and tagged ai_built.' },
   { layer: 'Warehouse',  name: 'Snowflake (external tables)', note: 'Credit-risk, treasury, and finance teams query the gold layer via Snowflake. No data copy.' },
-  { layer: 'Agents',     name: 'Snowflake Cortex agents',     note: 'Fraud and AML agents read the corresponding gold marts directly. No warehouse round-trip.' },
+  { layer: 'Agents',     name: 'Snowflake Cortex agents',     note: 'Fraud and AML agents read the corresponding gold marts directly. No warehouse round-trip. Cortex reads what dbt-wizard builds.' },
   { layer: 'Frontend',   name: 'React 19, Vite, Tailwind v4', note: 'Static SPA on GitHub Pages, reads pre-computed JSON snapshots of the gold layer.' },
 ];
 

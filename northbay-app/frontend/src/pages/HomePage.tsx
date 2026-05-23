@@ -39,23 +39,23 @@ export default function HomePage() {
                 One lake.
               </h1>
               <p className="mt-6 text-[1.1rem] sm:text-[1.2rem] text-white/75 max-w-2xl leading-[1.68]">
-                A top-15 US bank rebuilt on open data. Core banking, CRM, loan origination, fraud, AML,
-                and card-network feeds all land in customer-owned Iceberg tables. Snowflake, Trino, and
-                Cortex agents share the same gold layer, governed by dbt and Fivetran.
+                Fivetran lands it. dbt governs it. dbt-wizard authors it. Iceberg owns it. Snowflake reads it.
+                Cortex acts on it. Eight banking sources. One open lake. Build-time AI and run-time AI on the
+                same governed gold layer.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
-                  onClick={() => navigate('/fraud')}
+                  onClick={() => navigate('/dbt-wizard')}
                   className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm text-[var(--navy-deep)] px-5 py-3 shadow-lg hover:opacity-95 transition-opacity"
                   style={{ background: 'var(--gold)' }}
                 >
-                  Open the fraud desk <span aria-hidden>→</span>
+                  See dbt-wizard in action <span aria-hidden>→</span>
                 </button>
                 <button
-                  onClick={() => navigate('/architecture')}
+                  onClick={() => navigate('/fraud')}
                   className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm text-white bg-white/5 border border-white/20 px-5 py-3 hover:bg-white/10 transition-colors"
                 >
-                  See the architecture <span aria-hidden>→</span>
+                  Open the fraud desk <span aria-hidden>→</span>
                 </button>
               </div>
             </div>
@@ -186,7 +186,8 @@ export default function HomePage() {
           </p>
           <p className="mt-4 text-sm text-white/70 max-w-2xl mx-auto">
             Fivetran lands every source into open Iceberg tables. dbt builds the governed gold layer.
-            Snowflake, Trino, and the Cortex fraud agent read the same files. No warehouse round-trip.
+            dbt-wizard authors new gold models in ninety seconds when the fraud desk asks a question
+            the gold layer does not yet answer. Snowflake and the Cortex fraud agent read the same files.
           </p>
         </div>
       </section>

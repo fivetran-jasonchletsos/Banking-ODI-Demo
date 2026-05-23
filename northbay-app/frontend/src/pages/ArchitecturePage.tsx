@@ -25,12 +25,14 @@ export default function ArchitecturePage() {
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Open Data Infrastructure, Banking Reference</div>
         <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
-          Eight sources. One Iceberg lake. Snowflake + Cortex on top.
+          Eight sources. One Iceberg lake. dbt-wizard builds it. Snowflake and Cortex read it.
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
           The bank's architecture is deliberately flat. Fivetran lands every system into Apache Iceberg
-          tables on S3. dbt builds bronze, silver, gold, and marts in place. Snowflake reads the gold
-          tables as external tables; the Cortex fraud and AML agents read the same parquet files.
+          tables on S3. dbt builds bronze, silver, gold, and marts in place. dbt-wizard's four sub-agents
+          author new gold models in ninety seconds when the fraud or AML desk asks a question the gold
+          layer does not yet answer. Snowflake reads the gold tables as external tables; the Cortex fraud
+          and AML agents read the same parquet files.
         </p>
       </header>
 
@@ -59,6 +61,43 @@ export default function ArchitecturePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="mb-10 bg-[var(--paper-deep)] border border-[var(--hairline)] rounded-sm p-6">
+        <div className="eyebrow mb-2">Build-time AI</div>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-3">
+          dbt-wizard: four sub-agents between dbt Labs and Snowflake
+        </h2>
+        <p className="text-sm text-[var(--ink-muted)] mb-5 max-w-3xl leading-relaxed">
+          dbt-wizard sits between the dbt medallion layer and Snowflake compute. When the fraud desk or AML
+          desk asks a question with no existing gold model, dbt-wizard's Explorer, Summary, Worker, and
+          Verification sub-agents author, test, and materialize the missing table — using the same dbt tools
+          an analytics engineer uses, against the same Snowflake warehouse. The materialized table lands in
+          the gold S3 prefix tagged ai_built. Cortex reads it on its next pass.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="research-card p-4" style={{ borderTop: '3px solid #FF694A' }}>
+            <div className="font-serif font-semibold text-[var(--ink-strong)] mb-1">Inputs</div>
+            <p className="text-xs text-[var(--ink-muted)] leading-relaxed">
+              A natural language question from the fraud or AML desk. The existing dbt project with bronze,
+              silver, and gold models already in place.
+            </p>
+          </div>
+          <div className="research-card p-4" style={{ borderTop: '3px solid #FF694A' }}>
+            <div className="font-serif font-semibold text-[var(--ink-strong)] mb-1">Process</div>
+            <p className="text-xs text-[var(--ink-muted)] leading-relaxed">
+              Explorer maps candidate tables. Summary validates grain and lineage. Worker writes SQL and runs
+              dbt_show on an XS warehouse. Verification writes the schema YAML, runs tests, materializes.
+            </p>
+          </div>
+          <div className="research-card p-4" style={{ borderTop: '3px solid #FF694A' }}>
+            <div className="font-serif font-semibold text-[var(--ink-strong)] mb-1">Output</div>
+            <p className="text-xs text-[var(--ink-muted)] leading-relaxed">
+              A production dbt model: tested, lineage-tracked, tagged ai_built, materialized as Iceberg in
+              the customer's S3 bucket. Queryable by Snowflake and Cortex immediately.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="mb-10">
