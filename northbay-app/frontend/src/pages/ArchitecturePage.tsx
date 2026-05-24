@@ -1,10 +1,36 @@
 import { useJson } from '../components/data';
+import {
+  AliveMedallion,
+  type SourceNode,
+  type EngineNode,
+  type ConsumerRole,
+} from '../components/AliveMedallion';
 
 type Iceberg = {
   catalog: string; bucket: string; destination: string;
   lineage: { tag: string; label: string; desc: string; accent: 'bronze' | 'silver' | 'gold' }[];
   tables: { table: string; rows: number; size_gb: number; format: string }[];
 };
+
+const BANKING_SOURCES: SourceNode[] = [
+  { id: 'core',   label: 'Core Deposits System', sub: 'SQL Server log-CDC',   logo: 'sqlserver', freshness: '41s lag',  status: 'healthy' },
+  { id: 'loans',  label: 'Lending Platform',     sub: 'Oracle LogMiner',       logo: 'oracle',    freshness: '2 min lag', status: 'healthy' },
+  { id: 'txn',    label: 'Real-Time Transactions', sub: 'Kafka event stream', logo: 'hl7',       freshness: 'live',      status: 'healthy', streaming: true },
+  { id: 'occ',    label: 'OCC Call Reports',     sub: 'Quarterly regulatory', logo: 'cms',       freshness: '7d lag',   status: 'healthy' },
+];
+const BANKING_ENGINES: EngineNode[] = [
+  { name: 'Snowflake', active: true,  logo: 'snowflake' },
+  { name: 'Athena',                   logo: 'athena' },
+  { name: 'DuckDB',                   logo: 'duckdb' },
+  { name: 'Trino',                    logo: 'trino' },
+  { name: 'Spark',                    logo: 'spark' },
+];
+const BANKING_ROLES: ConsumerRole[] = [
+  { label: 'Retail Banking', sub: 'deposits & branches' },
+  { label: 'Lending',        sub: 'credit & risk' },
+  { label: 'Fraud / AML',    sub: 'real-time detection' },
+  { label: 'Compliance',     sub: 'BSA & OCC reporting' },
+];
 
 const SOURCES = [
   { tag: 'Core banking',     name: 'FIS Horizon',                          desc: 'System of record. Accounts, balances, posted transactions. CDC via Fivetran.' },
@@ -19,6 +45,26 @@ const SOURCES = [
 
 export default function ArchitecturePage() {
   const { data } = useJson<Iceberg>('iceberg');
+
+  // Aggregate Iceberg table stats per medallion layer for the AliveMedallion.
+  // Falls back to representative defaults until the iceberg snapshot resolves.
+  const tables = data?.tables ?? [];
+  const isLayer = (t: { table: string }, layer: 'bronze' | 'silver' | 'gold') =>
+    t.table.toLowerCase().startsWith(`${layer}.`) || t.table.toLowerCase().includes(`_${layer}_`);
+  const layerStats = (layer: 'bronze' | 'silver' | 'gold') => {
+    const rows = tables.filter((t) => isLayer(t, layer));
+    if (rows.length === 0) {
+      const fallback = { bronze: { tables: 8, rows: 42_180_000, bytes: 14_200_000_000 },
+                        silver: { tables: 6, rows: 18_420_000, bytes:  6_400_000_000 },
+                        gold:   { tables: 7, rows:  3_842_000, bytes:  1_180_000_000 } } as const;
+      return fallback[layer];
+    }
+    return {
+      tables: rows.length,
+      rows:   rows.reduce((s, r) => s + r.rows, 0),
+      bytes:  rows.reduce((s, r) => s + r.size_gb * 1_000_000_000, 0),
+    };
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -35,6 +81,23 @@ export default function ArchitecturePage() {
           no replication lag.
         </p>
       </header>
+
+      <section className="mb-10 research-card p-6 sm:p-8">
+        <div className="eyebrow mb-1">Data Flow</div>
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-6">
+          From four banking systems to one governed gold layer
+        </h2>
+        <AliveMedallion
+          sources={BANKING_SOURCES}
+          bronze={{ ...layerStats('bronze'), trend: [180, 195, 210, 222, 240, 255, 270] }}
+          silver={{ ...layerStats('silver'), trend: [120, 130, 142, 155, 168, 180, 192] }}
+          gold={{   ...layerStats('gold'),   trend: [80, 88, 95, 104, 112, 124, 138] }}
+          engines={BANKING_ENGINES}
+          roles={BANKING_ROLES}
+          enginesCaption="All five read the same data — no copies, no rebuilds per tool."
+          accent="#b8975c"
+        />
+      </section>
 
       <section className="mb-10">
         <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Sources, ingested by Fivetran</h2>
