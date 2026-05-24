@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useJson, fmtCurrencyB, fmtPct, fmtInt } from '../components/data';
+import { Wizard } from '../components/Wizard';
 
 type Summary = {
   bank: {
@@ -33,13 +34,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             <div className="lg:col-span-7">
               <div className="eyebrow-light mb-4">Pediment Bank, Open Data Infrastructure</div>
-              <h1 className="font-serif text-[2.6rem] sm:text-[3.75rem] md:text-[4.5rem] font-semibold text-white leading-[0.95] tracking-tight">
-                One bank.<br />
-                <span className="text-[var(--gold-bright)]">Seven systems.</span><br />
-                One lake.
+              <h1 className="font-serif text-[2.6rem] sm:text-[3.75rem] md:text-[4.5rem] font-semibold leading-[0.95] tracking-tight" style={{ color: '#ffffff' }}>
+                <span style={{ color: '#ffffff' }}>One bank.</span><br />
+                <span style={{ color: 'var(--gold-bright)' }}>Seven systems.</span><br />
+                <span style={{ color: '#ffffff' }}>One lake.</span>
               </h1>
-              <p className="mt-6 text-[1.1rem] sm:text-[1.2rem] text-white/75 max-w-2xl leading-[1.68]">
-                Fivetran lands it. dbt governs it. dbt-wizard authors it. Iceberg owns it. Snowflake reads it.
+              <p className="mt-6 text-[1.1rem] sm:text-[1.2rem] text-white/80 max-w-2xl leading-[1.68]">
+                Fivetran lands it. dbt governs it. <Wizard /> authors it. Iceberg owns it. Snowflake reads it.
                 Eight banking sources. One open lake. Build-time AI on the governed gold layer.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -48,7 +49,7 @@ export default function HomePage() {
                   className="inline-flex items-center gap-2 rounded-sm font-semibold text-sm text-[var(--navy-deep)] px-5 py-3 shadow-lg hover:opacity-95 transition-opacity"
                   style={{ background: 'var(--gold)' }}
                 >
-                  See dbt-wizard in action <span aria-hidden>→</span>
+                  See <Wizard tone="dark" /> in action <span aria-hidden>→</span>
                 </button>
                 <button
                   onClick={() => navigate('/fraud')}
@@ -183,9 +184,9 @@ export default function HomePage() {
             "A bank has seven core systems.<br />
             <span className="text-[var(--gold-bright)]">It does not need seven copies of the truth.</span>"
           </p>
-          <p className="mt-4 text-sm text-white/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-sm text-white/80 max-w-2xl mx-auto">
             Fivetran lands every source into open Iceberg tables. dbt builds the governed gold layer.
-            dbt-wizard authors new gold models in ninety seconds when the fraud desk asks a question
+            {' '}<Wizard /> authors new gold models in ninety seconds when the fraud desk asks a question
             the gold layer does not yet answer. Snowflake reads the same Iceberg files directly.
           </p>
         </div>
