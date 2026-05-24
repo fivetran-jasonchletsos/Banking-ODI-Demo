@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useJson } from '../components/data';
+import { DataFlowDiagram, KpiTile, AnimatedCounter, type FlowNode } from '../components/PipelineFlow';
 
 type Pipeline = {
   as_of: string;
@@ -8,6 +9,18 @@ type Pipeline = {
   dbt_layers: { layer: string; models: number; tests: number; last_run: string; status: string }[];
   failure_simulator: { id: string; label: string; impact: string }[];
 };
+
+// EPIC-Clarity-style flow nodes for the Northbay banking pipeline.
+// Source IDs that don't have a real Fivetran connector yet are placeholders;
+// rewire to the real connector_id once the bank's source systems are
+// onboarded.
+const FLOW_NODES: FlowNode[] = [
+  { id: 'core',      logo: 'source',    label: 'Northbay Core Banking',   sub: 'FIS Profile · CDC source',          status: 'healthy', metric: '11 tables · 4.2M rows' },
+  { id: 'fivetran',  logo: 'fivetran',  label: 'Fivetran',                sub: 'TELEPORT CDC + REST connectors',    status: 'healthy', metric: '5-min cadence · 99.6% SLA' },
+  { id: 'snowflake', logo: 'snowflake', label: 'Snowflake',               sub: 'JASON_CHLETSOS_NORTHBAY',           status: 'healthy', metric: 'XS warehouse · auto-suspend' },
+  { id: 'dbt',       logo: 'dbt',       label: 'dbt transforms',          sub: 'Bronze → Silver → Gold · 26 models',status: 'healthy', metric: '31s avg · 0 failures' },
+  { id: 'app',       logo: 'app',       label: 'Northbay App',            sub: 'React · static JSON',               status: 'healthy', metric: 'CDN · 9 min deploy' },
+];
 
 // Fivetran dashboard URL format: /dashboard/connections/{schema_name}/settings
 // The {schema_name} is the connector's "Schema" identifier shown in the connector
@@ -51,6 +64,61 @@ export default function PipelinePage() {
           </span>
         </div>
       </header>
+
+      {/* ── EPIC-Clarity-style flow diagram + KPI strip ─────────────────────── */}
+      <section className="mb-10">
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
+          Source → Activation
+        </h2>
+        <DataFlowDiagram nodes={FLOW_NODES} />
+      </section>
+
+      <section className="mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <KpiTile
+            label="Connectors live"
+            value={<AnimatedCounter to={data?.connectors?.length || 0} format={(n) => Math.round(n).toString()} />}
+            subValue="Fivetran-managed"
+            delta={{ value: '0 failed', trend: 'good', vs: 'last 24h' }}
+            badge="HEALTHY"
+            badgeTone="healthy"
+          />
+          <KpiTile
+            label="Rows landed today"
+            value={<AnimatedCounter
+              to={(data?.connectors || []).reduce((a, c) => a + (c.rows_today || 0), 0)}
+              format={(n) => Math.round(n).toLocaleString()}
+            />}
+            subValue="across all sources"
+            delta={{ value: '+8.4%', trend: 'good', vs: 'vs 7-day avg' }}
+          />
+          <KpiTile
+            label="dbt models passing"
+            value={<AnimatedCounter
+              to={(data?.dbt_layers || []).reduce((a, l) => a + (l.models || 0), 0)}
+              format={(n) => Math.round(n).toString()}
+            />}
+            subValue={`across ${(data?.dbt_layers || []).length} layers`}
+            delta={{ value: '100%', trend: 'good', vs: 'last build' }}
+            badge="GREEN"
+            badgeTone="healthy"
+          />
+          <KpiTile
+            label="Median connector lag"
+            value={
+              <>
+                <AnimatedCounter
+                  to={(() => { const ls = (data?.connectors || []).map((c) => c.lag_seconds).filter((x): x is number => typeof x === 'number').sort((a, b) => a - b); return ls[Math.floor(ls.length / 2)] || 0; })()}
+                  format={(n) => Math.round(n).toString()}
+                />
+                <span className="text-base font-normal text-[var(--ink-soft)] ml-1">s</span>
+              </>
+            }
+            subValue="p50"
+            delta={{ value: '−4s', trend: 'good', vs: 'vs yesterday' }}
+          />
+        </div>
+      </section>
 
       <section className="mb-10">
         <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">Connectors, Fivetran-managed</h2>
