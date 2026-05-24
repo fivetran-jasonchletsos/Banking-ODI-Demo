@@ -140,7 +140,7 @@ export function Sparkline({
 
 export interface FlowNode {
   id: string;
-  logo: 'source' | 'fivetran' | 'snowflake' | 'dbt' | 'app';
+  logo: 'source' | 'fivetran' | 'iceberg' | 'snowflake' | 'dbt' | 'app';
   label: string;
   sub: string;
   status: 'healthy' | 'caution' | 'alert';
@@ -204,6 +204,7 @@ function LogoMark({ kind }: { kind: FlowNode['logo'] }) {
   const cls = "w-5 h-5 flex items-center justify-center rounded-sm text-[9px] font-bold";
   if (kind === 'source')    return <span className={cls} style={{ background: 'var(--ink-strong)', color: 'var(--paper-warm,#fefaf3)' }}>DB</span>;
   if (kind === 'fivetran')  return <span className={cls} style={{ background: '#0073ff', color: 'white' }}>FT</span>;
+  if (kind === 'iceberg')   return <span className={cls} style={{ background: '#7C3AED', color: 'white' }}>IB</span>;
   if (kind === 'snowflake') return <span className={cls} style={{ background: '#29b5e8', color: 'white' }}>SF</span>;
   if (kind === 'dbt')       return <span className={cls} style={{ background: '#ff694a', color: 'white' }}>dbt</span>;
   return <span className={cls} style={{ background: 'var(--gold)', color: 'var(--ink-strong)' }}>UI</span>;

@@ -17,9 +17,10 @@ type Pipeline = {
 const FLOW_NODES: FlowNode[] = [
   { id: 'core',      logo: 'source',    label: 'Northbay Core Banking',   sub: 'FIS Profile · CDC source',          status: 'healthy', metric: '11 tables · 4.2M rows' },
   { id: 'fivetran',  logo: 'fivetran',  label: 'Fivetran',                sub: 'TELEPORT CDC + REST connectors',    status: 'healthy', metric: '5-min cadence · 99.6% SLA' },
-  { id: 'snowflake', logo: 'snowflake', label: 'Snowflake',               sub: 'JASON_CHLETSOS_NORTHBAY',           status: 'healthy', metric: 'XS warehouse · auto-suspend' },
-  { id: 'dbt',       logo: 'dbt',       label: 'dbt transforms',          sub: 'Bronze → Silver → Gold · 26 models',status: 'healthy', metric: '31s avg · 0 failures' },
-  { id: 'app',       logo: 'app',       label: 'Northbay App',            sub: 'React · static JSON',               status: 'healthy', metric: 'CDN · 9 min deploy' },
+  { id: 'iceberg',   logo: 'iceberg',   label: 'Iceberg (MDLS)',          sub: 'Apache Iceberg on S3 · MDLS',       status: 'healthy', metric: 'One copy of the bytes' },
+  { id: 'compute',   logo: 'snowflake', label: 'Snowflake / Athena / Trino', sub: 'External Iceberg reads',         status: 'healthy', metric: 'No copies, no extracts' },
+  { id: 'dbt',       logo: 'dbt',       label: 'dbt Labs',                sub: 'Bronze → Silver → Gold · Triggered by Fivetran', status: 'healthy', metric: '31s avg · 0 failures' },
+  { id: 'app',       logo: 'app',       label: 'React',                   sub: 'Northbay app · static JSON',        status: 'healthy', metric: 'CDN · 9 min deploy' },
 ];
 
 // Fivetran dashboard URL format: /dashboard/connections/{schema_name}/settings
@@ -39,12 +40,13 @@ export default function PipelinePage() {
       <header className="mb-8 max-w-3xl">
         <div className="eyebrow mb-1">Fivetran lineage and freshness</div>
         <h1 className="font-serif text-[2rem] sm:text-[2.4rem] font-semibold tracking-tight text-[var(--ink-strong)]">
-          Eight connectors, four dbt layers, one gold view
+          Eight banking sources → Iceberg → multi-engine, end-to-end
         </h1>
         <p className="mt-3 text-[var(--ink-muted)] leading-relaxed">
-          Every page on this site reads from the gold layer. The gold layer is rebuilt every five minutes
-          from silver. Silver is rebuilt from bronze every two minutes. Bronze is landed by Fivetran as
-          rows arrive at the source.
+          Fivetran lands every CDC row into Iceberg (MDLS) on S3 in open Apache Iceberg format — one
+          copy of the bytes. Snowflake, Athena, and Trino read the same Iceberg bytes via external
+          catalogs (no copies, no extracts). Fivetran Transformations triggers dbt Labs the moment the
+          source sync finishes, so bronze → silver → gold stays in Iceberg.
         </p>
         <div className="mt-5">
           <a

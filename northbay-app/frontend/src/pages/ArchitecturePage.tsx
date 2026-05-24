@@ -14,7 +14,7 @@ type Iceberg = {
 
 const BANKING_SOURCES: SourceNode[] = [
   { id: 'core',   label: 'Core Deposits System', sub: 'SQL Server log-CDC',   logo: 'sqlserver', freshness: '41s lag',  status: 'healthy' },
-  { id: 'loans',  label: 'Lending Platform',     sub: 'Oracle LogMiner',       logo: 'oracle',    freshness: '2 min lag', status: 'healthy' },
+  { id: 'loans',  label: 'Lending Platform',     sub: 'Oracle Binary Log Reader', logo: 'oracle', freshness: '2 min lag', status: 'healthy' },
   { id: 'txn',    label: 'Real-Time Transactions', sub: 'Kafka event stream', logo: 'hl7',       freshness: 'live',      status: 'healthy', streaming: true },
   { id: 'occ',    label: 'OCC Call Reports',     sub: 'Quarterly regulatory', logo: 'cms',       freshness: '7d lag',   status: 'healthy' },
 ];
@@ -84,9 +84,15 @@ export default function ArchitecturePage() {
 
       <section className="mb-10 research-card p-6 sm:p-8">
         <div className="eyebrow mb-1">Data Flow</div>
-        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-6">
-          From four banking systems to one governed gold layer
+        <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mb-2">
+          Source → Fivetran → Iceberg (MDLS) → Snowflake / Athena / Trino → dbt Labs → React
         </h2>
+        <p className="text-sm text-[var(--ink-muted)] leading-relaxed mb-6 max-w-4xl">
+          Fivetran lands every CDC row into Iceberg (MDLS) on S3 in open Apache Iceberg format — one
+          copy of the bytes. Snowflake, Athena, and Trino read the same Iceberg bytes via external
+          catalogs (no copies, no extracts). Fivetran Transformations triggers dbt Labs the moment the
+          source sync finishes, so bronze → silver → gold stays in Iceberg end-to-end.
+        </p>
         <AliveMedallion
           sources={BANKING_SOURCES}
           bronze={{ ...layerStats('bronze'), trend: [180, 195, 210, 222, 240, 255, 270] }}

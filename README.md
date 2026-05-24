@@ -8,11 +8,20 @@ AML, and commercial banking on Fivetran Open Data Infrastructure.
 
 ## What this demo shows
 
-- Eight sources land into Apache Iceberg v2 tables on S3 via Fivetran.
-- dbt builds 168 models across bronze, silver, gold, and marts.
-- Snowflake reads gold as external Iceberg tables. Cortex fraud and AML agents read the same parquet.
-- One source of truth for the fraud desk, the AML investigator queue, the credit-risk team, and the
-  commercial relationship managers.
+Canonical flow:
+
+```
+[Source] → Fivetran → Iceberg (MDLS) → Snowflake / Athena / Trino → dbt Labs → React
+```
+
+- Fivetran lands every CDC row into Iceberg (MDLS) on S3 in open Apache Iceberg format — one copy
+  of the bytes.
+- Snowflake, Athena, and Trino read the same Iceberg bytes via external catalogs (no copies, no
+  extracts).
+- Fivetran Transformations triggers dbt Labs the moment the source sync finishes; bronze → silver
+  → gold stays in Iceberg.
+- One source of truth for the fraud desk, the AML investigator queue, the credit-risk team, and
+  the commercial relationship managers.
 
 ## Stack
 

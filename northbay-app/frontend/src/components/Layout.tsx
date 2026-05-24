@@ -242,9 +242,10 @@ export default function Layout() {
           <div>
             <div className="eyebrow-light mb-2">Data pipeline</div>
             <p className="leading-relaxed text-white/70">
-              FIS Horizon, Salesforce FSC, nCino, Plaid, AML vendor, Visa/Mastercard, OFAC/FinCEN
-              landed by Fivetran into Apache Iceberg on S3. dbt builds bronze, silver, gold, marts.
-              Snowflake reads the same Iceberg files directly.
+              Source → Fivetran → Iceberg (MDLS) → Snowflake / Athena / Trino → dbt Labs → React.
+              Fivetran lands every CDC row once into Iceberg on S3; Snowflake, Athena, and Trino read
+              the same bytes via external catalogs. Fivetran Transformations triggers dbt Labs the
+              moment the sync finishes — bronze, silver, gold stays in Iceberg.
             </p>
           </div>
           <div>

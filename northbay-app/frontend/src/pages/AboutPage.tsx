@@ -126,7 +126,7 @@ const STACK = [
   { layer: 'Catalog',    name: 'AWS Glue Data Catalog',       note: 'Iceberg REST API. Table-level access control mapped to the bank\'s LDAP groups.' },
   { layer: 'Transform',  name: 'dbt',                         note: '168 models across bronze, silver, gold, marts. 532 tests on every run.' },
   { layer: 'Build AI',   name: 'dbt-wizard',                  note: 'Four sub-agents (Explorer, Summary, Worker, Verification) that author new gold models in ninety seconds. Every output is tested, lineage-tracked, and tagged ai_built.' },
-  { layer: 'Warehouse',  name: 'Snowflake (external tables)', note: 'Credit-risk, treasury, and finance teams query the gold layer via Snowflake. No data copy.' },
+  { layer: 'Compute',    name: 'Snowflake / Athena / Trino',  note: 'Each engine reads the same Iceberg bytes via external catalogs. No copies, no extracts. Pick the engine that fits the team — same gold layer.' },
   { layer: 'Frontend',   name: 'React 19, Vite, Tailwind v4', note: 'Static SPA on GitHub Pages, reads pre-computed JSON snapshots of the gold layer.' },
 ];
 
