@@ -16,7 +16,7 @@ type Pipeline = {
 // onboarded.
 const FLOW_NODES: FlowNode[] = [
   { id: 'core',      logo: 'source',    label: 'Northbay Core Banking',   sub: 'FIS Profile · CDC source',          status: 'healthy', metric: '11 tables · 4.2M rows' },
-  { id: 'fivetran',  logo: 'fivetran',  label: 'Fivetran',                sub: 'TELEPORT CDC + REST connectors',    status: 'healthy', metric: '5-min cadence · 99.6% SLA' },
+  { id: 'fivetran',  logo: 'fivetran',  label: 'Fivetran',                sub: 'CDC + REST connectors',             status: 'healthy', metric: '5-min cadence · 99.6% SLA' },
   { id: 'iceberg',   logo: 'iceberg',   label: 'Iceberg (MDLS)',          sub: 'Apache Iceberg on S3 · MDLS',       status: 'healthy', metric: 'One copy of the bytes' },
   { id: 'compute',   logo: 'snowflake', label: 'Snowflake / Athena / Trino', sub: 'External Iceberg reads',         status: 'healthy', metric: 'No copies, no extracts' },
   { id: 'dbt',       logo: 'dbt',       label: 'dbt Labs',                sub: 'Bronze → Silver → Gold · Triggered by Fivetran', status: 'healthy', metric: '31s avg · 0 failures' },
