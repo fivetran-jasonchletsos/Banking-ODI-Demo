@@ -20,7 +20,7 @@ const FLOW_NODES: FlowNode[] = [
   { id: 'iceberg',   logo: 'iceberg',   label: 'Iceberg (MDLS)',          sub: 'Apache Iceberg on S3 · MDLS',       status: 'healthy', metric: 'One copy of the bytes' },
   { id: 'compute',   logo: 'snowflake', label: 'Snowflake / Athena / Trino', sub: 'External Iceberg reads',         status: 'healthy', metric: 'No copies, no extracts' },
   { id: 'dbt',       logo: 'dbt',       label: 'dbt Labs',                sub: 'Bronze → Silver → Gold · Triggered by Fivetran', status: 'healthy', metric: '31s avg · 0 failures' },
-  { id: 'app',       logo: 'app',       label: 'React',                   sub: 'Northbay app · static JSON',        status: 'healthy', metric: 'CDN · 9 min deploy' },
+  { id: 'app',       logo: 'app',       label: 'React',                   sub: 'Northbay app · the gold layer',        status: 'healthy', metric: 'CDN · 9 min deploy' },
 ];
 
 // Fivetran dashboard URL format: /dashboard/connections/{schema_name}/settings
