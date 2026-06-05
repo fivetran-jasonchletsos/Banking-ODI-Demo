@@ -13,8 +13,8 @@ type Iceberg = {
 };
 
 const BANKING_SOURCES: SourceNode[] = [
-  { id: 'core',   label: 'Core Deposits System', sub: 'SQL Server log-CDC',   logo: 'sqlserver', freshness: '41s lag',  status: 'healthy' },
-  { id: 'loans',  label: 'Lending Platform',     sub: 'Oracle Binary Log Reader', logo: 'oracle', freshness: '2 min lag', status: 'healthy' },
+  { id: 'core',   label: 'Core Deposits System', sub: 'SQL Server log-CDC',   logo: 'sqlserver', freshness: '41s lag',  status: 'healthy', pipelineUrl: 'https://fivetran.com/dashboard/connectors/humble_hardware' },
+  { id: 'loans',  label: 'Lending Platform',     sub: 'Oracle Binary Log Reader', logo: 'oracle', freshness: '2 min lag', status: 'healthy', pipelineUrl: 'https://fivetran.com/dashboard/connectors/hose_creatable' },
   { id: 'txn',    label: 'Real-Time Transactions', sub: 'Kafka event stream', logo: 'hl7',       freshness: 'live',      status: 'healthy', streaming: true },
   { id: 'occ',    label: 'OCC Call Reports',     sub: 'Quarterly regulatory', logo: 'cms',       freshness: '7d lag',   status: 'healthy' },
 ];

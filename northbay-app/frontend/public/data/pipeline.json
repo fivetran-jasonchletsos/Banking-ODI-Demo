@@ -3,6 +3,28 @@
   "fivetran_dashboard_url": "https://fivetran.com/dashboard/connections",
   "connectors": [
     {
+      "id": "humble_hardware",
+      "fivetran_id": "humble_hardware",
+      "name": "Core Deposits (SQL Server)",
+      "type": "Database (Oracle CDC)",
+      "status": "healthy",
+      "rows_today": 18420318,
+      "last_sync": "2026-05-24T06:00:00Z",
+      "lag_seconds": 142,
+      "freshness": "near real-time"
+    },
+    {
+      "id": "hose_creatable",
+      "fivetran_id": "hose_creatable",
+      "name": "Lending Platform (Oracle)",
+      "type": "Database (Oracle CDC)",
+      "status": "healthy",
+      "rows_today": 18420318,
+      "last_sync": "2026-05-24T06:00:00Z",
+      "lag_seconds": 142,
+      "freshness": "near real-time"
+    },
+    {
       "id": "fis-horizon",
       "fivetran_id": "unqualified_pomp",
       "name": "FIS Horizon (core banking)",
