@@ -12,6 +12,7 @@ import DepositsPage from './pages/DepositsPage';
 import CommercialPage from './pages/CommercialPage';
 import OdiDbtWizardPage from './pages/OdiDbtWizardPage';
 import WizardLivePage from './pages/WizardLivePage';
+import AgentSchemaPage from './pages/AgentSchemaPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/architecture" element={<ArchitecturePage />} />
           <Route path="/pipeline" element={<PipelinePage />} />
           <Route path="/policy" element={<PolicyPage />} />
+          <Route path="/agent-schema" element={<AgentSchemaPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

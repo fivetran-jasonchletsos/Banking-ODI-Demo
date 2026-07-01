@@ -29,6 +29,7 @@ const NAV: NavEntry[] = [
       { to: '/outcome',     label: 'Outcome' },
     ],
   },
+  { kind: 'link', to: '/agent-schema', label: 'Agent Schema' },
   {
     kind: 'group',
     label: 'ODI',
