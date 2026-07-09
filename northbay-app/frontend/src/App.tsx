@@ -13,6 +13,7 @@ import CommercialPage from './pages/CommercialPage';
 import OdiDbtWizardPage from './pages/OdiDbtWizardPage';
 import WizardLivePage from './pages/WizardLivePage';
 import AgentSchemaPage from './pages/AgentSchemaPage';
+import ActivationLivePage from './pages/ActivationLivePage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/pipeline" element={<PipelinePage />} />
           <Route path="/policy" element={<PolicyPage />} />
           <Route path="/agent-schema" element={<AgentSchemaPage />} />
+          <Route path="/activations-live" element={<ActivationLivePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

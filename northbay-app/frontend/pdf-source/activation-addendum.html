@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: 612pt 792pt; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; width: 612pt; height: 792pt; padding: 40pt 44pt;
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: #090f1e; background: #ffffff;
+  }
+  .eyebrow {
+    font-size: 9pt; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: #0e7490; margin-bottom: 4pt;
+  }
+  h1 { font-size: 20pt; margin: 0 0 6pt; font-weight: 700; color: #090f1e; }
+  .sub { font-size: 10.5pt; color: #48546a; margin: 0 0 18pt; line-height: 1.4; }
+  .tiles { display: flex; gap: 10pt; margin-bottom: 20pt; }
+  .tile {
+    flex: 1; border: 1pt solid #d6d0be; border-radius: 3pt; padding: 10pt 12pt;
+  }
+  .tile .label { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.1em; color: #68788e; }
+  .tile .value { font-size: 16pt; font-weight: 700; margin-top: 3pt; color: #0e7490; }
+  .tile .note { font-size: 8.5pt; color: #68788e; margin-top: 3pt; }
+  table.beats { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  table.beats th {
+    text-align: left; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #68788e; border-bottom: 1pt solid #d6d0be; padding: 6pt 8pt;
+  }
+  table.beats td { padding: 8pt; border-bottom: 0.5pt solid #e8e3d4; vertical-align: top; line-height: 1.4; }
+  table.beats tr:last-child td { border-bottom: none; }
+  .say { color: #090f1e; }
+  .show { color: #0e7490; font-weight: 600; }
+  .mapping { margin: 4pt 0 18pt; border: 1pt solid #d6d0be; border-radius: 3pt; overflow: hidden; }
+  .mapping table { width: 100%; border-collapse: collapse; font-size: 9pt; font-family: "Courier New", monospace; }
+  .mapping th {
+    text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.08em;
+    color: #68788e; background: #f0ede0; padding: 5pt 8pt; border-bottom: 1pt solid #d6d0be;
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+  .mapping td { padding: 5pt 8pt; border-bottom: 0.5pt solid #e8e3d4; color: #1c2535; }
+  .mapping tr:last-child td { border-bottom: none; }
+  .arrow { color: #c9a227; font-weight: 700; }
+  .footnote { margin-top: 16pt; font-size: 8pt; color: #9ca3af; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="eyebrow">Activations · NewCo</div>
+  <h1>The gold layer gets acted on, not just queried</h1>
+  <p class="sub">
+    Activations is the fourth native NewCo stage, right after Transformations. The instant
+    gold.fct_structured_deposit_alerts flags an account whose composite structuring_score crosses
+    0.85 on an ACH counterparty already tied to a prior SAR filing, Activations pushes the case
+    straight into NICE Actimize Case Manager &mdash; no CSV export, no manual re-keying, no second
+    source of truth.
+  </p>
+
+  <div class="tiles">
+    <div class="tile"><div class="label">Trigger</div><div class="value">0.85</div><div class="note">structuring_score threshold, prior-SAR counterparty</div></div>
+    <div class="tile"><div class="label">Destination</div><div class="value">NICE Actimize</div><div class="note">Investigation_Case · insert</div></div>
+    <div class="tile"><div class="label">Cases opened</div><div class="value">5 in 12s</div><div class="note">vs. 4&ndash;6 hrs manual re-key</div></div>
+  </div>
+
+  <div class="mapping">
+    <table>
+      <thead><tr><th>Gold column</th><th></th><th>Actimize field</th></tr></thead>
+      <tbody>
+        <tr><td>account_id</td><td class="arrow">&rarr;</td><td>Party_ID</td></tr>
+        <tr><td>structuring_score</td><td class="arrow">&rarr;</td><td>Risk_Score</td></tr>
+        <tr><td>ach_counterparty_id</td><td class="arrow">&rarr;</td><td>Related_Entity_ID</td></tr>
+        <tr><td>branch_region</td><td class="arrow">&rarr;</td><td>Business_Unit</td></tr>
+        <tr><td>prior_sar_reference</td><td class="arrow">&rarr;</td><td>Linked_SAR_Number</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <table class="beats">
+    <thead><tr><th style="width:45%">What you say</th><th>What you show</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="say">"The mart is materialized &mdash; but a tested gold table sitting in Snowflake is still not a case. Today the BSA team exports this exact query to CSV and keys it into Actimize by hand: four to six hours per batch, racing a 30-day SAR filing clock on $11.6 million of exposure."</td>
+        <td class="show">Architecture page &rarr; Activations panel, right after the dbt-wizard section. Trigger / Destination / Outcome tiles on screen.</td>
+      </tr>
+      <tr>
+        <td class="say">"Watch what happens next. The moment dbt commits structured_deposit_alerts, Activations picks it up &mdash; no export, no CSV. The 21 flagged accounts, the shared ACH counterparty, the two prior SAR references &mdash; all of it syncs straight into Actimize Case Manager as five new investigation cases, each pre-populated with the party ID, the risk score, and the linked SAR number."</td>
+        <td class="show">/activations-live: Segment Definition &rarr; Field Mapping &rarr; Sync Preview &rarr; API Push. Field-mapping table visible, no code.</td>
+      </tr>
+      <tr>
+        <td class="say">"The analyst opens Actimize to work the case, not build it. That's the fourth stop after Connections, Destinations, and Transformations &mdash; Activations turns the governed answer into the system where the investigator already lives."</td>
+        <td class="show">/activations-live &rarr; Destination Confirmation table. Status line: "5 records synced to NICE Actimize &mdash; 12s ago."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footnote">
+    Gold-layer pattern: 21 flagged accounts sharing 14 ACH counterparties, two of those counterparties
+    already carrying a prior SAR reference &mdash; the same structuring pattern the dbt-wizard mart in this
+    demo just built and sized at $11.6M. Closing the CSV-to-Actimize gap protects the 30-day SAR filing
+    clock on that exposure window. Synthetic data &mdash; not a real bank, not a real case.
+  </div>
+</body>
+</html>

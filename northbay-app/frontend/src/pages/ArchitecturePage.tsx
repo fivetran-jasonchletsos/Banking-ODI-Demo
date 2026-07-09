@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useJson } from '../components/data';
 import {
   AliveMedallion,
@@ -5,6 +6,7 @@ import {
   type EngineNode,
   type ConsumerRole,
 } from '../components/AliveMedallion';
+import ProductStageRail from '../components/ProductStageRail';
 
 type Iceberg = {
   catalog: string; bucket: string; destination: string;
@@ -93,6 +95,7 @@ export default function ArchitecturePage() {
           catalogs (no copies, no extracts). Fivetran Transformations triggers dbt Labs the moment the
           source sync finishes, so bronze → silver → gold stays in Iceberg end-to-end.
         </p>
+        <ProductStageRail accent="#0e7490" />
         <AliveMedallion
           sources={BANKING_SOURCES}
           bronze={{ ...layerStats('bronze'), trend: [180, 195, 210, 222, 240, 255, 270] }}
@@ -169,6 +172,9 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
+      {/* ── Activations — NewCo native reverse-ETL, right after Transformations ── */}
+      <ActivationsPanel />
+
       <section className="mb-10">
         <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] pb-3 mb-4 border-b-2 border-[var(--gold-dim)]">
           Iceberg tables, current
@@ -216,5 +222,63 @@ export default function ArchitecturePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+// =============================================================================
+// ActivationsPanel — NewCo Activations, the native reverse-ETL stage that sits
+// directly after Transformations. TRIGGER / DESTINATION / OUTCOME below are
+// vertical-specific to Pediment Bank's structured-deposit alert workflow.
+// =============================================================================
+function ActivationsPanel() {
+  // TRIGGER — the gold-layer condition that fires the sync
+  const TRIGGER = "gold.fct_structured_deposit_alerts flags a row when the composite structuring_score crosses 0.85 and ach_counterparty_id matches a counterparty already tied to at least one prior SAR filing (linked_to_prior_sar = true) — the same 21-account, 14-shared-counterparty pattern the dbt-wizard mart in this demo just built.";
+  // DESTINATION — the downstream system NewCo Activations pushes into
+  const DESTINATION = 'NICE Actimize Case Manager · Investigation_Case';
+  // OUTCOME — the business payoff the SE narrates
+  const OUTCOME = "BSA investigators get five pre-populated cases in NICE Actimize within seconds of the mart materializing, instead of the 4-6 hours a BSA analyst spends today exporting the alert query to CSV and keying it into Actimize by hand — protecting the 30-day SAR filing clock on the $11.6M exposure window the gold layer just sized.";
+
+  return (
+    <section className="mb-10 research-card overflow-hidden">
+      <div className="p-6 sm:p-8 flex items-start justify-between gap-4 flex-wrap border-b border-[var(--hairline)]">
+        <div>
+          <div className="eyebrow mb-1" style={{ color: '#0e7490' }}>Activations · NewCo</div>
+          <h2 className="font-serif text-xl font-semibold text-[var(--ink-strong)] mt-0.5">
+            The gold layer doesn't just get queried. It gets acted on.
+          </h2>
+          <p className="text-sm text-[var(--ink-muted)] mt-2 max-w-3xl leading-relaxed">
+            Activations is the fourth native stage in NewCo, immediately after Transformations. It
+            reads straight from the same Iceberg gold tables dbt just built and syncs the result to
+            an operational system of record &mdash; no separate reverse-ETL vendor, no second copy of the
+            data, no second connector to maintain.
+          </p>
+        </div>
+        <div className="inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shrink-0" style={{ background: '#0e7490' }}>
+          Activations
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--hairline-soft)]">
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-soft)] font-semibold mb-2">Trigger · gold layer</div>
+          <p className="text-sm text-[var(--ink)] leading-relaxed">{TRIGGER}</p>
+        </div>
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-soft)] font-semibold mb-2">Destination</div>
+          <p className="text-sm text-[var(--ink)] leading-relaxed font-mono">{DESTINATION}</p>
+        </div>
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-soft)] font-semibold mb-2">Outcome</div>
+          <p className="text-sm text-[var(--ink)] leading-relaxed">{OUTCOME}</p>
+        </div>
+      </div>
+
+      <div className="px-5 py-3 border-t border-[var(--hairline-soft)] flex items-center justify-between text-[11px] text-[var(--ink-soft)]" style={{ background: 'var(--paper-deep)' }}>
+        <span>Connections &rarr; Destinations &rarr; Transformations &rarr; <strong style={{ color: '#0e7490' }}>Activations</strong> &middot; one platform, one lineage graph</span>
+        <Link to="/activations-live" className="uppercase tracking-wider font-semibold hover:underline" style={{ color: '#0e7490' }}>
+          Watch it sync &rarr;
+        </Link>
+      </div>
+    </section>
   );
 }

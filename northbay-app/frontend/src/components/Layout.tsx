@@ -34,11 +34,12 @@ const NAV: NavEntry[] = [
     kind: 'group',
     label: 'ODI',
     rootTo: '/architecture',
-    matchPrefixes: ['/architecture', '/pipeline', '/about'],
+    matchPrefixes: ['/architecture', '/pipeline', '/about', '/activations-live'],
     children: [
-      { to: '/architecture', label: 'Architecture' },
-      { to: '/pipeline',     label: 'Pipeline' },
-      { to: '/about',        label: 'About' },
+      { to: '/architecture',     label: 'Architecture' },
+      { to: '/pipeline',         label: 'Pipeline' },
+      { to: '/activations-live', label: 'Activations' },
+      { to: '/about',            label: 'About' },
     ],
   },
 ];
@@ -242,12 +243,24 @@ export default function Layout() {
           </div>
           <div>
             <div className="eyebrow-light mb-2">Data pipeline</div>
-            <p className="leading-relaxed text-white/70">
-              Source → Fivetran → Iceberg (MDLS) → dbt labs + dbt-wizard → Great Expectations → Snowflake / Athena / Trino → run-time agents → React.
+            <p className="leading-relaxed text-white/70 mb-3">
+              Source → Fivetran → Iceberg (MDLS) → dbt labs + dbt-wizard → Great Expectations → Snowflake / Athena / Trino → run-time agents → NewCo Activations → NICE Actimize Case Manager.
               Fivetran lands every CDC row once into Iceberg on S3; Snowflake, Athena, and Trino read
               the same bytes via external catalogs. Fivetran Transformations triggers dbt Labs the
-              moment the sync finishes — bronze, silver, gold stays in Iceberg.
+              moment the sync finishes — bronze, silver, gold stays in Iceberg, and Activations syncs
+              the governed gold segment straight into Actimize the instant it materializes.
             </p>
+            <div className="flex items-center gap-2 text-[11px]">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-white/5 px-2 py-1">
+                <span className="inline-flex items-center justify-center h-4 px-1 rounded text-[9px] font-bold text-white" style={{ background: '#0073FF' }}>N</span>
+                <span className="font-semibold text-white/85">NewCo</span>
+              </span>
+              <span className="text-white/40">+</span>
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-white/5 px-2 py-1">
+                <span className="inline-flex items-center justify-center h-4 px-1 rounded text-[9px] font-bold text-white" style={{ background: '#29B5E8' }}>❄</span>
+                <span className="font-semibold text-white/85">Snowflake</span>
+              </span>
+            </div>
           </div>
           <div>
             <div className="eyebrow-light mb-2">Open standards</div>
